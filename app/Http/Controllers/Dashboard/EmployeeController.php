@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
+use App\Http\Requests\Dashboard\EmployeeRequest;
 use App\Traits\UploadTrait;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\JobGrade;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +31,7 @@ class EmployeeController extends Controller
         return view('dashboard.employees.add',compact('jobgrades','addresses','departments'));
     }
 
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
         try{
             $employee = new Employee();
@@ -42,6 +44,8 @@ class EmployeeController extends Controller
             $employee->address_id = $request->address_id;
             $employee->department_id = $request->department_id;
             $employee->save();
+
+
 
             //Upload img
             $this->verifyAndStoreImage($request,'photo','employees/','upload_image',$employee->id,'App\Models\Employee');

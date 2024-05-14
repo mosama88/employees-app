@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\DepartmentRequest;
 use App\Models\Department;
 use App\Models\Address;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class DepartmentController extends Controller
         return view('dashboard.departments.add',);
     }
 
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
         try{
             $department = new Department();
@@ -53,7 +54,7 @@ class DepartmentController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(DepartmentRequest $request)
     {
         $department = Department::findOrFail($request->id);
         $department->branch = $request->branch;

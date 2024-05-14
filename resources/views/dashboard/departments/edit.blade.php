@@ -16,13 +16,15 @@
                         <label>أسم النيابة</label>
                         <input type="text" name="branch" value="{{$department->branch}}" class="form-control" id="inputName" placeholder="Name">
                     </div>
-
+                    <div class="form-group mb-3">
+                    <label>محافظة</label>
                     <select name="address_id" class="form-control select2">
                         <option disabled selected="">افتح قائمة التحديد</option>
                         @foreach($addresses as $address)
                             <option value="{{$address->id}}"{{$address->id == $department->address_id ? 'selected':"" }}>{{$address->city}}</option>
                         @endforeach
                     </select>
+                    </div>
 
                     <div class="modal-footer">
                         <button class="btn ripple btn-primary" type="submit" type="button">تأكيد البيانات</button>

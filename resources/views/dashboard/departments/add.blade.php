@@ -11,16 +11,23 @@
                     @csrf
                     <div class="form-group mb-3">
                         <label>أسم النيابة</label>
-                        <input type="text" name="branch" class="form-control" id="inputName" placeholder="Name">
+                        <input type="text" name="branch" value="{{old('branch')}}" class="form-control @error('car_model') is-invalid @enderror" id="inputName" placeholder="Name">
+                        @error('branch')
+                        <div class="alert alert-danger p-1">{{ $message }}</div>
+                        @enderror
                     </div>
-
-                    <select name="address_id" class="form-control select2">
-
+                    <div class="form-group mb-3">
+                    <label>محافظة</label>
+                    <select name="address_id" value="{{old('address_id')}}" class="form-control select2 @error('car_model') is-invalid @enderror">
                     <option disabled selected="">افتح قائمة التحديد</option>
                         @foreach($addresses as $address)
                             <option value="{{$address->id}}">{{$address->city}}</option>
                         @endforeach
                     </select>
+                        @error('address_id')
+                        <div class="alert alert-danger p-1">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                     <div class="modal-footer">
                         <button class="btn ripple btn-primary" type="submit" type="button">تأكيد البيانات</button>

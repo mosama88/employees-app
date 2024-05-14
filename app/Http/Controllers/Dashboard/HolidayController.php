@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\HolidayRequest;
 use App\Models\Holiday;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class HolidayController extends Controller
         return view('dashboard.holidays.add',);
     }
 
-    public function store(Request $request)
+    public function store(HolidayRequest $request)
     {
         try{
             $holiday = new Holiday();
@@ -50,7 +51,7 @@ class HolidayController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(HolidayRequest $request)
     {
         $holiday = Holiday::findOrFail($request->id);
         $holiday->name = $request->name;

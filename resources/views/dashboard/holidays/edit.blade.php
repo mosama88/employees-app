@@ -14,18 +14,27 @@
 
                     <div class="form-group mb-3">
                         <label>أسم العطلة</label>
-                        <input type="text" name="name" value="{{$holiday->name}}" class="form-control" id="inputName" placeholder="Name">
+                        <input type="text" name="name" value="{{$holiday->name}}" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Name">
+                        @error('name')
+                        <div class="alert alert-danger p-1">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group mb-3">
                         <label>من</label>
-                        <input class="form-control fc-datepicker" value="{{$holiday->from}}" type="date" name="from" placeholder="YYYY-DD-MM"
-                               type="text" required>
+                        <input class="form-control @error('from') is-invalid @enderror fc-datepicker" value="{{$holiday->from}}" type="date" name="from" placeholder="YYYY-DD-MM"
+                               type="text">
+                        @error('from')
+                        <div class="alert alert-danger p-1">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group mb-3">
                         <label>إلى</label>
-                        <input class="form-control fc-datepicker" value="{{$holiday->to}}" type="date" name="to" placeholder="YYYY-DD-MM"
-                               type="text" required>
+                        <input class="form-control @error('to') is-invalid @enderror fc-datepicker" value="{{$holiday->to}}" type="date" name="to" placeholder="YYYY-DD-MM"
+                               type="text">
+                        @error('to')
+                        <div class="alert alert-danger p-1">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="modal-footer">
