@@ -14,8 +14,9 @@ class VacationController extends Controller
     use UploadTrait;
     public function index()
     {
-        $vacations = Vacation::orderBy('created_at', 'desc')->paginate(5);
-        return view('dashboard.vacations.index', compact('vacations'));
+        $vacations = Vacation::orderBy('created_at', 'desc')->with('vacationEmployee')->get();
+        $employees = Employee::all();
+        return view('dashboard.vacations.index', compact('vacations','employees'));
     }
 
 
@@ -33,9 +34,9 @@ class VacationController extends Controller
             $vacation->start = $request->start;
             $vacation->to = $request->to;
             $vacation->notes = $request->notes;
-            $vacation->employee_id = $request->employee_id;
             $vacation->save();
 
+            $vacation->vacationEmployee()->attach($request->employee_id);
             //Upload img
             $this->verifyAndStoreImage($request,'attachment','vacations/','upload_image',$vacation->id,'App\Models\Vacation');
 
@@ -51,9 +52,10 @@ class VacationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show( $id)
     {
-        //
+
+//
     }
 
     public function edit($id)
@@ -71,7 +73,9 @@ class VacationController extends Controller
         $vacation->start = $request->start;
         $vacation->to = $request->to;
         $vacation->notes = $request->notes;
-        $vacation->employee_id = $request->employee_id;
+        $vacation->save();
+        // update pivot tABLE
+        $vacation->vacationvacation()->sync($request->employee_id);
         $vacation->save();
 
         // update attachment

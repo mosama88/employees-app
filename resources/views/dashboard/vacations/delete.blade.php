@@ -11,8 +11,13 @@
                     @csrf
                     @method('DELETE')
                     <div class="modal-body">
-                        <h5>{{ $vacation->employee->name }}</h5>
-                        <h6>{{ $vacation->type }}</h6>
+                        <h5>
+                            @foreach ($vacation->vacationEmployee as $employee)
+                            <li style="list-style: none;">{{ $employee->name }}</li>
+                            @endforeach
+                        </h5>
+                        <h6>{{ $vacation->typeVaction() }}</h6>
+                        <h6>تفاصيل الأجازه : من يوم <span style="color: blue">{{ $vacation->start }}</span> الى <span style="color: blue">{{ $vacation->to }}</span></h6>
 
                         <div class="form-group">
                             <input type="hidden" name="page_id" value="1" class="form-control"

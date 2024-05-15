@@ -96,7 +96,9 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        {{-- Edit --}}
+                                        {{--Show--}}
+                                        <a class="btn btn-outline-primary btn-sm" href="{{route('dashboard.employees.show' , $employee->id)}}"><i class="fas fa-eye"></i></a>
+                                        {{-- Edit --}} 
                                         <a class="btn btn-outline-info btn-sm" href="{{route('dashboard.employees.edit',$employee->id)}}"><i class="fas fa-edit"></i></a>
                                         {{--Delete--}}
                                         <a class="modal-effect btn btn-outline-danger btn-sm" data-effect="effect-scale" data-toggle="modal"

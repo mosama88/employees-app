@@ -18,7 +18,6 @@ return new class extends Migration
             $table->date('start')->nullable();
             $table->date('to')->nullable();
             $table->text('notes')->nullable();
-            $table->foreignId('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });
     }

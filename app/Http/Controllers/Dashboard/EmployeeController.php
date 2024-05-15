@@ -1,17 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
-use App\Http\Requests\Dashboard\EmployeeRequest;
-use App\Models\Appointment;
-use App\Traits\UploadTrait;
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Address;
-use App\Models\Department;
 use App\Models\Employee;
 use App\Models\JobGrade;
-use Carbon\Carbon;
+use App\Models\Vacation;
+use App\Models\Department;
+use App\Models\Appointment;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\EmployeeRequest;
 
 class EmployeeController extends Controller
 {
@@ -65,9 +66,19 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        // Find the employee by ID and eager load their associated vacations
+        $employee = Employee::with('vacationEmployee')->findOrFail($id);
+    
+        // Alternatively, if you want to load all vacations, not just those associated with this employee:
+        // $vacations = Vacation::all();
+    
+        // Or if you want to load only the vacations associated with this employee:
+        $vacations = $employee->vacationEmployee;
+    
+        // Pass the employee and vacations to the view
+        return view('dashboard.employees.show', compact('employee', 'vacations'));
     }
 
     public function edit($id)

@@ -55,4 +55,13 @@ protected $fillable =[
         return $this->belongsToMany(Appointment::class, 'appointment_employee');
     }
 
+
+    public function vacationEmployee()
+{
+    return $this->belongsToMany(Vacation::class, 'employee_vacation'); // Adjust the pivot table name as per your actual setup
+}
+
+
+
+
 }
