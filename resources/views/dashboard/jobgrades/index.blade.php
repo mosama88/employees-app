@@ -28,14 +28,14 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>أسم العطلة</th>
+                                <th>الدرجه الوظيفية</th>
                                 <th>العمليات</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($jobgrades as $jobgrade)
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row">{{$loop->iteration}}</th>
                                     <td>{{$jobgrade->name}}</td>
                                     <td>
                                         {{-- Edit --}}

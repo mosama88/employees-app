@@ -51,5 +51,8 @@ protected $fillable =[
         return now()->diffInYears($this->birth_date);
     }
 
+    public function employeeAppointments(){                                    //Pivot Table
+        return $this->belongsToMany(Appointment::class, 'appointment_employee');
+    }
 
 }

@@ -11,7 +11,7 @@
                     @csrf
                     <div class="form-group mb-3">
                         <label>أسم النيابة</label>
-                        <input type="text" name="branch" value="{{old('branch')}}" class="form-control @error('car_model') is-invalid @enderror" id="inputName" placeholder="Name">
+                        <input type="text" name="branch" value="{{old('branch')}}" class="form-control @error('car_model') is-invalid @enderror" id="inputName" placeholder="أدخل أسم النيابة">
                         @error('branch')
                         <div class="alert alert-danger p-1">{{ $message }}</div>
                         @enderror

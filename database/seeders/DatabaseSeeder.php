@@ -23,10 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             AdminSeeder::class,
-            AddressSeeder::class,
             JobGradeseeder::class,
             DepartmentSeeder::class,
-
         ]);
 
 

@@ -14,7 +14,7 @@
 
                     <div class="form-group mb-3">
                         <label>أسم النيابة</label>
-                        <input type="text" name="branch" value="{{$department->branch}}" class="form-control" id="inputName" placeholder="Name">
+                        <input type="text" name="branch" value="{{$department->branch}}" class="form-control" id="inputName" placeholder="أسم النيابة">
                     </div>
                     <div class="form-group mb-3">
                     <label>محافظة</label>

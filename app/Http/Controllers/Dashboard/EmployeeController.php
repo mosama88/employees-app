@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 use App\Http\Requests\Dashboard\EmployeeRequest;
+use App\Models\Appointment;
 use App\Traits\UploadTrait;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
@@ -19,7 +20,7 @@ class EmployeeController extends Controller
 
     public function index()
     {
-        $employees = Employee::orderBy('created_at', 'desc')->paginate(5);
+        $employees = Employee::orderBy('created_at', 'desc')->with('employeeAppointments')->get();
         return view('dashboard.employees.index', compact('employees'));
     }
 
@@ -28,7 +29,8 @@ class EmployeeController extends Controller
         $jobgrades = JobGrade::get();
         $addresses = Address::get();
         $departments = Department::get();
-        return view('dashboard.employees.add',compact('jobgrades','addresses','departments'));
+        $appointments = Appointment::all();
+        return view('dashboard.employees.add',compact('jobgrades','addresses','departments','appointments'));
     }
 
     public function store(EmployeeRequest $request)
@@ -44,6 +46,7 @@ class EmployeeController extends Controller
             $employee->address_id = $request->address_id;
             $employee->department_id = $request->department_id;
             $employee->save();
+            $employee->employeeAppointments()->attach($request->appointments);
 
 
 
@@ -73,7 +76,8 @@ class EmployeeController extends Controller
         $jobgrades = JobGrade::get();
         $addresses = Address::get();
         $departments = Department::get();
-        return view('dashboard.employees.edit', compact('employee','jobgrades','addresses','departments') );
+        $appointments = Appointment::all();
+        return view('dashboard.employees.edit', compact('employee','jobgrades','addresses','departments','appointments') );
     }
 
 
@@ -90,6 +94,9 @@ class EmployeeController extends Controller
         $employee->department_id = $request->department_id;
         $employee->save();
 
+        // update pivot tABLE
+        $employee->employeeAppointments()->sync($request->appointments);
+        $employee->save();
 
         // update photo
         if ($request->has('photo')){
@@ -133,11 +140,17 @@ class EmployeeController extends Controller
         Employee::destroy($delete_select_id);
         session()->flash('success', 'تم حذف الموظف بنجاح');
         return back();
-
-
     }
 
 
+
+    public function appointment(Request $request)
+    {
+        $appointments = Appointment::get();
+        $employees = Employee::orderBy('created_at', 'desc')->with('employeeAppointments')->get();
+
+        return view('dashboard.employees.appointment', compact('appointments','employees'));
+    }
 
 }
 

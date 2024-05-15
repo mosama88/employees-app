@@ -27,7 +27,7 @@
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{route('dashboard.holidays.index')}}">العطلات الرسمية</a></li>
                     <li><a class="slide-item" href="{{route('dashboard.jobgrades.index')}}">الدرجات الوظيفيه</a></li>
-                    <li><a class="slide-item" href="{{route('dashboard.departments.index')}}">الأدارات</a></li>
+                    <li><a class="slide-item" href="{{route('dashboard.departments.index')}}">النيابات</a></li>
                     <li><a class="slide-item" href="{{route('dashboard.employees.index')}}">الموظفين</a></li>
                 </ul>
 

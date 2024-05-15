@@ -65,6 +65,7 @@
                                 <th class="border-bottom-0">الدرجه</th>
                                 <th class="border-bottom-0">المحافظة</th>
                                 <th class="border-bottom-0">القسم</th>
+                                <th class="border-bottom-0">الحضور</th>
                                 <th class="border-bottom-0">العمليات</th>
                             </tr>
                             </thead>
@@ -89,6 +90,11 @@
                                     <td>{{$employee->jobgrade->name}}</td>
                                     <td>{{$employee->address->city}}</td>
                                     <td>{{$employee->department->branch}}</td>
+                                    <td>
+                                        @foreach ($employee->employeeAppointments as $appointment)
+                                                {{ $appointment->name }}
+                                        @endforeach
+                                    </td>
                                     <td>
                                         {{-- Edit --}}
                                         <a class="btn btn-outline-info btn-sm" href="{{route('dashboard.employees.edit',$employee->id)}}"><i class="fas fa-edit"></i></a>

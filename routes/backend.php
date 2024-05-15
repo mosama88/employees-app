@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AppointmentController;
 use App\Http\Controllers\Dashboard\DepartmentController;
 use App\Http\Controllers\Dashboard\EmployeeController;
 use App\Http\Controllers\Dashboard\HolidayController;
@@ -53,7 +54,9 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     ##################################### Start Dashboard jobgrades ######################
     Route::resource('/jobgrades', JobGradeController::class);
     ##################################### End Dashboard jobgrades ########################
-
+    ##################################### Start Dashboard Employee ######################
+    Route::resource('/appointments', AppointmentController::class);
+    ##################################### End Dashboard Employee ########################
 });
 
 

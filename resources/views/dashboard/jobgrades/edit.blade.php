@@ -14,7 +14,7 @@
 
                     <div class="form-group mb-3">
                         <label>أسم الدرجه الوظيفية</label>
-                        <input type="text" name="name" value="{{$jobgrade->name}}" class="form-control" id="inputName" placeholder="Name">
+                        <input type="text" name="name" value="{{$jobgrade->name}}" class="form-control" id="inputName" placeholder="أدخل أسم الدرجه الوظيفية">
                     </div>
 
                     <div class="modal-footer">

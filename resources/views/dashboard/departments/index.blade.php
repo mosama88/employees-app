@@ -1,12 +1,12 @@
 @extends('dashboard.layouts.master')
 
-@section('title', 'الأقسام')
-@section('page-title', 'الأقسام')
+@section('title', 'النيابات')
+@section('page-title', 'النيابات')
 @section('page-link-back')
     <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}"><i class="fas fa-home"></i></a>
     </li>
 @endsection
-@section('current-page', 'الأقسام')
+@section('current-page', 'النيابات')
 @section('content')
     <div class="col-xl-12">
         <div class="card">
@@ -16,7 +16,7 @@
                     <div class="col-sm-6 col-md-3 mb-4">
                         <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">
                             <i class="fas fa-plus-square"></i>
-                            أضافة قسم
+                            أضافة نيابة
                         </a>
                     </div>
                     @include('dashboard.departments.add')
