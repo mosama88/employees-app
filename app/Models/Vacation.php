@@ -51,6 +51,28 @@ class Vacation extends Model
         return $totalDays;
     }
 
+
+    public function getTotalDaysExcludingFridays()
+{
+    // Get all vacations for this employee
+    $vacations = $this->vacations;
+
+    // Check if vacations are not null
+    if ($vacations) {
+        $totalDays = 0;
+
+        // Loop through each vacation and calculate total days excluding Fridays
+        foreach ($vacations as $vacation) {
+            $totalDays += $vacation->calculateTotalDaysExcludingFridays();
+        }
+
+        return $totalDays;
+    } else {
+        // If no vacations are found, return 0
+        return 0;
+    }
+}
+
     public function typeVaction() {
         // تحقق مباشرة مما إذا كانت القيمة المعرفة باسم "type_blood" تساوي 1
         if ($this->type == 'satisfying') {

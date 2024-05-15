@@ -75,7 +75,7 @@ class VacationController extends Controller
         $vacation->notes = $request->notes;
         $vacation->save();
         // update pivot tABLE
-        $vacation->vacationvacation()->sync($request->employee_id);
+        $vacation->vacationEmployee()->sync($request->employee_id);
         $vacation->save();
 
         // update attachment

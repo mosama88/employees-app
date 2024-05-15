@@ -71,10 +71,27 @@
                                                 <td>عارضه</td>
                                                 <td class="text-right">
                                                     @php
+                                                    $totalDays = 0;
+                                                    foreach ($vacations as $v) {
+                                                        if ($v->type === 'emergency') {
+                                                            $totalDays += $v->number_of_days;
+                                                        }
+                                                    }
+                                                    // Assuming $employee is an instance of the Employee model
+                                                    echo $employee->getTotalDaysExcludingFridays($totalDays);
+                                                    @endphp
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                {{-- regular --}}
+                                                <td><span>إعتيادى</span></td>
+                                                <td class="text-right">
+                                                    @php
                                                         $totalDays = 0;
-                                                        foreach ($vacations as $v) {
-                                                            if ($v->type === 'emergency') {
-                                                                $totalDays += $v->number_of_days;
+                                                        foreach ($vacations as $vacation) {
+                                                            if ($vacation->type === 'regular') {
+                                                                $totalDays += $vacation->number_of_days;
                                                             }
                                                         }
                                                         echo $totalDays;
@@ -82,19 +99,20 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                {{-- regular --}}
-                                                <td><span>إعتيادى</span></td>
-                                                <td class="text-right text-muted">
+                                            <tr>
+                                                {{-- satisfying --}}
+                                                <td>مرضى</td>
+                                                <<td class="text-right">
                                                     @php
                                                         $totalDays = 0;
-                                                        foreach ($vacations as $v) {
-                                                            if ($v->type === 'regular') {
-                                                                $totalDays += $v->number_of_days;
+                                                        foreach ($vacations as $vacation) {
+                                                            if ($vacation->type === 'satisfying') {
+                                                                $totalDays += $vacation->number_of_days;
                                                             }
                                                         }
                                                         echo $totalDays;
                                                     @endphp
-                                                </td>
+                                                    </td>
                                             </tr>
                                             <tr>
                                             <tr>
@@ -136,34 +154,6 @@
                     </div>
 
 
-
-                    <tbody>
-                        @php
-                            $totals = [];
-                        @endphp
-                        {{-- Loop through each vacation to calculate totals --}}
-                        @foreach ($vacations as $vacation)
-                            @php
-                                // Initialize the total for this vacation type if it doesn't exist yet
-                                if (!isset($totals[$vacation->type])) {
-                                    $totals[$vacation->type] = 0;
-                                }
-
-                                // Add the number of days to the total for this vacation type
-                                $totals[$vacation->type] += $vacation->number_of_days;
-                            @endphp
-                        @endforeach
-
-                        {{-- Render table rows with vacation types and their totals --}}
-                        @foreach ($totals as $type => $total)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $type }}</td>
-                                <td>{{ $total }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="example" class="table key-buttons text-md-nowrap">
@@ -173,6 +163,7 @@
                                         <th>نوع الأجازه</th>
                                         <th>من</th>
                                         <th>إلى</th>
+                                        <th>عدد الأيام</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -182,6 +173,7 @@
                                             <td>{{ $vacation->typeVaction() }}</td>
                                             <td>{{ $vacation->start }}</td>
                                             <td>{{ $vacation->to }}</td>
+                                            <td>{{ $vacation->calculateTotalDaysExcludingFridays() }}</td>
                                             <td></td>
                                             <td></td>
                                         </tr>
