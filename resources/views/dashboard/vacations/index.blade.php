@@ -1,41 +1,11 @@
 @extends('dashboard.layouts.master')
 @section('title', 'الأجازات')
-@section('page-title', 'الأجازات')
-@section('page-link-back')
-    <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}"><i class="fas fa-home"></i></a>
-    </li>
-@endsection
 @section('current-page', 'الأجازات')
-
-
-<!-- Internal Data table css -->
-<link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-<link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
-<link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/responsive.bootstrap4.min.css" rel="stylesheet" />
-<link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
-<link href="{{ asset('dashboard') }}/assets/plugins/select2/css/select2.min.css" rel="stylesheet">
-
-<!--  Right-sidemenu css -->
-<link href="{{ asset('dashboard') }}/assets/plugins/sidebar/sidebar.css" rel="stylesheet">
-
-<!-- Sidemenu css -->
-<link rel="stylesheet" href="{{ asset('dashboard') }}/assets/css-rtl/sidemenu.css">
-
-<!--  Custom Scroll bar-->
-<link href="{asset{('dasboard')}}/assets/plugins/mscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" />
-
-<!--- Style css-->
-<link href="{asset{('dasboard')}}/assets/css-rtl/style.css" rel="stylesheet">
-<link href="{asset{('dasboard')}}/assets/css-rtl/style-dark.css" rel="stylesheet">
-
-<!---Skinmodes css-->
-<link href="{asset{('dasboard')}}/assets/css-rtl/skin-modes.css" rel="stylesheet" />
-
-<!--- Animations css-->
-<link href="{asset{('dasboard')}}/assets/css/animate.css" rel="stylesheet">
-
-
+@section('css')
+    <!-- Internal Data table css -->
+    <link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
+@endsection
 
 @section('content')
     @include('dashboard.messages_alert')
@@ -71,11 +41,11 @@
                                     @foreach ($vacations as $vacation)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                  <td>
-                                    @foreach ($vacation->vacationEmployee as $employee)
-                                    {{ $employee->name }}
-                                    @endforeach
-                                  </td>
+                                            <td>
+                                                @foreach ($vacation->vacationEmployee as $employee)
+                                                    {{ $employee->name }}
+                                                @endforeach
+                                            </td>
                                             <td>
                                                 {{ $vacation->typeVaction() }}
                                             </td>
@@ -94,8 +64,8 @@
                                                     href="#delete{{ $vacation->id }}">
                                                     <i class="fas fa-trash-alt"></i></a>
 
-                                                </tr>
-                                                @include('dashboard.vacations.delete')
+                                        </tr>
+                                        @include('dashboard.vacations.delete')
                                     @endforeach
                                 </tbody>
                             </table>

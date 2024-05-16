@@ -6,35 +6,10 @@
     </li>
 @endsection
 @section('current-page', 'الأجازات')
-
-
-<!-- Internal Data table css -->
-<link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-<link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
-<link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/responsive.bootstrap4.min.css" rel="stylesheet" />
-<link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
-<link href="{{ asset('dashboard') }}/assets/plugins/select2/css/select2.min.css" rel="stylesheet">
-
-<!--  Right-sidemenu css -->
-<link href="{{ asset('dashboard') }}/assets/plugins/sidebar/sidebar.css" rel="stylesheet">
-
-<!-- Sidemenu css -->
-<link rel="stylesheet" href="{{ asset('dashboard') }}/assets/css-rtl/sidemenu.css">
-
-<!--  Custom Scroll bar-->
-<link href="{asset{('dasboard')}}/assets/plugins/mscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" />
-
-<!--- Style css-->
-<link href="{asset{('dasboard')}}/assets/css-rtl/style.css" rel="stylesheet">
-<link href="{asset{('dasboard')}}/assets/css-rtl/style-dark.css" rel="stylesheet">
-
-<!---Skinmodes css-->
-<link href="{asset{('dasboard')}}/assets/css-rtl/skin-modes.css" rel="stylesheet" />
-
-<!--- Animations css-->
-<link href="{asset{('dasboard')}}/assets/css/animate.css" rel="stylesheet">
-
+@section('css')
+    <link href="{{ asset('dashboard/assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard/assets/plugins/fancyuploder/fancy_fileupload.css') }}" rel="stylesheet" />
+@endsection
 
 
 @section('content')
@@ -147,6 +122,8 @@
                                         <th>من</th>
                                         <th>إلى</th>
                                         <th>عدد الأيام</th>
+                                        <th>المرفقات</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -157,7 +134,17 @@
                                             <td>{{ $vacation->start }}</td>
                                             <td>{{ $vacation->to }}</td>
                                             <td>{{ $vacation->calculateTotalDaysExcludingFridays() }}</td>
-                                            <td></td>
+                                            <td>
+                                                @if ($vacation->attachment)
+                                                <img alt="Responsive image" class="img-thumbnail wd-100p wd-sm-200"
+                                                    src="{{ asset('dashboard/assets/images/uploads/vacations/' . $vacation->image->filename) }}"
+                                                    data-holder-rendered="true">
+                                                @else
+                                                @php
+                                                    echo 'لا يوجد مرفقات';
+                                                @endphp
+                                                @endif
+                                            </td>
                                             <td></td>
                                         </tr>
                                     @endforeach
@@ -196,3 +183,10 @@
     <script src="{{ asset('dashboard/assets/js/table-data.js') }}"></script>
 @endsection
 @endsection
+
+
+
+
+
+
+

@@ -2,16 +2,17 @@
 @section('title', 'تعديل طلب أجازة')
 
 @section('page-title', 'تعديل طلب أجازة')
-<link href="{{ asset('dashboard/assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('dashboard/assets/plugins/fancyuploder/fancy_fileupload.css') }}" rel="stylesheet" />
-<link href="{{ asset('dashboard/assets/plugins/pickerjs/picker.min.css') }}" rel="stylesheet">
 @section('page-link-back')
-    <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}"><i class="fas fa-home"></i></a>
-    </li>
-    <li class="breadcrumb-item"><a href="{{ route('dashboard.vacations.index') }}">تعديل طلب أجازة</a>
-    </li>
+<li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}"><i class="fas fa-home"></i></a>
+</li>
+<li class="breadcrumb-item"><a href="{{ route('dashboard.vacations.index') }}">تعديل طلب أجازة</a>
+</li>
 @endsection
 @section('current-page', 'تعديل طلب أجازة')
+@section('css')
+<link href="{{asset('dashboard/assets/plugins/fileuploads/css/fileupload.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('dashboard/assets/plugins/fancyuploder/fancy_fileupload.css')}}" rel="stylesheet" />
+@endsection
 @section('content')
     @include('dashboard.messages_alert')
 
@@ -48,7 +49,7 @@
                                 </select>
                             </div>
 
-  
+
 
 
                             <div class="form-group col-6">
