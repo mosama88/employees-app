@@ -72,10 +72,10 @@
                             {{-- Image Inputs --}}
                             <div class="form-group col-6">
                             <label for="example-text-input" class="col-sm-2 col-form-label">المرفقات</label>
-                                <input class="form-control @error('attachment') is-invalid @enderror" accept="image/*" name="attachment" type="file"
+                                <input class="form-control @error('file') is-invalid @enderror" accept="file/*" name="file" type="file"
                                        id="example-text-input" onchange="loadFile(event)">
                                 <img class="rounded-circle avatar-xl my-3" id="output" />
-                                @error('attachment')
+                                @error('file')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
