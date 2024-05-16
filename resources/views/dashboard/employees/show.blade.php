@@ -71,80 +71,63 @@
                                                 <td>عارضه</td>
                                                 <td class="text-right">
                                                     @php
-                                                    $totalDays = 0;
-                                                    foreach ($vacations as $v) {
-                                                        if ($v->type === 'emergency') {
-                                                            $totalDays += $v->number_of_days;
+                                                        $totalSatisfyingDays = 0;
+                                                        foreach ($vacations as $vacation) {
+                                                            if ($vacation->type === 'emergency') {
+                                                                $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
+                                                            }
                                                         }
-                                                    }
-                                                    // Assuming $employee is an instance of the Employee model
-                                                    echo $employee->getTotalDaysExcludingFridays($totalDays);
+                                                        echo $totalSatisfyingDays;
                                                     @endphp
+
                                                 </td>
-                                                
                                             </tr>
                                             <tr>
                                                 {{-- regular --}}
                                                 <td><span>إعتيادى</span></td>
                                                 <td class="text-right">
                                                     @php
-                                                        $totalDays = 0;
+                                                        $totalSatisfyingDays = 0;
                                                         foreach ($vacations as $vacation) {
                                                             if ($vacation->type === 'regular') {
-                                                                $totalDays += $vacation->number_of_days;
+                                                                $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
                                                             }
                                                         }
-                                                        echo $totalDays;
+                                                        echo $totalSatisfyingDays;
                                                     @endphp
                                                 </td>
                                             </tr>
-                                            <tr>
-                                            <tr>
-                                                {{-- satisfying --}}
-                                                <td>مرضى</td>
-                                                <<td class="text-right">
-                                                    @php
-                                                        $totalDays = 0;
-                                                        foreach ($vacations as $vacation) {
-                                                            if ($vacation->type === 'satisfying') {
-                                                                $totalDays += $vacation->number_of_days;
-                                                            }
-                                                        }
-                                                        echo $totalDays;
-                                                    @endphp
-                                                    </td>
-                                            </tr>
-                                            <tr>
+
                                             <tr>
                                                 {{-- Annual --}}
                                                 <td>سنوى</td>
                                                 <td class="text-right">
                                                     @php
-                                                        $totalDays = 0;
+                                                        $totalSatisfyingDays = 0;
                                                         foreach ($vacations as $vacation) {
                                                             if ($vacation->type === 'Annual') {
-                                                                $totalDays += $vacation->number_of_days;
+                                                                $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
                                                             }
                                                         }
-                                                        echo $totalDays;
+                                                        echo $totalSatisfyingDays;
                                                     @endphp
                                                 </td>
                                             </tr>
-                                            <tr>
+
                                             <tr>
                                                 {{-- satisfying --}}
                                                 <td>مرضى</td>
-                                                <<td class="text-right">
+                                                <td class="text-right">
                                                     @php
-                                                        $totalDays = 0;
+                                                        $totalSatisfyingDays = 0;
                                                         foreach ($vacations as $vacation) {
                                                             if ($vacation->type === 'satisfying') {
-                                                                $totalDays += $vacation->number_of_days;
+                                                                $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
                                                             }
                                                         }
-                                                        echo $totalDays;
+                                                        echo $totalSatisfyingDays;
                                                     @endphp
-                                                    </td>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

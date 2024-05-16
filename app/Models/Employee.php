@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+use function PHPSTORM_META\type;
+
 class Employee extends Model
 {
     use HasFactory;
@@ -86,26 +88,8 @@ public function calculateTotalDaysExcludingFridays()
 }
 
 
-public function getTotalDaysExcludingFridays()
-{
-// Get all vacations for this employee
-$vacations = $this->vacations;
 
-// Check if vacations are not null
-if ($vacations) {
-    $totalDays = 0;
 
-    // Loop through each vacation and calculate total days excluding Fridays
-    foreach ($vacations as $vacation) {
-        $totalDays += $vacation->calculateTotalDaysExcludingFridays();
-    }
-
-    return $totalDays;
-} else {
-    // If no vacations are found, return 0
-    return 0;
-}
-}
 
 
 
