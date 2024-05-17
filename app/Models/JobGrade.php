@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class JobGrade extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
     ];
@@ -18,4 +19,9 @@ class JobGrade extends Model
         return $this->belongsTo(Employee::class);
     }
 
+
+    public function vacation()
+    {
+        return $this->belongsTo(Vacation::class);
+    }
 }

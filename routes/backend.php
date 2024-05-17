@@ -34,8 +34,8 @@ Route::get('/admin/dashboard', function () {
     return view('dashboard.Admin.dashboard');
 })->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
 ##################################### End Route Admin #################################
-Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(function(){
-    Route::get('dashboard/index',[DashboardController::class,'index'])->name('index');
+Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(function () {
+    Route::get('dashboard/index', [DashboardController::class, 'index'])->name('index');
     ##################################### Start Route Profile ################################
     Route::view('/Profile', 'profile.profile')->name('my-profile');
     ##################################### End Route Profile ################################
@@ -47,6 +47,9 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     ##################################### End Dashboard Employee ########################
     ##################################### Start Dashboard Vacation ######################
     Route::resource('/vacations', VacationController::class);
+    Route::get('/Vacation/settings', [VacationController::class, 'settingVacation'])->name('vacations.settingVacation');
+
+
     ##################################### End Dashboard Vacation ########################
     ##################################### Start Dashboard Vacation ######################
     Route::resource('/holidays', HolidayController::class);
@@ -60,7 +63,6 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
 });
 
 
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 

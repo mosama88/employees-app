@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,12 +12,13 @@ return new class extends Migration
     {
         Schema::create('vacations', function (Blueprint $table) {
             $table->id();
-                                                 // مأمورية     سنوى       أعتيادى        عارضة       مرضى
-            $table->enum('type',['satisfying', 'emergency', 'regular','Annual', 'mission'])->default('emergency')->nullable();
+            // مأمورية     سنوى       أعتيادى        عارضة       مرضى
+            $table->enum('type', ['satisfying', 'emergency', 'regular', 'Annual', 'mission'])->default('emergency')->nullable();
             $table->date('start')->nullable();
             $table->date('to')->nullable();
             $table->text('notes')->nullable();
             $table->string('file')->nullable();
+            $table->foreignId('job_grades_id')->references('id')->on('job_grades')->onDelete('cascade');
             $table->timestamps();
         });
     }

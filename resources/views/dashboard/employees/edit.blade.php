@@ -28,14 +28,15 @@
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
             <div class="card  box-shadow-0 ">
                 <div class="card-header">
-                    <h4 class="card-title mb-1 text-center">تعديل بيانات <strong style="color: #0a47ff">{{$employee->name}}</strong></h4>
+                    <h4 class="card-title mb-1 text-center">تعديل بيانات <strong
+                            style="color: #0a47ff">{{ $employee->name }}</strong></h4>
                     @if ($employee->image)
                         <img class="img-thumbnail rounded me-2" alt="200x200" style="width: 200px; height:200px"
-                             src="{{ asset('dashboard/assets/images/uploads/employees/' . $employee->image->filename) }}"
-                             data-holder-rendered="true">
+                            src="{{ asset('dashboard/assets/images/uploads/employees/' . $employee->image->filename) }}"
+                            data-holder-rendered="true">
                     @else
                         <img class="img-thumbnail rounded me-2" alt="200x200" style="width: 200px; height:200px"
-                             src="{{ asset('dashboard/assets/img/employees-default.png') }}" data-holder-rendered="true">
+                            src="{{ asset('dashboard/assets/img/employees-default.png') }}" data-holder-rendered="true">
                     @endif
                 </div>
                 <div class="card-body pt-0">
@@ -56,21 +57,26 @@
                                 @enderror
                             </div>
 
-
+                            {{-- Appointments Inputs --}}
                             <div class="form-group col-6">
-                                {{-- job_grades_id Inputs --}}
-                                <label for="selectFormgrade">الدرجه الوظيفية</label>
-                                <select name="job_grades_id" value="{{ old('job_grades_id') }}"
-                                    class="form-control select2 @error('job_grades_id') is-invalid @enderror">
-                                    <option disabled selected="">افتح قائمة التحديد</option>
-                                    @foreach ($jobgrades as $jobgrade)
-                                        <option
-                                            value="{{ $jobgrade->id }}"{{ $jobgrade->id == $employee->job_grades_id ? 'selected' : '' }}>
-                                            {{ $jobgrade->name }}</option>
+                                <label for="exampleInputappoint">المواعيد</label>
+                                <select multiple="multiple" class="testselect2 @error('appointments') is-invalid @enderror"
+                                    name="appointments[]">
+                                    <option disabled selected>افتح قائمة التحديد</option>
+                                    @foreach ($appointments as $appointment)
+                                        @php $check = []; @endphp
+                                        @foreach ($employee->employeeAppointments as $key => $appointmentEMP)
+                                            @php
+                                                $check[] = $appointmentEMP->id;
+                                            @endphp
+                                        @endforeach
+                                        <option value="{{ $appointment->id }}"
+                                            {{ in_array($appointment->id, $check) ? 'selected' : '' }}>
+                                            {{ $appointment->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('job_grades_id')
-                                    <div class="alert alert-danger p-1">{{ $message }}</div>
+                                @error('appointments')
+                                    <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -97,28 +103,26 @@
                         </div>
 
                         <div class="row">
+                            {{-- hiring_date Inputs --}}
                             <div class="form-group col-6">
-                                {{-- hiring_date Inputs --}}
                                 <label for="hiring_date">تاريخ التعيين</label>
-                                <input class="form-control fc-datepicker" value="{{ $employee->hiring_date }}"
-                                    type="date" name="hiring_date" placeholder="YYYY-DD-MM">
+                                <input class="form-control fc-datepicker @error('hiring_date') is-invalid @enderror"
+                                value="{{ $employee->hiring_date }}" name="hiring_date" placeholder="MM/DD/YYYY" type="date">
                                 @error('hiring_date')
-                                    <div class="alert alert-danger p-1">{{ $message }}</div>
+                                    <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
-
+                            
+                            {{-- start_from Inputs --}}
                             <div class="form-group col-6">
-                                {{-- start_from Inputs --}}
                                 <label for="start_from">بداية أستلام العمل بالادارة</label>
                                 <input class="form-control fc-datepicker @error('start_from') is-invalid @enderror"
-                                    value="{{ $employee->start_from }}" type="date" name="start_from"
-                                    placeholder="YYYY-DD-MM">
+                                value="{{ $employee->start_from }}" name="start_from" placeholder="MM/DD/YYYY" type="date">
                                 @error('start_from')
-                                    <div class="alert alert-danger p-1">{{ $message }}</div>
+                                    <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-
                         </div>
 
                         <div class="row">
@@ -160,28 +164,23 @@
 
 
                         <div class="row">
-                            {{-- Appointments Inputs --}}
                             <div class="form-group col-6">
-                                <label class="col-sm-2 col-form-label">المواعيد</label>
-                                <select multiple="multiple"
-                                    class="testselect2 @error('appointments') is-invalid @enderror" name="appointments[]">
-                                    <option disabled selected>افتح قائمة التحديد</option>
-                                    @foreach ($appointments as $appointment)
-                                        @php $check = []; @endphp
-                                        @foreach ($employee->employeeAppointments as $key => $appointmentEMP)
-                                            @php
-                                                $check[] = $appointmentEMP->id;
-                                            @endphp
-                                        @endforeach
-                                        <option value="{{ $appointment->id }}"
-                                            {{ in_array($appointment->id, $check) ? 'selected' : '' }}>
-                                            {{ $appointment->name }}</option>
+                                {{-- job_grades_id Inputs --}}
+                                <label for="selectFormgrade">الدرجه الوظيفية</label>
+                                <select name="job_grades_id" value="{{ old('job_grades_id') }}"
+                                    class="form-control select2 @error('job_grades_id') is-invalid @enderror">
+                                    <option disabled selected="">افتح قائمة التحديد</option>
+                                    @foreach ($jobgrades as $jobgrade)
+                                        <option
+                                            value="{{ $jobgrade->id }}"{{ $jobgrade->id == $employee->job_grades_id ? 'selected' : '' }}>
+                                            {{ $jobgrade->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('appointments')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @error('job_grades_id')
+                                    <div class="alert alert-danger p-1">{{ $message }}</div>
                                 @enderror
                             </div>
+
 
                             {{-- Image Inputs --}}
                             <div class="form-group col-6">
@@ -216,20 +215,12 @@
         };
     </script>
 
+
 @section('scripts')
 
-    <!--Internal  Datepicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
+        <!-- Internal Select2.min js -->
+        <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
 
-
-    <!--Internal  jquery.maskedinput js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
-
-    <!--Internal  spectrum-colorpicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
-
-    <!-- Internal Select2.min js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/select2/js/select2.min.js"></script>
 
     <!--Internal Ion.rangeSlider.min js -->
     <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
@@ -243,30 +234,31 @@
     <!--Internal  pickerjs js -->
     <script src="{{ asset('dashboard') }}/assets/plugins/pickerjs/picker.min.js"></script>
 
-    <!-- Internal form-elements js -->
-    <script src="{{ asset('dashboard') }}/assets/js/form-elements.js"></script>
 
-    <!--Internal Fileuploads js-->
-    <script src="{{ asset('dashboard') }}/assets/plugins/fileuploads/js/fileupload.js"></script>
-    <script src="{{ asset('dashboard') }}/assets/plugins/fileuploads/js/file-upload.js"></script>
-
-    <!--Internal Fancy uploader js-->
-    <script src="{{ asset('dashboard') }}/assets/plugins/fancyuploder/jquery.ui.widget.js"></script>
-    <script src="{{ asset('dashboard') }}/assets/plugins/fancyuploder/jquery.fileupload.js"></script>
-    <script src="{{ asset('dashboard') }}/assets/plugins/fancyuploder/jquery.iframe-transport.js"></script>
-    <script src="{{ asset('dashboard') }}/assets/plugins/fancyuploder/jquery.fancy-fileupload.js"></script>
-    <script src="{{ asset('dashboard') }}/assets/plugins/fancyuploder/fancy-uploader.js"></script>
 
     <!--Internal  Form-elements js-->
     <script src="{{ asset('dashboard') }}/assets/js/advanced-form-elements.js"></script>
-    <script src="{{ asset('dashboard') }}/assets/js/select2.js"></script>
 
     <!--Internal Sumoselect js-->
     <script src="{{ asset('dashboard') }}/assets/plugins/sumoselect/jquery.sumoselect.js"></script>
 
-    <!-- Internal TelephoneInput js-->
-    <script src="{{ asset('dashboard') }}/assets/plugins/telephoneinput/telephoneinput.js"></script>
-    <script src="{{ asset('dashboard') }}/assets/plugins/telephoneinput/inttelephoneinput.js"></script>
+    <!-- Internal  js-->
+
+        <!--Internal  Datepicker js -->
+        <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
+
+
+        <!--Internal  jquery.maskedinput js -->
+        <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
+    
+        <!--Internal  spectrum-colorpicker js -->
+        <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
+    
+
+    
+        <!--Internal Ion.rangeSlider.min js -->
+        <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+    
 
 @endsection
 @endsection

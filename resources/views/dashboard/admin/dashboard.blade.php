@@ -36,17 +36,16 @@
             <div class="card overflow-hidden sales-card bg-primary-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">TODAY ORDERS</h6>
+                        <h6 class="mb-3 tx-12 text-white">الموظفين</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
-                            <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">$5,74.12</h4>
-                                <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
-                            </div>
+                                <a class="btn btn-outline btn-block text-center text-white" href="{{ route('dashboard.employees.create') }}">
+                                    <i class="fas fa-plus-square"></i>
+                                    أضافة موظف
+                                </a>
                             <span class="float-right my-auto mr-auto">
 												<i class="fas fa-arrow-circle-up text-white"></i>
-												<span class="text-white op-7"> +427</span>
 											</span>
                         </div>
                     </div>
@@ -58,18 +57,17 @@
             <div class="card overflow-hidden sales-card bg-danger-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">TODAY EARNINGS</h6>
+                        <h6 class="mb-3 tx-12 text-white">النيابات</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
-                            <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">$1,230.17</h4>
-                                <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
-                            </div>
+                            <a class="btn btn-outline btn-block text-center text-white" href="{{ route('dashboard.departments.index') }}">
+                                <i class="fas fa-table"></i>
+                                عرض كل النيابات
+                            </a>
+
                             <span class="float-right my-auto mr-auto">
-												<i class="fas fa-arrow-circle-down text-white"></i>
-												<span class="text-white op-7"> -23.09%</span>
-											</span>
+                        <i class="fas fa-arrow-circle-down text-white"></i></span>
                         </div>
                     </div>
                 </div>
@@ -80,17 +78,16 @@
             <div class="card overflow-hidden sales-card bg-success-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">TOTAL EARNINGS</h6>
+                        <h6 class="mb-3 tx-12 text-white">الأجازات</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
-                            <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">$7,125.70</h4>
-                                <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
-                            </div>
+                            <a class="btn btn-outline btn-block text-center text-white" href="{{ route('dashboard.vacations.create') }}">
+                                <i class="fas fa-plus-square"></i>
+                                أضافة أجازه
+                            </a>
                             <span class="float-right my-auto mr-auto">
 												<i class="fas fa-arrow-circle-up text-white"></i>
-												<span class="text-white op-7"> 52.09%</span>
 											</span>
                         </div>
                     </div>
