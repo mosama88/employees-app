@@ -14,7 +14,6 @@
     <link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
 @endsection
 @section('content')
-    @include('dashboard.messages_alert')
     <div class="row">
         <div class="col-xl-12">
             <div class="card">

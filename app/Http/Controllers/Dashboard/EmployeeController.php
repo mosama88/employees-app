@@ -55,7 +55,7 @@ class EmployeeController extends Controller
             $this->verifyAndStoreImage($request,'photo','employees/','upload_image',$employee->id,'App\Models\Employee');
 
             session()->flash('success', 'تم أضافة بيانات الموظف بنجاح');
-            return redirect()->route('dashboard.employees.index');
+            return response()->json(['success' => 'تم أضافة بيانات الموظف بنجاح']);
         }
         catch (\Exception $e) {
             DB::rollback();
