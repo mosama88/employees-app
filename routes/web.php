@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('dashboard.user.dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard.user');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

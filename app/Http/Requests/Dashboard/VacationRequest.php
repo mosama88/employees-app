@@ -22,12 +22,12 @@ class VacationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type'=>'required|string|in:satisfying, emergency, regular,Annual, mission',
+            'type'=>'required|string|in:satisfying,emergency,regular,Annual,mission',
             'start' => 'required|date|date_format:m/d/Y',
             'to' => 'required|date|date_format:m/d/Y',
             'notes' => 'nullable|string|max:1000',
             'employee_id'=> 'required|exists:employees,id',
-            'attachment'=> 'file|mimes:docx,doc,pdf,png,webp,jpg,jpeg',
+            'file'=> 'file|mimes:docx,doc,pdf,png,webp,jpg,jpeg',
         ];
     }
 
@@ -49,8 +49,8 @@ class VacationRequest extends FormRequest
             'employee_id.required' => 'برجاء أختيار الموظف.',
             'employee_id.exists' => 'الموظف المحدد غير موجود.',
             ########################################################
-            'attachment.file'=>'يجب أن يكون حقل الصورة من نوع ملف.',
-            'attachment.mimes'=>'يجب أن يكون حقل الملف  من النوع:، doc,docs,pdf,png,webp,jpg,jpeg.',
+            'file.file'=>'يجب أن يكون حقل الصورة من نوع ملف.',
+            'file.mimes'=>'يجب أن يكون حقل الملف  من النوع:، doc,docs,pdf,png,webp,jpg,jpeg.',
         ];
     }
 }

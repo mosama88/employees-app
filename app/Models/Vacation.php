@@ -10,13 +10,14 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Vacation extends Model
 {
     use HasFactory;
-    protected $fillable =[
-'type',
-'start',
-'to',
-'notes',
-    ];
 
+    protected $fillable = [
+        'type',
+        'start',
+        'to',
+        'notes',
+        'job_grades_id'
+    ];
 
 
     public function image(): MorphOne
@@ -53,45 +54,64 @@ class Vacation extends Model
 
 
     public function getTotalDaysExcludingFridays()
-{
-    // Get all vacations for this employee
-    $vacations = $this->vacations;
+    {
+        // Get all vacations for this employee
+        $vacations = $this->vacations;
 
-    // Check if vacations are not null
-    if ($vacations) {
-        $totalDays = 0;
+        // Check if vacations are not null
+        if ($vacations) {
+            $totalDays = 0;
 
-        // Loop through each vacation and calculate total days excluding Fridays
-        foreach ($vacations as $vacation) {
-            $totalDays += $vacation->calculateTotalDaysExcludingFridays();
+            // Loop through each vacation and calculate total days excluding Fridays
+            foreach ($vacations as $vacation) {
+                $totalDays += $vacation->calculateTotalDaysExcludingFridays();
+            }
+
+            return $totalDays;
+        } else {
+            // If no vacations are found, return 0
+            return 0;
         }
-
-        return $totalDays;
-    } else {
-        // If no vacations are found, return 0
-        return 0;
     }
-}
 
-    public function typeVaction() {
+    public function typeVaction()
+    {
         // تحقق مباشرة مما إذا كانت القيمة المعرفة باسم "type_blood" تساوي 1
         if ($this->type == 'satisfying') {
             echo "مرضى";
-        } elseif ($this->type == 'emergency'){
+        } elseif ($this->type == 'emergency') {
             echo "عارضه";
-        }elseif ($this->type == 'regular'){
+        } elseif ($this->type == 'regular') {
             echo "إعتيادى";
-        }elseif ($this->type == 'Annual'){
+        } elseif ($this->type == 'Annual') {
             echo "سنوى";
-        }elseif ($this->type == 'mission'){
+        } elseif ($this->type == 'mission') {
             echo "مأمورية";
         }
     }
 
-    
+    public function jobgrade()
+    {
+        return $this->belongsTo(JobGrade::class, 'job_grades_id');
+    }
+
     public function vacationEmployee()
     {
         return $this->belongsToMany(Employee::class, 'employee_vacation');
     }
+
+
+    // Mutator for the 'start' attribute
+    public function setStartAttribute($value)
+    {
+        $this->attributes['start'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
+    }
+
+    // Mutator for the 'to' attribute
+    public function setToAttribute($value)
+    {
+        $this->attributes['to'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
+    }
+
 
 }
