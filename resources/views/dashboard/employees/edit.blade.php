@@ -40,27 +40,29 @@
                     @endif
                 </div>
                 <div class="card-body pt-0">
-                    <form action="{{ route('dashboard.employees.update', 'test') }}" method="POST"
+                    <form id="employeeForm" action="{{ route('dashboard.employees.update', 'test') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="id" value="{{ $employee->id }}">
-
+                        {{-- Success Message --}}
+                        <div id="successMessage" class="alert alert-primary d-none" role="alert">
+                            تم تعديل بيانات <span class="alert-link">{{ $employee->name }}</span> بنجاح <a href="{{ route('dashboard.employees.index') }}"
+                                class="alert-link">أضغط هنا لمشاهدة التعديل</a>
+                        </div>
                         <div class="row">
                             <div class="form-group col-6">
                                 {{-- Name Inputs --}}
                                 <label for="exampleInputEmail1">أسم الموظف</label>
                                 <input type="text" name="name" value="{{ $employee->name }}" class="form-control"
-                                    id="name" placeholder="أدخل الأسم">
-                                @error('name')
-                                    <div class="alert alert-danger p-1">{{ $message }}</div>
-                                @enderror
+                                placeholder="أدخل الأسم">
+                                    <div id="name-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
                             {{-- Appointments Inputs --}}
                             <div class="form-group col-6">
                                 <label for="exampleInputappoint">المواعيد</label>
-                                <select multiple="multiple" class="testselect2 @error('appointments') is-invalid @enderror"
+                                <select multiple="multiple" class="testselect2"
                                     name="appointments[]">
                                     <option disabled selected>افتح قائمة التحديد</option>
                                     @foreach ($appointments as $appointment)
@@ -75,9 +77,7 @@
                                             {{ $appointment->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('appointments')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="appointments-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
@@ -87,18 +87,14 @@
                                 <label for="exampleInputEmail1">الهاتف</label>
                                 <input type="tel" class="form-control" value="{{ $employee->phone }}" name="phone"
                                     id="exampleInputEmail1" placeholder="01111111">
-                                @error('phone')
-                                    <div class="alert alert-danger p-1">{{ $message }}</div>
-                                @enderror
+                                    <div id="phone-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                             <div class="form-group col-6">
                                 {{-- alter_phone Inputs --}}
                                 <label for="exampleInputPassword1">هاتف أخر</label>
                                 <input type="tel" class="form-control" value="{{ $employee->alter_phone }}"
                                     name="alter_phone" id="exampleInputPassword1" placeholder="01111111">
-                                @error('alter_phone')
-                                    <div class="alert alert-danger p-1">{{ $message }}</div>
-                                @enderror
+                                    <div id="alter_phone-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
@@ -106,22 +102,20 @@
                             {{-- hiring_date Inputs --}}
                             <div class="form-group col-6">
                                 <label for="hiring_date">تاريخ التعيين</label>
-                                <input class="form-control fc-datepicker @error('hiring_date') is-invalid @enderror"
-                                value="{{ $employee->hiring_date }}" name="hiring_date" placeholder="MM/DD/YYYY" type="date">
-                                @error('hiring_date')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <input class="form-control fc-datepicker"
+                                    value="{{ $employee->hiring_date }}" name="hiring_date" placeholder="MM/DD/YYYY"
+                                    type="date">
+                                    <div id="hiring_date-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
-                            
+
                             {{-- start_from Inputs --}}
                             <div class="form-group col-6">
                                 <label for="start_from">بداية أستلام العمل بالادارة</label>
-                                <input class="form-control fc-datepicker @error('start_from') is-invalid @enderror"
-                                value="{{ $employee->start_from }}" name="start_from" placeholder="MM/DD/YYYY" type="date">
-                                @error('start_from')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <input class="form-control fc-datepicker"
+                                    value="{{ $employee->start_from }}" name="start_from" placeholder="MM/DD/YYYY"
+                                    type="date">
+                                    <div id="start_from-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
@@ -130,7 +124,7 @@
                                 {{-- Address Inputs --}}
                                 <label for="exampleInputaddress">المحافظة</label>
                                 <select name="address_id" value="{{ old('address_id') }}"
-                                    class="form-control select2 @error('address_id') is-invalid @enderror">
+                                    class="form-control select2">
                                     <option disabled selected="">افتح قائمة التحديد</option>
                                     @foreach ($addresses as $address)
                                         <option
@@ -138,15 +132,13 @@
                                             {{ $address->city }}</option>
                                     @endforeach
                                 </select>
-                                @error('address_id')
-                                    <div class="alert alert-danger p-1">{{ $message }}</div>
-                                @enderror
+                                <div id="address_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
                             <div class="form-group col-6">
                                 <label for="exampleInputdepartment">النيابة التابع لها</label>
-                                <select name="department_id" value="{{ old('department_id') }}"
-                                    class="form-control select2 @error('department_id') is-invalid @enderror">
+                                <select id="department_id-error" name="department_id" value="{{ old('department_id') }}"
+                                    class="form-control select2">
                                     <option disabled selected="">افتح قائمة التحديد</option>
                                     @foreach ($departments as $department)
                                         <option
@@ -154,21 +146,16 @@
                                             {{ $department->branch }}</option>
                                     @endforeach
                                 </select>
-                                @error('department_id')
-                                    <div class="alert alert-danger p-1">{{ $message }}</div>
-                                @enderror
+                                <div id="department_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
-
-
-
 
                         <div class="row">
                             <div class="form-group col-6">
                                 {{-- job_grades_id Inputs --}}
                                 <label for="selectFormgrade">الدرجه الوظيفية</label>
                                 <select name="job_grades_id" value="{{ old('job_grades_id') }}"
-                                    class="form-control select2 @error('job_grades_id') is-invalid @enderror">
+                                    class="form-control select2">
                                     <option disabled selected="">افتح قائمة التحديد</option>
                                     @foreach ($jobgrades as $jobgrade)
                                         <option
@@ -176,22 +163,18 @@
                                             {{ $jobgrade->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('job_grades_id')
-                                    <div class="alert alert-danger p-1">{{ $message }}</div>
-                                @enderror
+                                <div id="job_grades_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
 
                             {{-- Image Inputs --}}
                             <div class="form-group col-6">
                                 <label for="example-text-input">تغيير صورة الموظف</label>
-                                <input class="form-control @error('photo') is-invalid @enderror" accept="image/*"
+                                <input class="form-control" accept="image/*"
                                     name="photo" value="{{ old('photo') }}" type="file" id="example-text-input"
                                     onchange="loadFile(event)">
                                 <img class="rounded-circle avatar-xl my-3" id="output" />
-                                @error('photo')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="photo-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
@@ -201,25 +184,12 @@
             </div>
         </div>
     </div>
-    <!-- Internal Select2 js-->
-    <script src="{{ 'dashboard/assets/plugins/select2/js/select2.min.js' }}"></script>
-
-
-    <script>
-        var loadFile = function(event) {
-            var output = document.getElementById('output');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
-            }
-        };
-    </script>
 
 
 @section('scripts')
 
-        <!-- Internal Select2.min js -->
-        <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
+    <!-- Internal Select2.min js -->
+    <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
 
 
     <!--Internal Ion.rangeSlider.min js -->
@@ -244,21 +214,22 @@
 
     <!-- Internal  js-->
 
-        <!--Internal  Datepicker js -->
-        <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
+    <!--Internal  Datepicker js -->
+    <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
 
 
-        <!--Internal  jquery.maskedinput js -->
-        <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
-    
-        <!--Internal  spectrum-colorpicker js -->
-        <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
-    
+    <!--Internal  jquery.maskedinput js -->
+    <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
 
-    
-        <!--Internal Ion.rangeSlider.min js -->
-        <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-    
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
+
+
+
+    <!--Internal Ion.rangeSlider.min js -->
+    <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+
+    <script src="{{ asset('dashboard/assets/js/projects/add-employee.js') }}"></script>
 
 @endsection
 @endsection

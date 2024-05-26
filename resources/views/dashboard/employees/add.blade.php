@@ -37,11 +37,11 @@
                         enctype="multipart/form-data">
                         @csrf
 
+                        {{-- Success Message --}}
                         <div id="successMessage" class="alert alert-primary d-none" role="alert">
                             تم أضافة بيانات الموظف بنجاح <a href="{{ route('dashboard.employees.index') }}"
                                 class="alert-link">أضغط هنا لمشاهدة الأضافة</a>
                         </div>
-
 
                         <div class="row">
                             <div class="form-group col-6">
@@ -220,6 +220,7 @@
 
     <!--Internal Ion.rangeSlider.min js -->
     <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+
     <script src="{{ asset('dashboard/assets/js/projects/add-employee.js') }}"></script>
 
 @endsection

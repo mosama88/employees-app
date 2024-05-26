@@ -54,7 +54,7 @@ class EmployeeController extends Controller
             //Upload img
             $this->verifyAndStoreImage($request,'photo','employees/','upload_image',$employee->id,'App\Models\Employee');
 
-            session()->flash('success', 'تم أضافة بيانات الموظف بنجاح');
+            // session()->flash('success', 'تم أضافة بيانات الموظف بنجاح');
             return response()->json(['success' => 'تم أضافة بيانات الموظف بنجاح']);
         }
         catch (\Exception $e) {
@@ -92,7 +92,7 @@ class EmployeeController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(EmployeeRequest $request)
     {
         $employee = Employee::findOrFail($request->id);
         $employee->name = $request->name;
@@ -121,8 +121,8 @@ class EmployeeController extends Controller
         }
 
 
-        session()->flash('success', 'تم تعديل بيانات الموظف بنجاح');
-        return redirect()->route('dashboard.employees.index');
+        // session()->flash('success', 'تم تعديل بيانات الموظف بنجاح');
+        return response()->json(['success' => 'تم تعديل بيانات الموظف بنجاح']);
     }
 
     public function destroy(Request $request)
