@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
 use App\Models\JobGrade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\JobGradeRequest;
 
 class JobGradeController extends Controller
 {
@@ -23,7 +25,7 @@ class JobGradeController extends Controller
         return view('dashboard.jobgrades.add',);
     }
 
-    public function store(Request $request)
+    public function store(JobGradeRequest $request)
     {
         try{
             $jobgrade = new JobGrade();
@@ -53,7 +55,7 @@ class JobGradeController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(JobGradeRequest $request)
     {
         $jobgrade = JobGrade::findOrFail($request->id);
         $jobgrade->name = $request->name;
