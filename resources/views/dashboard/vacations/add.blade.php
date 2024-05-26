@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-    {{--    @include('dashboard.messages_alert') --}}
+       @include('dashboard.messages_alert')
 
     <div class="row row-sm">
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
@@ -23,92 +23,14 @@
                     <h4 class="card-title mb-1 text-center">طلب أجازه</h4>
                 </div>
                 <div class="card-body pt-0">
-                    <form action="{{ route('dashboard.vacations.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label for="exampleInputaddress">أختر الموظف</label>
-                                <select name="employee_id"
-                                    class="form-control select2 @error('employee_id') is-invalid @enderror">
-                                    <option disabled selected="">افتح قائمة التحديد</option>
-                                    @foreach ($employees as $employee)
-                                        <option value="{{ $employee->id }}">{{ $employee->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('employee_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+                
 
-                            <div class="form-group col-6">
-                                <label for="exampleInputaddress">نوع الأجازه</label>
-                                <select name="type"
-                                    class="form-control select2-no-search @error('type') is-invalid @enderror"
-                                    id="selectFormgrade" aria-label="Default select example" tabindex="-1">
-                                    <option disabled selected="">افتح قائمة التحديد</option>
-                                    <option value="satisfying">مرضى</option>
-                                    <option value="emergency">عارضه</option>
-                                    <option value="regular">إعتيادى</option>
-                                    <option value="Annual">سنوى</option>
-                                    <option value="mission">مأمورية</option>
-                                </select>
-                                @error('type')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
+            @livewire('dashboard.vacations.vacation-create')
 
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label for="exampleInputto">من يوم</label>
-                                <input class="form-control fc-datepicker @error('start') is-invalid @enderror" name="start"
-                                    placeholder="MM/DD/YYYY" type="text">
-                                @error('start')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group col-6">
-                                <label for="exampleInputto">إلى يوم</label>
-                                <input class="form-control fc-datepicker @error('to') is-invalid @enderror" name="to"
-                                    placeholder="MM/DD/YYYY" type="text">
-                                @error('to')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label for="examplenotes">ملاحظات</label>
-                                <textarea class="form-control" id="examplenotes" name="notes" placeholder="أدخل ملاحظاتك" rows="3"></textarea>
-                            </div>
-
-
-                            {{-- Image Inputs --}}
-                            <div class="form-group col-6">
-                                <label for="example-text-input" class=" col-form-label">المرفقات</label>
-                                <input class="form-control @error('file') is-invalid @enderror" accept="file/*"
-                                    name="file" type="file" id="example-text-input" onchange="loadFile(event)">
-                                <img class="rounded-circle avatar-xl my-3" id="output" />
-                                @error('file')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        {{-- Submit --}}
-                        <div class="col-12 mb-4 text-center">
-                            <input class="btn btn-outline-success" type="submit" value="تاكيد البيانات">
-                            <a href="{{ route('dashboard.vacations.index') }}" class="btn btn-outline-dark mx-2">رجوع</a>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Internal Select2 js-->
-    <script src="{{ 'dashboard/assets/plugins/select2/js/select2.min.js' }}"></script>
-
 
     <script>
         var loadFile = function(event) {
@@ -142,11 +64,6 @@
 
     <!-- Ionicons js -->
     <script src="{{ asset('dashboard') }}/assets/js/form-elements.js"></script>
-
-
-
-
-
 @endsection
 @endsection
 

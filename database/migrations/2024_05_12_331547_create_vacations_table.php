@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->date('to')->nullable();
             $table->text('notes')->nullable();
             $table->string('file')->nullable();
-            $table->foreignId('job_grades_id')->references('id')->on('job_grades')->onDelete('cascade');
             $table->timestamps();
         });
     }

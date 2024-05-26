@@ -16,7 +16,7 @@ class Vacation extends Model
         'start',
         'to',
         'notes',
-        'job_grades_id'
+        'file'
     ];
 
 
@@ -94,6 +94,10 @@ class Vacation extends Model
     {
         return $this->belongsTo(JobGrade::class, 'job_grades_id');
     }
+    // public function employees()
+    // {
+    //     return $this->hasMany(Employee::class, 'employee_id');
+    // }
 
     public function vacationEmployee()
     {

@@ -15,7 +15,7 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <div class="col-sm-6 col-md-3 mb-4">
-                            <a class="btn btn-outline-primary btn-block" href="{{ route('dashboard.vacations.create') }}">
+                            <a class="btn btn-outline-primary btn-block" href="{{ route('dashboard.vacations.add') }}">
                                 <i class="fas fa-plus-square"></i>
                                 أضافة أجازه
                             </a>

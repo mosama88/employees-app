@@ -48,8 +48,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     ##################################### Start Dashboard Vacation ######################
     Route::resource('/vacations', VacationController::class);
     Route::get('/Vacation/settings', [VacationController::class, 'settingVacation'])->name('vacations.settingVacation');
-
-
+    Route::view('Vacation/add', 'dashboard.vacations.add')->name('vacations.add');
     ##################################### End Dashboard Vacation ########################
     ##################################### Start Dashboard Vacation ######################
     Route::resource('/holidays', HolidayController::class);
@@ -58,7 +57,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     Route::resource('/jobgrades', JobGradeController::class);
     ##################################### End Dashboard jobgrades ########################
     ##################################### Start Dashboard Employee ######################
-    Route::resource('/appointments', AppointmentController::class);
+    // Route::resource('/appointments', AppointmentController::class);
     ##################################### End Dashboard Employee ########################
 });
 
