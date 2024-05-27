@@ -25,8 +25,16 @@
                 <div class="card-body pt-0">
 
 
-                    <form action="{{ route('dashboard.vacations.store') }}" method="POST" enctype="multipart/form-data">
+                    <form id="vacationForm" action="{{ route('dashboard.vacations.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
+
+                        {{-- Success Message --}}
+                        <div id="successMessage" class="alert alert-primary d-none" role="alert">
+                            تم أضافة أجازة الموظف بنجاح <a href="{{ route('dashboard.vacations.index') }}"
+                                class="alert-link">أضغط هنا لمشاهدة الأضافة</a>
+                        </div>
+
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="exampleInputaddress">أختر الموظف</label>
@@ -37,9 +45,8 @@
                                         <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('employee_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="employee_id-error" class="error-message alert alert-danger d-none"></div>
+
                             </div>
 
                             <div class="form-group col-6">
@@ -54,9 +61,8 @@
                                     <option value="Annual">سنوى</option>
                                     <option value="mission">مأمورية</option>
                                 </select>
-                                @error('type')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="type-error" class="error-message alert alert-danger d-none"></div>
+
                             </div>
                         </div>
 
@@ -66,18 +72,16 @@
                                 <input name="start"
                                     class="form-control fc-datepicker @error('start') is-invalid @enderror"
                                     placeholder="MM/DD/YYYY" type="date">
-                                @error('start')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="start-error" class="error-message alert alert-danger d-none"></div>
+
                             </div>
 
                             <div class="form-group col-6">
                                 <label for="exampleInputto">إلى يوم</label>
                                 <input name="to" class="form-control fc-datepicker @error('to') is-invalid @enderror"
                                     placeholder="MM/DD/YYYY" type="date">
-                                @error('to')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="to-error" class="error-message alert alert-danger d-none"></div>
+
                             </div>
                         </div>
 
@@ -85,6 +89,7 @@
                             <div class="form-group col-6">
                                 <label for="examplenotes">ملاحظات</label>
                                 <textarea name="notes" class="form-control" id="examplenotes" placeholder="أدخل ملاحظاتك" rows="3"></textarea>
+                                <div id="notes-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
                             {{-- Image Inputs --}}
@@ -93,9 +98,8 @@
                                 <input name="file" class="form-control @error('file') is-invalid @enderror"
                                     accept="file/*" type="file" id="example-text-input" onchange="loadFile(event)">
                                 <img class="rounded-circle avatar-xl my-3" id="output" />
-                                @error('file')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="file-error" class="error-message alert alert-danger d-none"></div>
+
                             </div>
                         </div>
                         {{-- Submit --}}
@@ -166,7 +170,7 @@
     <!--Internal Ion.rangeSlider.min js -->
     <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
 
-    <script src="{{ asset('dashboard/assets/js/projects/add-employee.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/js/projects/add-vacation.js') }}"></script>
 
 @endsection
 
