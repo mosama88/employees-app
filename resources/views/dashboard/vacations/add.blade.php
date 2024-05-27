@@ -103,7 +103,7 @@
                         </div>
                         <div id="photo-error" class="error-message alert alert-danger d-none"></div>
 
-                </div>
+                </div>  
                 {{-- Submit --}}
                 <div class="col-12 mb-4 text-center">
                     <button class="btn btn-outline-success" type="submit">تاكيد البيانات</button>

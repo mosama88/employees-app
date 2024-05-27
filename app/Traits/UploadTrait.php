@@ -37,6 +37,8 @@ trait UploadTrait{
     }
 
 
+
+    //For Vacation
     public function verifyAndStoreFile(Request $request, $inputname , $foldername , $disk, $imageable_id, $imageable_type) {
 
         if( $request->hasFile( $inputname ) ) {
@@ -65,6 +67,19 @@ trait UploadTrait{
     }
 
 
+    
+    public function Delete_attachment($disk,$path,$id){
+
+        Storage::disk($disk)->delete($path);
+        image::where('imageable_id',$id)->delete();
+        
+    }
+    
+
+
+    
+    
+}
 
 
     // public function verifyAndStoreImageForeach($varforeach , $foldername , $disk, $imageable_id, $imageable_type) {
@@ -77,18 +92,3 @@ trait UploadTrait{
     //     $Image->save();
     //     return $varforeach->storeAs($foldername, $varforeach->getClientOriginalName(), $disk);
     // }
-
-
-
-    public function Delete_attachment($disk,$path,$id){
-
-        Storage::disk($disk)->delete($path);
-        image::where('imageable_id',$id)->delete();
-
-    }
-
-
-
-
-
-}

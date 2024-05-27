@@ -71,12 +71,11 @@ class EmployeeController extends Controller
         // Find the employee by ID and eager load their associated vacations
         $employee = Employee::with('vacationEmployee')->findOrFail($id);
     
-        // Alternatively, if you want to load all vacations, not just those associated with this employee:
-        // $vacations = Vacation::all();
-    
         // Or if you want to load only the vacations associated with this employee:
         $vacations = $employee->vacationEmployee;
     
+
+        
         // Pass the employee and vacations to the view
         return view('dashboard.employees.show', compact('employee', 'vacations'));
     }

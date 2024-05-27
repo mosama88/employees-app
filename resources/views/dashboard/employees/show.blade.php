@@ -34,9 +34,12 @@
                                     data-holder-rendered="true">
                             @endif
                         </div>
+                        
                         <div class="col-8">
                             <h3 style="color: blue; font-weight:900;font-size:25px" class="my-3 mx-auto mb-3">
                                 {{ $employee->name }}</h3>
+                                {{-- أجازات {{ $employee->name }} لسنة {{ date('Y') }}</h3> --}}
+
                             <section>
                                 <div class="table-responsive mg-t-20">
                                     <table class="table table-bordered">
@@ -135,14 +138,12 @@
                                             <td>{{ $vacation->to }}</td>
                                             <td>{{ $vacation->calculateTotalDaysExcludingFridays() }}</td>
                                             <td>
-                                                @if ($vacation->attachment)
-                                                <img alt="Responsive image" class="img-thumbnail wd-100p wd-sm-200"
-                                                    src="{{ asset('dashboard/assets/images/uploads/vacations/' . $vacation->image->filename) }}"
-                                                    data-holder-rendered="true">
+                                                @if ($vacation->image)                                    
+                                                    <a class="btn btn-outline-primary btn-sm" href="{{ asset('dashboard/assets/images/uploads/vacations/' . $vacation->image->filename) }}" download>
+                                                        <i class="fas fa-download"></i>
+                                                    </a>
                                                 @else
-                                                @php
-                                                    echo 'لا يوجد مرفقات';
-                                                @endphp
+                                                    لا يوجد مرفقات
                                                 @endif
                                             </td>
                                             <td></td>

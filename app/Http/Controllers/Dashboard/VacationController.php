@@ -92,7 +92,7 @@ try{
                 $this->Delete_attachment('upload_image', 'vacations/' . $old_img, $request->id);
             }
             //Upload img
-            $this->verifyAndStoreImage($request, 'photo', 'vacations', 'upload_image', $request->id, 'App\Models\Vacation');
+            $this->verifyAndStoreFile($request,'photo','vacations/','upload_image',$vacation->id,'App\Models\Vacation');
         }
 
 
