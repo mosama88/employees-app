@@ -41,11 +41,13 @@ class VacationController extends Controller
             $vacation->save();
 
             $vacation->vacationEmployee()->attach($request->employee_id);
+
             //Upload img
+            $this->verifyAndStoreImage($request,'photo','vacations/','upload_image',$vacation->id,'App\Models\Vacation');
 
             session()->flash('success', 'تم أضافة الأجازه بنجاح');
             return redirect()->route('dashboard.vacations.index');
-   
+
     }
     /**
      * Display the specified resource.

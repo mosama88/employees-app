@@ -95,23 +95,26 @@
                             {{-- Image Inputs --}}
                             <div class="form-group col-6">
                                 <label for="example-text-input" class=" col-form-label">المرفقات</label>
-                                <input name="file" class="form-control @error('file') is-invalid @enderror"
-                                    accept="file/*" type="file" id="example-text-input" onchange="loadFile(event)">
+                                <input class="form-control" accept="image/*" name="photo" value="{{ old('photo') }}"
+                                    type="file" id="example-text-input" onchange="loadFile(event)">
                                 <img class="rounded-circle avatar-xl my-3" id="output" />
-                                <div id="file-error" class="error-message alert alert-danger d-none"></div>
-
+                                <div id="photo-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
-                        {{-- Submit --}}
-                        <div class="col-12 mb-4 text-center">
-                            <button class="btn btn-outline-success" type="submit">تاكيد البيانات</button>
-                            <a href="{{ route('dashboard.vacations.index') }}" class="btn btn-outline-dark mx-2">رجوع</a>
-                        </div>
-                    </form>
+                        <div id="photo-error" class="error-message alert alert-danger d-none"></div>
 
                 </div>
             </div>
+            {{-- Submit --}}
+            <div class="col-12 mb-4 text-center">
+                <button class="btn btn-outline-success" type="submit">تاكيد البيانات</button>
+                <a href="{{ route('dashboard.vacations.index') }}" class="btn btn-outline-dark mx-2">رجوع</a>
+            </div>
+            </form>
+
         </div>
+    </div>
+    </div>
     </div>
 
     <script>
