@@ -162,5 +162,12 @@ class EmployeeController extends Controller
         return view('dashboard.employees.appointment', compact('appointments','employees'));
     }
 
+
+    public function employeeshowvacation()
+    {
+        $employees = Employee::orderBy('created_at', 'desc')->with('employeeAppointments')->get();
+        return view('dashboard.employees.show-vacation-employee', compact('employees'));
+    }
+
 }
 

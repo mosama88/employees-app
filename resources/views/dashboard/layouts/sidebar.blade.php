@@ -44,6 +44,7 @@
                     <li><a class="slide-item" href="{{ route('dashboard.holidays.index') }}">العطلات الرسمية</a></li>
                     <li><a class="slide-item" href="{{ route('dashboard.jobgrades.index') }}">الدرجات الوظيفيه</a></li>
                     <li><a class="slide-item" href="{{ route('dashboard.departments.index') }}">النيابات</a></li>
+                    <li><a class="slide-item" href="{{ route('dashboard.employees.index') }}">الموظفين</a></li>
                 </ul>
 
             </li>
@@ -62,8 +63,8 @@
                     </svg>
                     <span class="side-menu__label">الأجازات</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ route('dashboard.employees.index') }}">الموظفين</a></li>
                     <li><a class="slide-item" href="{{ route('dashboard.vacations.index') }}">الأجازات</a></li>
+                    <li><a class="slide-item" href="{{ route('dashboard.show.vacation') }}">أجازات الموظفين</a></li>
                     <li><a class="slide-item" href="{{ route('dashboard.vacations.settingVacation') }}">إعدادات
                             الاجازات</a>
                     </li>

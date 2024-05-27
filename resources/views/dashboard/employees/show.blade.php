@@ -11,16 +11,20 @@
     <link href="{{ asset('dashboard/assets/plugins/fancyuploder/fancy_fileupload.css') }}" rel="stylesheet" />
 @endsection
 
-
+@php
+    $currentYear = date('Y');
+    $startYear = $currentYear - 5; // Adjust the number of previous years you want to display
+@endphp
 @section('content')
     @include('dashboard.messages_alert')
+
+         
+
     <div class="row row-sm">
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-
-
                         <div class="row">
                             <div class="col-4">
                             </div>
@@ -34,13 +38,25 @@
                                     data-holder-rendered="true">
                             @endif
                         </div>
-                        
                         <div class="col-8">
                             <h3 style="color: blue; font-weight:900;font-size:25px" class="my-3 mx-auto mb-3">
-                                {{ $employee->name }}</h3>
-                                {{-- أجازات {{ $employee->name }} لسنة {{ date('Y') }}</h3> --}}
-
+                                {{-- {{ $employee->name }}</h3> --}}
+                                أجازات {{ $employee->name }} لسنة                    <div class="btn-group dropdown">
+                                    <button type="button" class="btn btn-primary" id="selectedYear">{{ $currentYear }}</button>
+                                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate">
+                                        @for ($year = $currentYear; $year >= $startYear; $year--)
+                                            <a class="dropdown-item" href="#" onclick="setActiveYear({{ $year }})">{{ $year }}</a>
+                                        @endfor
+                                    </div>
+                                </div> </h3>
+              
                             <section>
+                             
+        
+    
                                 <div class="table-responsive mg-t-20">
                                     <table class="table table-bordered">
                                         <tbody>
@@ -57,7 +73,7 @@
                                                         }
                                                         echo $totalSatisfyingDays;
                                                     @endphp
-
+    
                                                 </td>
                                             </tr>
                                             <tr>
@@ -75,7 +91,7 @@
                                                     @endphp
                                                 </td>
                                             </tr>
-
+    
                                             <tr>
                                                 {{-- Annual --}}
                                                 <td>سنوى</td>
@@ -91,7 +107,7 @@
                                                     @endphp
                                                 </td>
                                             </tr>
-
+    
                                             <tr>
                                                 {{-- satisfying --}}
                                                 <td>مرضى</td>
@@ -112,6 +128,8 @@
                                 </div>
                             </section>
                         </div>
+                
+                    </div>
                     </div>
 
 
@@ -159,6 +177,7 @@
     </div>
 
     <div class="main-navbar-backdrop"></div>
+    @endsection
 
 @section('scripts')
 
@@ -182,7 +201,12 @@
 
     <!--Internal  Datatable js -->
     <script src="{{ asset('dashboard/assets/js/table-data.js') }}"></script>
-@endsection
+
+    <script>
+        function setActiveYear(year) {
+            document.getElementById('selectedYear').textContent = year;
+        }
+    </script>
 @endsection
 
 
