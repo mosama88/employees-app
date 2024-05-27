@@ -32,7 +32,7 @@ class VacationController extends Controller
 
     public function store(VacationRequest $request)
     {
-
+try{
             $vacation = new Vacation();
             $vacation->type = $request->type;
             $vacation->start = $request->start;
@@ -43,10 +43,15 @@ class VacationController extends Controller
             $vacation->vacationEmployee()->attach($request->employee_id);
 
             //Upload img
-            $this->verifyAndStoreImage($request,'photo','vacations/','upload_image',$vacation->id,'App\Models\Vacation');
+            $this->verifyAndStoreFile($request,'photo','vacations/','upload_image',$vacation->id,'App\Models\Vacation');
 
             session()->flash('success', 'تم أضافة الأجازه بنجاح');
             return redirect()->route('dashboard.vacations.index');
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
 
     }
     /**
@@ -80,14 +85,14 @@ class VacationController extends Controller
         $vacation->save();
 
         // update attachment
-        if ($request->has('attachment')) {
+        if ($request->has('photo')) {
             // Delete old attachment
             if ($vacation->image) {
                 $old_img = $vacation->image->filename;
                 $this->Delete_attachment('upload_image', 'vacations/' . $old_img, $request->id);
             }
             //Upload img
-            $this->verifyAndStoreImage($request, 'attachment', 'vacations', 'upload_image', $request->id, 'App\Models\Vacation');
+            $this->verifyAndStoreImage($request, 'photo', 'vacations', 'upload_image', $request->id, 'App\Models\Vacation');
         }
 
 
@@ -133,4 +138,3 @@ class VacationController extends Controller
 
 
 }
-
