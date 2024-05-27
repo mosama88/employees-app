@@ -129,7 +129,7 @@ try{
     }
 
 
-    function settingVacation()
+    public function settingVacation()
     {
         $vacation = Vacation::get();
         $jobGrades = JobGrade::get();
@@ -137,4 +137,14 @@ try{
     }
 
 
+    public function print($id)
+    {
+        $vacation = Vacation::findorfail($id);
+
+        return view('dashboard.vacations.print', compact('vacation'));
+    }
+    
+
 }
+
+

@@ -58,14 +58,21 @@
                                                 <a class="btn btn-outline-info btn-sm"
                                                     href="{{ route('dashboard.vacations.edit', $vacation->id) }}"><i
                                                         class="fas fa-edit"></i></a>
+
+                                                {{-- Print --}}
+                                                <a class="btn btn-outline-primary btn-sm"
+                                                href="{{route('dashboard.vacation-print',$vacation->id)}}">
+                                                <i class="fas fa-print"></i></a>
+
                                                 {{-- Delete --}}
                                                 <a class="modal-effect btn btn-outline-danger btn-sm"
                                                     data-effect="effect-scale" data-toggle="modal"
                                                     href="#delete{{ $vacation->id }}">
                                                     <i class="fas fa-trash-alt"></i></a>
-
                                         </tr>
                                         @include('dashboard.vacations.delete')
+                                        {{-- @include('dashboard.vacations.print') --}}
+
                                     @endforeach
                                 </tbody>
                             </table>
@@ -78,6 +85,7 @@
 
     <div class="main-navbar-backdrop"></div>
 
+    @endsection
 
 @section('scripts')
 
@@ -101,5 +109,4 @@
 
     <!--Internal  Datatable js -->
     <script src="{{ asset('dashboard/assets/js/table-data.js') }}"></script>
-@endsection
 @endsection

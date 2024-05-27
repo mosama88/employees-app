@@ -47,6 +47,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     ##################################### End Dashboard Employee ########################
     ##################################### Start Dashboard Vacation ######################
     Route::resource('/vacations', VacationController::class);
+    Route::get('/vacation/print/{id}', [VacationController::class, 'print'])->name('vacation-print');
     Route::get('/Vacation/settings', [VacationController::class, 'settingVacation'])->name('vacations.settingVacation');
     // Route::view('Vacation/add', 'dashboard.vacations.add')->name('vacations.add');
     ##################################### End Dashboard Vacation ########################
