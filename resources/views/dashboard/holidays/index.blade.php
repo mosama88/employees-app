@@ -33,12 +33,13 @@
                             <th>إلى</th>
                             <th>عدد الأيام</th>
                             <th>العمليات</th>
+
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($holidays as $holiday)
-                            <tr>
-                                <th scope="row">1</th>
+                        <tr id="holidayRow{{ $holiday->id }}">
+                            <th scope="row">1</th>
                                 <td>{{$holiday->name}}</td>
                                 <td>{{$holiday->from}}</td>
                                 <td>{{$holiday->to}}</td>
@@ -51,65 +52,75 @@
                                    href="#edit{{ $holiday->id }}"><i class="fas fa-edit"></i></a>
                                 @include('dashboard.holidays.edit')
 
-                                    {{--Delete--}}
-                                <a class="modal-effect btn btn-outline-danger btn-sm" data-effect="effect-scale" data-toggle="modal"
-                                   href="#delete{{ $holiday->id }}">
-                                <i class="fas fa-trash-alt"></i></a>
-                            </td>
-                                @include('dashboard.holidays.delete')
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                                    {{-- Delete --}}
+                                    <a id="holidayRow{{ $holiday->id }}" class="modal-effect btn btn-outline-danger btn-sm" data-effect="effect-scale" data-toggle="modal"
+                                        href="#delete{{ $holiday->id }}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                
+                                    <!-- End Modal effects-->
+                                    <div class="modal" id="delete{{ $holiday->id }}">
+                                        <!-- Modal content -->
+                                    </div>
+                                </td>
+                                    @include('dashboard.holidays.delete')
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div><!-- bd -->
             </div><!-- bd -->
         </div><!-- bd -->
-    </div><!-- bd -->
-</div>
+    </div>
 
 
 
 
-    <!--Internal  Datepicker js -->
-    <script src="{{asset('dashboard/assets/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
-    <script>
-        var date = $('.fc-datepicker').datepicker({
-            dateFormat: 'yy-mm-dd'
-        }).val();
-    </script>
+
+
+        <!--Internal  Datepicker js -->
+        <script src="{{asset('dashboard/assets/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
+        <script>
+            var date = $('.fc-datepicker').datepicker({
+                dateFormat: 'yy-mm-dd'
+            }).val();
+        </script>
 
 
 <script>
     function deleteHoliday(holidayId) {
-    let form = document.getElementById('deleteHolidayForm' + holidayId);
-    let formData = new FormData(form);
-    let actionUrl = "{{ route('dashboard.holidays.destroy', '') }}/" + holidayId;
+        let form = document.getElementById('deleteHolidayForm' + holidayId);
+        let formData = new FormData(form);
+        let actionUrl = "{{ route('dashboard.holidays.destroy', '') }}/" + holidayId;
 
-    fetch(actionUrl, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'X-Requested-With': 'XMLHttpRequest',
-            'Accept': 'application/json',
-        },
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Optionally, remove the deleted holiday row from the table or update the UI as needed
-            document.getElementById('delete' + holidayId).remove();
-        } else {
-            console.error('Error deleting holiday: ' + data.message);
-        }
-        $('#delete' + holidayId).modal('hide');
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while deleting the holiday.');
-        $('#delete' + holidayId).modal('hide');
-    });
-}
+        fetch(actionUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Hide the delete modal after successful deletion
+                $('#delete' + holidayId).modal('hide');
+
+                // Remove the deleted holiday row from the table
+                $('#holidayRow' + holidayId).remove();
+            } else {
+                console.error('Error deleting holiday: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while deleting the holiday.');
+        });
+    }
+
 
 </script>
 
-@endsection
+    @endsection
