@@ -76,4 +76,40 @@
             dateFormat: 'yy-mm-dd'
         }).val();
     </script>
+
+
+<script>
+    function deleteHoliday(holidayId) {
+    let form = document.getElementById('deleteHolidayForm' + holidayId);
+    let formData = new FormData(form);
+    let actionUrl = "{{ route('dashboard.holidays.destroy', '') }}/" + holidayId;
+
+    fetch(actionUrl, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json',
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Optionally, remove the deleted holiday row from the table or update the UI as needed
+            document.getElementById('delete' + holidayId).remove();
+        } else {
+            console.error('Error deleting holiday: ' + data.message);
+        }
+        $('#delete' + holidayId).modal('hide');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while deleting the holiday.');
+        $('#delete' + holidayId).modal('hide');
+    });
+}
+
+</script>
+
 @endsection
