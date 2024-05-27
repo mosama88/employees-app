@@ -1,5 +1,7 @@
 @extends('dashboard.layouts.master')
+@section('title', 'لوحة التحكم')
 @section('content')
+
 
 <div class="container-fluid">
     <h1>Hello Admin Dashboard</h1>

@@ -23,8 +23,8 @@ class VacationRequest extends FormRequest
     {
         return [
             'type'=>'required|string|in:satisfying,emergency,regular,Annual,mission',
-            'start' => 'required|date|date_format:m/d/Y',
-            'to' => 'required|date|date_format:m/d/Y',
+            'start' => 'required|date',
+            'to' => 'required|date',
             'notes' => 'nullable|string|max:1000',
             'employee_id'=> 'required|exists:employees,id',
             'file'=> 'file|mimes:docx,doc,pdf,png,webp,jpg,jpeg',

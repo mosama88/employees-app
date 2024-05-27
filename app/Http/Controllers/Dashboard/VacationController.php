@@ -26,31 +26,27 @@ class VacationController extends Controller
 
     public function create()
     {
-        // $employees = Employee::all();
-        // return view('dashboard.vacations.add', compact('employees'));
+        $employees = Employee::all();
+        return view('dashboard.vacations.add', compact('employees'));
     }
 
     public function store(VacationRequest $request)
     {
-        // try {
-        //     $vacation = new Vacation();
-        //     $vacation->type = $request->type;
-        //     $vacation->start = $request->start;
-        //     $vacation->to = $request->to;
-        //     $vacation->notes = $request->notes;
-        //     $vacation->save();
 
-        //     $vacation->vacationEmployee()->attach($request->employee_id);
-        //     //Upload img
+            $vacation = new Vacation();
+            $vacation->type = $request->type;
+            $vacation->start = $request->start;
+            $vacation->to = $request->to;
+            $vacation->notes = $request->notes;
+            $vacation->save();
 
-        //     session()->flash('success', 'تم أضافة الأجازه بنجاح');
-        //     return redirect()->route('dashboard.vacations.index');
-        // } catch (\Exception $e) {
-        //     DB::rollback();
-        //     return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        // }
+            $vacation->vacationEmployee()->attach($request->employee_id);
+            //Upload img
+
+            session()->flash('success', 'تم أضافة الأجازه بنجاح');
+            return redirect()->route('dashboard.vacations.index');
+   
     }
-
     /**
      * Display the specified resource.
      */

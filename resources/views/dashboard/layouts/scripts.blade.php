@@ -98,7 +98,20 @@
 
 
 
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
 
+                Livewire.hook('morph.updated', (el, component) => {
+                    const mySuccessAlert = document.querySelector('.my-success-alert');
+
+                    if (mySuccessAlert) {
+                        setTimeout(() => {
+                            mySuccessAlert.classList.add('fade-out');
+                        }, 3000);
+                    }
+                });
+            });
+        </script>
 
 
 

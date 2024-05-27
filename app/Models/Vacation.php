@@ -106,16 +106,16 @@ class Vacation extends Model
 
 
     // Mutator for the 'start' attribute
-    public function setStartAttribute($value)
-    {
-        $this->attributes['start'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
-    }
+    // public function setStartAttribute($value)
+    // {
+    //     $this->attributes['start'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
+    // }
 
     // Mutator for the 'to' attribute
-    public function setToAttribute($value)
-    {
-        $this->attributes['to'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
-    }
+    // public function setToAttribute($value)
+    // {
+    //     $this->attributes['to'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
+    // }
 
 
 }
