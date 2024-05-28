@@ -103,7 +103,21 @@
                         </div>
                         <div id="photo-error" class="error-message alert alert-danger d-none"></div>
 
-                </div>  
+
+                        <div class="form-group col-6">
+                            <label for="exampleInputaddress">القائم بأعماله</label>
+                            <select name="acting"
+                                class="form-control select2 @error('acting') is-invalid @enderror">
+                                <option disabled selected="">افتح قائمة التحديد</option>
+                                @foreach ($employees as $employee)
+                                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                                @endforeach
+                            </select>
+                            <div id="acting-error" class="error-message alert alert-danger d-none"></div>
+
+                        </div>
+
+                </div>
                 {{-- Submit --}}
                 <div class="col-12 mb-4 text-center">
                     <button class="btn btn-outline-success" type="submit">تاكيد البيانات</button>

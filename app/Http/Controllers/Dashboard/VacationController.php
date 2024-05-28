@@ -38,6 +38,7 @@ try{
             $vacation->start = $request->start;
             $vacation->to = $request->to;
             $vacation->notes = $request->notes;
+            $vacation->acting = $request->acting;
             $vacation->save();
 
             $vacation->vacationEmployee()->attach($request->employee_id);
@@ -79,6 +80,7 @@ try{
         $vacation->start = $request->start;
         $vacation->to = $request->to;
         $vacation->notes = $request->notes;
+        $vacation->acting = $request->acting;
         $vacation->save();
         // update pivot tABLE
         $vacation->vacationEmployee()->sync($request->employee_id);
@@ -141,8 +143,9 @@ try{
     {
         $vacation = Vacation::findorfail($id);
         $employee = Employee::all();
+        $department = Employee::all();
 
-        return view('dashboard.vacations.print', compact('vacation','employee'));
+        return view('dashboard.vacations.print', compact('vacation','employee','department'));
     }
 
 

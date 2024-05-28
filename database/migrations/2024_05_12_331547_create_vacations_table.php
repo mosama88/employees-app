@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->date('start')->nullable();
             $table->date('to')->nullable();
             $table->text('notes')->nullable();
+            $table->foreignId('acting')->references('id')->on('employees')->onDelete('cascade');
             $table->string('file')->nullable();
             $table->timestamps();
         });

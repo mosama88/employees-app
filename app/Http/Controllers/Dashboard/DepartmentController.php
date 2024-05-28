@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Address;
+use App\Models\Department;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\DepartmentRequest;
-use App\Models\Department;
-use App\Models\Address;
-use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {

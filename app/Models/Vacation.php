@@ -16,7 +16,8 @@ class Vacation extends Model
         'start',
         'to',
         'notes',
-        'file'
+        'file',
+        'acting'
     ];
 
 
@@ -25,10 +26,10 @@ class Vacation extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    // public function employee()
-    // {
-    //     return $this->belongsTo(Employee::class);
-    // }
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class,'acting');
+    }
 
 
     public function calculateTotalDaysExcludingFridays()
