@@ -16,7 +16,11 @@
 @endsection
 
 @section('content')
-
+    @php
+        use Carbon\Carbon;
+    $startDay = Carbon::parse($vacation->start)->locale('ar')->dayName;
+    $endDay = Carbon::parse($vacation->to)->locale('ar')->dayName;
+    @endphp
     <div class="container-fluid">
         {{-- Start Row --}}
         <div class="row">
@@ -47,24 +51,30 @@
                                                 </div>
                                                 <div class="row mg-t-10">
                                                     <div class="col-6">
-                                                        <h4>الأسم / محمد أسامه محمد</h4>
+                                                        <h4>الأسم / @foreach ($vacation->vacationEmployee as $employee)
+                                                                {{ $employee->name }}
+                                                                @if (!$loop->last)
+                                                                    ،
+                                                                @endif
+                                                                    @endforeach
+                                                        </h4>
                                                     </div>
                                                     <div class="col-6">
                                                         <h4>الوظيفية / إدارة التحول الرقمى</h4>
                                                     </div>
                                                 </div>
                                                 <div class="row mg-t-10">
-                                                    <div class="col-6">
-                                                        <h4>جهه العمل / إدارة التحول الرقمى</h4>
-                                                    </div>
+                                                    {{-- <div class="col-6">
+                                                        <h4>جهه العمل / {{ $employee->department->name }}</h4>
+                                                    </div> --}}
                                                     <div class="col-6">
                                                         <h4>مدة الأجازه / 20 يوم</h4>
                                                     </div>
                                                 </div>
                                                 <div class="row mg-t-10">
                                                     <div class="col-12">
-                                                        <h4> من يوم..................الموافق 1/10/2024 حتى يوم ............
-                                                            الموافق 15/10/2024</h4>
+                                                        <h4> من يوم {{ $startDay }} الموافق {{ Carbon::parse($vacation->start)->locale('ar')->isoFormat('D/MMMM /YYYY') }}  حتى {{ $endDay }} الموافق {{ Carbon::parse($vacation->to)->locale('ar')->isoFormat('D/MMMM /YYYY') }}</h4>
+
                                                     </div>
                                                 </div>
 
@@ -115,7 +125,7 @@
                                                 <div class="row mg-t-10">
                                                     <div class="col-8">
                                                         <h4>مسئول شئون العاملين : ........................</h4><br>
-                                                        <h4>تحريرآ فى  : 25/9/2024</h4>
+                                                        <h4>تحريرآ فى : 25/9/2024</h4>
                                                     </div>
                                                     <div class="col-4">
                                                         <h4>نائب رئيس الهيئة</h4>
@@ -131,8 +141,16 @@
                                                         <h4 class="text-center">بعد التحيه...</h4><br>
                                                     </div>
                                                     <div class="col-12">
-<h5>أقر أنا محمد أسامه محمد حسين بأننى أتممت اعمالى المصلحية اليوم........ الموافق 25 / 8/ 2024 و هو أخر يوم من ايام العمل.</h5>
-                                                        </div>
+                                                        <h5>أقر أنا @foreach ($vacation->vacationEmployee as $employee)
+                                                            {{ $employee->name }}
+                                                            @if (!$loop->last)
+                                                                ،
+                                                            @endif
+                                                                @endforeach
+                                                                 بأننى أتممت اعمالى المصلحية
+                                                            اليوم........ الموافق 25 / 8/ 2024 و هو أخر يوم من ايام العمل.
+                                                        </h5>
+                                                    </div>
                                                 </div>
 
                                                 <div class="row mg-t-10">
@@ -154,7 +172,17 @@
                                                         <h4 class="text-center">بعد التحيه...</h4><br>
                                                     </div>
                                                     <div class="col-12">
-<h5>أقر أنا محمد أسامه محمد حسين بأننى أستلمت العمل اليوم الموافق  26/8/2024 بعد أنتهاء الأجازه (الأعتيادى - المرضى) الممنوحه لى من 25/8/2024 حتى 26/82024</h5>
+                                                        <h5>أقر أنا
+                                                            @foreach ($vacation->vacationEmployee as $employee)
+                                                            {{ $employee->name }}
+                                                            @if (!$loop->last)
+                                                                ،
+                                                            @endif
+                                                                @endforeach
+                                                                  بأننى أستلمت العمل اليوم الموافق
+                                                            26/8/2024 بعد أنتهاء الأجازه (الأعتيادى - المرضى) الممنوحه لى من
+                                                            {{ Carbon::parse($vacation->start)->locale('ar')->isoFormat('D/MMMM/YYYY') }} حتى
+                                                            {{ Carbon::parse($vacation->to)->locale('ar')->isoFormat('D/MMMM/YYYY') }}</h5>
                                                     </div>
                                                 </div>
 
@@ -216,6 +244,8 @@
             location.reload();
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
     <!-- Internal Data tables -->
     <script src="{{ asset('dashboard/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dashboard/assets/plugins/datatable/js/dataTables.dataTables.min.js') }}"></script>

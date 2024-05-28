@@ -140,11 +140,20 @@ try{
     public function print($id)
     {
         $vacation = Vacation::findorfail($id);
+        $employee = Employee::all();
 
-        return view('dashboard.vacations.print', compact('vacation'));
+        return view('dashboard.vacations.print', compact('vacation','employee'));
     }
-    
+
 
 }
 
 
+// $vacation = Vacation::findorfail($id);
+// // Find the employee by ID and eager load their associated vacations
+// $employee = Employee::with('vacationEmployee')->findOrFail($id);
+// $jobgrade = JobGrade::all();
+// $department = Department::all();
+
+//     return view('dashboard.vacations.print', compact('vacation','employee','jobgrade','department'));
+// }
