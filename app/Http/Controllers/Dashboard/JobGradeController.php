@@ -15,7 +15,7 @@ class JobGradeController extends Controller
      */
     public function index()
     {
-        $jobgrades = JobGrade::orderBy('created_at', 'desc')->paginate(5);
+        $jobgrades = JobGrade::orderBy('created_at', 'desc')->get();
         return view('dashboard.jobgrades.index', compact('jobgrades'));
     }
 
@@ -27,16 +27,16 @@ class JobGradeController extends Controller
 
     public function store(JobGradeRequest $request)
     {
-        try{
+        try {
             $jobgrade = new JobGrade();
             $jobgrade->name = $request->name;
             $jobgrade->save();
-            session()->flash('success', 'تم أضافة الدرجه الوظيفية بنجاح');
-            return redirect()->route('dashboard.jobgrades.index');
-        }
-        catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+
+            // Return a JSON response indicating success
+            return response()->json(['success' => true, 'message' => 'تم أضافة الدرجه الوظيفية بنجاح', 'jobgrade' => $jobgrade]);
+        } catch (\Exception $e) {
+            // Return a JSON response indicating failure
+            return response()->json(['success' => false, 'message' => 'حدث خطأ أثناء أضافة الدرجه الوظيفية']);
         }
     }
 

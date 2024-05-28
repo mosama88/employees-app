@@ -7,7 +7,7 @@
                 <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('dashboard.jobgrades.store') }}" autocomplete="off">
+                <form id="addJobGradeForm" autocomplete="off">
                     @csrf
                     <div class="form-group mb-3">
                         <label>أسم الدرجه الوظيفية</label>
@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn ripple btn-primary" type="submit" type="button">تأكيد البيانات</button>
+                        <button class="btn ripple btn-primary" type="button" onclick="addJobGrade()">تأكيد البيانات</button>
                         <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">إغلاق</button>
                     </div>
                 </form>
@@ -23,7 +23,6 @@
         </div>
     </div>
 </div>
-<!-- End Basic modal -->
 
 
 
