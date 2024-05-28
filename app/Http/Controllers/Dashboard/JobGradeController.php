@@ -66,12 +66,17 @@ class JobGradeController extends Controller
 
     public function destroy(Request $request)
     {
-        // Find the post by its ID
-        JobGrade::findOrFail($request->id)->delete();
+        try {
+            // Find the job grade by its ID and delete it
+            JobGrade::findOrFail($request->id)->delete();
 
-        // Return a response indicating success
-        session()->flash('success', 'تم حذف الدرجه الوظيفية بنجاح');
-        return redirect()->route('dashboard.jobgrades.index');
+            // Return a JSON response indicating success
+            return response()->json(['success' => true, 'message' => 'تم حذف الدرجه الوظيفية بنجاح']);
+        } catch (\Exception $e) {
+            // Return a JSON response indicating failure
+            return response()->json(['success' => false, 'message' => 'حدث خطأ أثناء حذف الدرجه الوظيفية']);
+        }
     }
+
 }
 
