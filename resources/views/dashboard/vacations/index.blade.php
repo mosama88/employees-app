@@ -57,24 +57,27 @@
                                             <td>{{$vacation->employee->name }}</td>
                                             <td>
                                                 @if ($vacation->status == '1')
-                                                    <span class="badge bg-success">موافق</span>
+                                                    <span class="badge badge-success">موافق</span>
                                                 @else
-                                                    <span class="badge bg-danger">غير موافق</span>
+                                                    <span class="badge badge-danger">غير موافق</span>
                                                 @endif
                                                 <div
-                                                    class="dot-label bg-{{ $vacation->status == '1' ? 'success' : 'danger' }} ml-1">
+                                                    class="{{ $vacation->status == '1' ? 'success' : 'danger' }} ml-1">
                                                 </div>
-                                            </td>                                            <td>{{ $vacation->notes }}</td>
+                                            </td>
+                                            <td>{{ $vacation->notes }}</td>
                                             <td>
                                                 {{-- Edit --}}
                                                 <a class="btn btn-outline-info btn-sm"
                                                     href="{{ route('dashboard.vacations.edit', $vacation->id) }}"><i
                                                         class="fas fa-edit"></i></a>
 
-                                                {{-- Print --}}
+                                            {{-- Print --}}
+                                            @if ($vacation->status == '1')
                                                 <a class="btn btn-outline-primary btn-sm"
                                                     href="{{ route('dashboard.vacation-print', $vacation->id) }}">
                                                     <i class="fas fa-print"></i></a>
+                                            @endif
 
                                                 {{-- Delete --}}
                                                 <a class="modal-effect btn btn-outline-danger btn-sm"
