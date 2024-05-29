@@ -48,11 +48,9 @@
                                 <div id="employee_id-error" class="error-message alert alert-danger d-none"></div>
 
                             </div>
-
-                            <div class="form-group col-6">
+                            <div class="form-group col-6" id="type_field">
                                 <label for="exampleInputaddress">نوع الأجازه</label>
-                                <select name="type"
-                                    class="form-control select2-no-search @error('type') is-invalid @enderror"
+                                <select name="type" class="form-control select2-no-search @error('type') is-invalid @enderror"
                                     id="selectFormgrade" aria-label="Default select example" tabindex="-1">
                                     <option value="" selected="" disabled> -- افتح قائمة التحديد --</option>
                                     <option value="satisfying">مرضى</option>
@@ -62,9 +60,39 @@
                                     <option value="mission">مأمورية</option>
                                 </select>
                                 <div id="type-error" class="error-message alert alert-danger d-none"></div>
-
                             </div>
                         </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-6" id="int_ext_field">
+                                <label for="exampleInputaddress">داخلية / خارجيه</label>
+                                <select name="int_ext" class="form-control select2 @error('int_ext') is-invalid @enderror">
+                                    <option disabled selected>افتح قائمة التحديد</option>
+                                    <option value="internal">نيابات</option>
+                                    <option value="external">جهه خارجيه</option>
+                                </select>
+                                <div id="int_ext-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="row" id="department_field">
+                            <div class="form-group col-6">
+                                <label for="exampleInputdepartment">النيابات</label>
+                                <select name="department_id" value="{{ old('department_id') }}" class="form-control select2">
+                                    <option disabled selected>افتح قائمة التحديد</option>
+                                    @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                            {{ $department->branch }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div id="department_id-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+                        </div>
+
+
+
 
                         <div class="row">
                             <div class="form-group col-6">
@@ -145,6 +173,42 @@
 
 @section('scripts')
 
+<script>
+    $(document).ready(function() {
+        // اختيار الحقل النيابات عند اختيار "نيابات" من القائمة المنسدلة
+        $('select[name="int_ext"]').change(function() {
+            var selectedOption = $(this).val();
+            if (selectedOption === 'internal') {
+                $('div#department_field').show();
+            } else {
+                $('div#department_field').hide();
+            }
+        });
+
+        // إخفاء حقل النيابات عند التحميل الأولي إذا لم يكن الاختيار "نيابات"
+        if ($('select[name="int_ext"]').val() !== 'internal') {
+            $('div#department_field').hide();
+        }
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        // إخفاء حقل الداخلية / الخارجية عند التحميل الأولي
+        $('div#int_ext_field').hide();
+
+        // عرض حقل الداخلية / الخارجية عند اختيار "مأمورية" من القائمة المنسدلة لنوع الإجازة
+        $('select[name="type"]').change(function() {
+            var selectedOption = $(this).val();
+            if (selectedOption === 'mission') {
+                $('div#int_ext_field').show();
+            } else {
+                $('div#int_ext_field').hide();
+            }
+        });
+    });
+</script>
 
 
     <!-- Internal Select2.min js -->

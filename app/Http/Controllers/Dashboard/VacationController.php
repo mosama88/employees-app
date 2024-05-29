@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\VacationRequest;
+use Carbon\Carbon;
 use App\Models\Employee;
 use App\Models\JobGrade;
 use App\Models\Vacation;
+use App\Models\Department;
 use App\Traits\UploadTrait;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\VacationRequest;
 
 class VacationController extends Controller
 {
@@ -27,7 +28,8 @@ class VacationController extends Controller
     public function create()
     {
         $employees = Employee::all();
-        return view('dashboard.vacations.add', compact('employees'));
+        $departments = Department::all();
+        return view('dashboard.vacations.add', compact('employees','departments'));
     }
 
     public function store(VacationRequest $request)
