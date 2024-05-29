@@ -25,15 +25,15 @@
                 <div class="card-body pt-0">
 
 
-                    <form id="vacationForm" action="{{ route('dashboard.vacations.store') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form id="vacationForm" action="{{ route('dashboard.vacations.store') }}" method="POST" enctype="multipart/form-data">
+
                         @csrf
 
-                        {{-- Success Message --}}
-                        <div id="successMessage" class="alert alert-primary d-none" role="alert">
-                            تم أضافة أجازة الموظف بنجاح <a href="{{ route('dashboard.vacations.index') }}"
-                                class="alert-link">أضغط هنا لمشاهدة الأضافة</a>
-                        </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="alert alert-primary d-none" role="alert">
+        تم أضافة أجازة الموظف بنجاح <a href="{{ route('dashboard.vacations.index') }}" class="alert-link">أضغط هنا لمشاهدة الأضافة</a>
+    </div>
 
                         <div class="row">
                             <div class="form-group col-6">
@@ -100,17 +100,16 @@
                                 <input name="start"
                                     class="form-control fc-datepicker @error('start') is-invalid @enderror"
                                     placeholder="MM/DD/YYYY" type="date">
-                                <div id="start-error" class="error-message alert alert-danger d-none"></div>
-
-                            </div>
+                                    <div id="start-error" class="error-message alert alert-danger d-none"></div>
+                                </div>
 
                             <div class="form-group col-6">
-                                <label for="exampleInputto">إلى يوم</label>
-                                <input name="to" class="form-control fc-datepicker @error('to') is-invalid @enderror"
+                                <label for="exampleInputto">من يوم</label>
+                                <input name="to"
+                                    class="form-control fc-datepicker @error('to') is-invalid @enderror"
                                     placeholder="MM/DD/YYYY" type="date">
-                                <div id="to-error" class="error-message alert alert-danger d-none"></div>
-
-                            </div>
+                                    <div id="to-error" class="error-message alert alert-danger d-none"></div>
+                                </div>
                         </div>
 
                         <div class="row">
@@ -124,7 +123,6 @@
                                     @endforeach
                                 </select>
                                 <div id="acting_employee_id-error" class="error-message alert alert-danger d-none"></div>
-    
                             </div>
                             
                             <div class="form-group col-6">
@@ -160,55 +158,10 @@
     </div>
     </div>
 
-    <script>
-        var loadFile = function(event) {
-            var output = document.getElementById('output');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
-            }
-        };
-    </script>
+
 @endsection
 
 @section('scripts')
-
-<script>
-    $(document).ready(function() {
-        // اختيار الحقل النيابات عند اختيار "نيابات" من القائمة المنسدلة
-        $('select[name="int_ext"]').change(function() {
-            var selectedOption = $(this).val();
-            if (selectedOption === 'internal') {
-                $('div#department_field').show();
-            } else {
-                $('div#department_field').hide();
-            }
-        });
-
-        // إخفاء حقل النيابات عند التحميل الأولي إذا لم يكن الاختيار "نيابات"
-        if ($('select[name="int_ext"]').val() !== 'internal') {
-            $('div#department_field').hide();
-        }
-    });
-</script>
-
-
-<script>
-    $(document).ready(function() {
-        // إخفاء حقل الداخلية / الخارجية عند التحميل الأولي
-        $('div#int_ext_field').hide();
-
-        // عرض حقل الداخلية / الخارجية عند اختيار "مأمورية" من القائمة المنسدلة لنوع الإجازة
-        $('select[name="type"]').change(function() {
-            var selectedOption = $(this).val();
-            if (selectedOption === 'mission') {
-                $('div#int_ext_field').show();
-            } else {
-                $('div#int_ext_field').hide();
-            }
-        });
-    });
-</script>
 
 
     <!-- Internal Select2.min js -->
@@ -256,51 +209,3 @@
 
 @endsection
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{-- @section('scripts')
-    <!-- Internal Select2.min js -->
-
-    <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
-
-    <!--Internal  Datepicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
-
-
-    <!--Internal  jquery.maskedinput js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
-
-    <!--Internal  spectrum-colorpicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
-
-    <!-- Internal Select2.min js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/select2/js/select2.min.js"></script>
-
-    <!--Internal Ion.rangeSlider.min js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-
-    <!--Internal  jquery-simple-datetimepicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
-
-    <!-- Ionicons js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
-
-    <!--Internal  pickerjs js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/pickerjs/picker.min.js"></script>
-
-        <!-- Internal form-elements js -->
-        <script src="{{ asset('dashboard') }}/assets/js/form-elements.js"></script>
-
-
-@endsection --}}

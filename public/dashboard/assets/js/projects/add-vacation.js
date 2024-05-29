@@ -1,4 +1,45 @@
 
+
+$(document).ready(function() {
+    // اختيار الحقل النيابات عند اختيار "نيابات" من القائمة المنسدلة
+    $('select[name="int_ext"]').change(function() {
+        var selectedOption = $(this).val();
+        if (selectedOption === 'internal') {
+            $('div#department_field').show();
+        } else {
+            $('div#department_field').hide();
+        }
+    });
+
+    // إخفاء حقل النيابات عند التحميل الأولي إذا لم يكن الاختيار "نيابات"
+    if ($('select[name="int_ext"]').val() !== 'internal') {
+        $('div#department_field').hide();
+    }
+});
+
+
+$(document).ready(function() {
+    // إخفاء حقل الداخلية / الخارجية عند التحميل الأولي
+    $('div#int_ext_field').hide();
+
+    // عرض حقل الداخلية / الخارجية عند اختيار "مأمورية" من القائمة المنسدلة لنوع الإجازة
+    $('select[name="type"]').change(function() {
+        var selectedOption = $(this).val();
+        if (selectedOption === 'mission') {
+            $('div#int_ext_field').show();
+        } else {
+            $('div#int_ext_field').hide();
+        }
+    });
+});
+
+
+
+
+
+
+
+
 $(document).ready(function() {
     $('#vacationForm').on('submit', function(e) {
         e.preventDefault(); // Prevent the default form submission
@@ -42,14 +83,7 @@ $(document).ready(function() {
 
 
 
-// Function to load and preview the selected image
-var loadFile = function (event) {
-    var output = document.getElementById('output');
-    output.src = URL.createObjectURL(event.target.files[0]);
-    output.onload = function () {
-        URL.revokeObjectURL(output.src) // free memory
-    }
-};
+
 
 $(document).ready(function () {
     $('#vacationForm').on('submit', function (e) {
@@ -91,3 +125,15 @@ $(document).ready(function () {
         });
     });
 });
+
+
+
+
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+        URL.revokeObjectURL(output.src) // free memory
+    }
+};
+

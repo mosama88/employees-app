@@ -50,7 +50,6 @@
                                 <input type="text" name="name" value="{{ old('name') }}" class="form-control"
                                     id="name" placeholder="أدخل الأسم">
                                 <div id="name-error" class="error-message alert alert-danger d-none"></div>
-
                             </div>
 
                             {{-- Appointments Inputs --}}

@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->text('notes')->nullable();
             $table->string('file')->nullable();
             $table->boolean('status')->nullable();
-            $table->foreignId('acting_employee_id')->references('id')->on('employees')->cascadeOnDelete();
+            $table->foreignId('acting_employee_id')->references('id')->on('employees')->cascadeOnDelete()->nullable();;
             $table->timestamps();
         });
     }

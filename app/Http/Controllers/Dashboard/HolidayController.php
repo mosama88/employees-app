@@ -63,18 +63,6 @@ class HolidayController extends Controller
         return redirect()->route('dashboard.holidays.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    // public function destroy(Request $request)
-    // {
-    //     // Find the post by its ID
-    //     Holiday::findOrFail($request->id)->delete();
-
-    //     // Return a response indicating success
-    //     session()->flash('success', 'تم حذف العطلة بنجاح');
-    //     return redirect()->route('dashboard.holidays.index');
-    // }
 
 
     public function destroy(Request $request, $id)

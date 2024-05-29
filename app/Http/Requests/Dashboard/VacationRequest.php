@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Dashboard;
 
+use App\Models\Employee;
+use UniqueActingEmployee;
 use Illuminate\Foundation\Http\FormRequest;
 
 class VacationRequest extends FormRequest
@@ -27,9 +29,9 @@ class VacationRequest extends FormRequest
             'to' => 'required|date',
             'notes' => 'nullable|string|max:1000',
             'employee_id'=> 'required|exists:employees,id',
+            // 'acting_employee_id' => ['nullable', new UniqueActingEmployee], // Apply custom rule
             'file'=> 'file|mimes:docx,doc,pdf,png,webp,jpg,jpeg',
             'status'=> 'nullable',
-
         ];
     }
 
@@ -51,8 +53,20 @@ class VacationRequest extends FormRequest
             'employee_id.required' => 'برجاء أختيار الموظف.',
             'employee_id.exists' => 'الموظف المحدد غير موجود.',
             ########################################################
+            // 'acting_employee_id.exists' => 'الموظف القائم بأعمالة المحدد غير موجود.',
+            ########################################################
             'file.file'=>'يجب أن يكون حقل الصورة من نوع ملف.',
             'file.mimes'=>'يجب أن يكون حقل الملف  من النوع:، doc,docs,pdf,png,webp,jpg,jpeg.',
         ];
+    }
+
+    public function passes($attribute, $value)
+    {
+        // احصل على اسم الموظف المعتمد
+        $actingEmployeeName = Employee::find($value)->name;
+
+        // قم بفحص ما إذا كان اسم الموظف المعتمد مطابقًا لاسم الموظف الرئيسي
+        return $actingEmployeeName != Employee::find(request()->input('employee_id'))->name;
+
     }
 }

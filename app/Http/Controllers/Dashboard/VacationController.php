@@ -40,15 +40,9 @@ class VacationController extends Controller
             $vacation->to = $request->to;
             $vacation->notes = $request->notes;
             $vacation->status = 0;
-
             $vacation->acting_employee_id = $request->acting_employee_id;
-
             $vacation->save();
-
             $vacation->vacationEmployee()->attach($request->employee_id);
-            // $vacation->actingEmployeeVacations()->attach($request->acting_employee_id);
-
-
             //Upload img
             $this->verifyAndStoreFile($request,'photo','vacations/','upload_image',$vacation->id,'App\Models\Vacation');
 
@@ -93,7 +87,6 @@ class VacationController extends Controller
         $vacation->save();
         // update pivot tABLE
         $vacation->vacationEmployee()->sync($request->employee_id);
-        // $vacation->actingEmployeeVacations()->sync($request->acting_employee_id);
         $vacation->save();
 
         // update attachment
@@ -121,8 +114,8 @@ class VacationController extends Controller
             }
             {
                 Vacation::destroy($request->id);
-                session()->flash('success', 'تم حذف الأجازة بنجاح');
-                return back();
+                return response()->json(['success' => 'Holiday deleted successfully']);
+
             }
 //----------------------------------------------
         }
@@ -136,9 +129,11 @@ class VacationController extends Controller
         }
 
         Vacation::destroy($delete_select_id);
-        session()->flash('success', 'تم حذف الأجازة بنجاح');
-        return back();
+        return response()->json(['success' => 'Holiday deleted successfully']);
+
     }
+
+
 
 
     public function settingVacation()
