@@ -87,13 +87,27 @@
 
                         <div class="row">
                             <div class="form-group col-6">
+                                <label for="exampleInputaddress">القائم بأعماله</label>
+                                <select name="acting_employee_id"
+                                    class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
+                                    <option disabled selected="">افتح قائمة التحديد</option>
+                                    @foreach ($employees as $employee)
+                                        <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                                    @endforeach
+                                </select>
+                                <div id="acting_employee_id-error" class="error-message alert alert-danger d-none"></div>
+    
+                            </div>
+                            
+                            <div class="form-group col-6">
                                 <label for="examplenotes">ملاحظات</label>
                                 <textarea name="notes" class="form-control" id="examplenotes" placeholder="أدخل ملاحظاتك" rows="3"></textarea>
                                 <div id="notes-error" class="error-message alert alert-danger d-none"></div>
                             </div>
-
+                        </div>
+                            <div class="row">
+                                <div class="form-group col-12">
                             {{-- Image Inputs --}}
-                            <div class="form-group col-6">
                                 <label for="example-text-input" class=" col-form-label">المرفقات</label>
                                 <input class="form-control" accept="image/*" name="photo" value="{{ old('photo') }}"
                                     type="file" id="example-text-input" onchange="loadFile(event)">
@@ -101,22 +115,9 @@
                                 <div id="photo-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
-                        <div id="photo-error" class="error-message alert alert-danger d-none"></div>
 
 
-                        <div class="form-group col-6">
-                            <label for="exampleInputaddress">القائم بأعماله</label>
-                            <select name="acting_employee_id"
-                                class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
-                                <option disabled selected="">افتح قائمة التحديد</option>
-                                @foreach ($employees as $employee)
-                                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
-                                @endforeach
-                            </select>
-                            <div id="acting_employee_id-error" class="error-message alert alert-danger d-none"></div>
-
-                        </div>
-
+                       
                 </div>
                 {{-- Submit --}}
                 <div class="col-12 mb-4 text-center">

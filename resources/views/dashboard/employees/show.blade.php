@@ -40,10 +40,10 @@
                         </div>
                         <div class="col-8">
                             <h3 style="color: blue; font-weight:900;font-size:25px" class="my-3 mx-auto mb-3">
-                                {{-- {{ $employee->name }}</h3> --}}
-                                أجازات {{ $employee->name }} لسنة                    <div class="btn-group dropdown">
+                                    أجازات {{ $employee->name }} لسنة 
+                                <div class="btn-group dropdown mr-5">
+                                    <button data-toggle="dropdown" class="btn btn-primary btn-block" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" aria-expanded="false">أختر السنه <i class="icon ion-ios-arrow-down tx-11 mg-l-3"></i></button>
                                     <button type="button" class="btn btn-primary" id="selectedYear">{{ $currentYear }}</button>
-                                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate">
@@ -142,6 +142,7 @@
                                         <th>نوع الأجازه</th>
                                         <th>من</th>
                                         <th>إلى</th>
+                                        <th>القائم بأعماله</th>
                                         <th>عدد الأيام</th>
                                         <th>المرفقات</th>
 
@@ -154,6 +155,7 @@
                                             <td>{{ $vacation->typeVaction() }}</td>
                                             <td>{{ $vacation->start }}</td>
                                             <td>{{ $vacation->to }}</td>
+                                            <td>{{$vacation->employee->name }}</td>
                                             <td>{{ $vacation->calculateTotalDaysExcludingFridays() }}</td>
                                             <td>
                                                 @if ($vacation->image)                                    

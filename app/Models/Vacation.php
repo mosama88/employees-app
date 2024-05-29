@@ -20,6 +20,7 @@ class Vacation extends Model
         'file',
         'employee_id',
         'acting_employee_id',
+        'status',
         ];
 
 

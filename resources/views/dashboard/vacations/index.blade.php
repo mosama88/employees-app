@@ -34,6 +34,7 @@
                                         <th class="border-bottom-0">إلى</th>
                                         <th class="border-bottom-0">عدد الايام</th>
                                         <th class="border-bottom-0">القائم بأعماله</th>
+                                        <th class="border-bottom-0">حالة الأجازه</th>
                                         <th class="border-bottom-0">ملاحظات</th>
                                         <th class="border-bottom-0">العمليات</th>
                                     </tr>
@@ -53,10 +54,17 @@
                                             <td>{{ $vacation->start }}</td>
                                             <td>{{ $vacation->to }}</td>
                                             <td>{{ $vacation->calculateTotalDaysExcludingFridays() }}</td>
+                                            <td>{{$vacation->employee->name }}</td>
                                             <td>
-                                                {{$vacation->employee->name }}
-                                            </td>
-                                            <td>{{ $vacation->notes }}</td>
+                                                @if ($vacation->status == '1')
+                                                    <span class="badge bg-success">موافق</span>
+                                                @else
+                                                    <span class="badge bg-danger">غير موافق</span>
+                                                @endif
+                                                <div
+                                                    class="dot-label bg-{{ $vacation->status == '1' ? 'success' : 'danger' }} ml-1">
+                                                </div>
+                                            </td>                                            <td>{{ $vacation->notes }}</td>
                                             <td>
                                                 {{-- Edit --}}
                                                 <a class="btn btn-outline-info btn-sm"

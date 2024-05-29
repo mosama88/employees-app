@@ -104,28 +104,38 @@
                             </div>
 
 
-                            {{-- <div class="form-group col-6">
+                            <div class="form-group col-6">
                                 <label for="exampleInputaddress">القائم بأعماله</label>
-                                <select name="acting_employee_id" id="exampleInputaddress"
-                                    class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
+                                <select name="acting_employee_id" id="exampleInputaddress" class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
                                     <option disabled selected>افتح قائمة التحديد</option>
                                     @foreach ($employees as $employee)
-                                    <option value="{{ $employee->id }}"
-                                        {{ $vacation->actingEmployeeVacations->contains($employee->id) ? 'selected' : '' }}>
-                                        {{ $employee->name }}
-                                    </option>
-                                @endforeach
+                                        <option value="{{ $employee->id }}" {{ $vacation->employee && $vacation->employee->id == $employee->id ? 'selected' : '' }}>
+                                            {{ $employee->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 @error('acting_employee_id')
                                     <div id="acting_employee_id-error" class="error-message alert alert-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div> --}}
+                            </div>
 
                         </div>
+
+                        <div class="form-group col-8">
+                            <div class="checkbox">
+                                <div class="custom-checkbox custom-control">
+                                    <input type="checkbox" data-checkboxes="mygroup" name="status" {{$vacation->status == 1 ? 'checked' : ''}} class="custom-control-input" id="checkbox-2">
+                                    <label for="checkbox-2" class="custom-control-label mt-1">حالة الأجازه</label>
+                                </div>
+                            </div>
+                        </div>
+
+                   
+        
                         {{-- Image Inputs --}}
-                        <div class="form-group col-6">
+                        <div class="form-group col-8">
                             <label for="example-text-input" class=" col-form-label">المرفقات</label>
                             <input class="form-control @error('photo') is-invalid @enderror" accept="photo/*" name="photo"
                                 type="file" id="example-text-input" onchange="loadFile(event)">

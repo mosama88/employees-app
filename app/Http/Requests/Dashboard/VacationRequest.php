@@ -28,6 +28,8 @@ class VacationRequest extends FormRequest
             'notes' => 'nullable|string|max:1000',
             'employee_id'=> 'required|exists:employees,id',
             'file'=> 'file|mimes:docx,doc,pdf,png,webp,jpg,jpeg',
+            'status'=> 'nullable',
+
         ];
     }
 

@@ -37,6 +37,8 @@ class VacationController extends Controller
             $vacation->start = $request->start;
             $vacation->to = $request->to;
             $vacation->notes = $request->notes;
+            $vacation->status = 0;
+
             $vacation->acting_employee_id = $request->acting_employee_id;
 
             $vacation->save();
@@ -74,11 +76,17 @@ class VacationController extends Controller
 
     public function update(VacationRequest $request)
     {
+        if (!$request->has('status'))
+           $request->request->add(['status' => 0]);
+       else
+           $request->request->add(['status' => 1]);
         $vacation = Vacation::findOrFail($request->id);
         $vacation->type = $request->type;
         $vacation->start = $request->start;
         $vacation->to = $request->to;
         $vacation->notes = $request->notes;
+        $vacation->status = $request->status;;
+
         $vacation->acting_employee_id = $request->acting_employee_id;
         $vacation->save();
         // update pivot tABLE
