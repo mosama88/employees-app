@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('employee_vacation', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employee_id')->references('id')->on('employees')->cascadeOnDelete();;
-            $table->foreignId('vacation_id')->references('id')->on('vacations')->cascadeOnDelete();;
+            $table->foreignId('employee_id')->references('id')->on('employees')->cascadeOnDelete();
+            $table->foreignId('vacation_id')->references('id')->on('vacations')->cascadeOnDelete();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

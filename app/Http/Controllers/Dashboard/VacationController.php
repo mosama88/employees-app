@@ -38,10 +38,12 @@ try{
             $vacation->start = $request->start;
             $vacation->to = $request->to;
             $vacation->notes = $request->notes;
-            $vacation->acting = $request->acting;
+            $vacation->acting_employee_id = $request->acting_employee_id;
             $vacation->save();
 
             $vacation->vacationEmployee()->attach($request->employee_id);
+            // $vacation->actingEmployeeVacations()->attach($request->acting_employee_id);
+
 
             //Upload img
             $this->verifyAndStoreFile($request,'photo','vacations/','upload_image',$vacation->id,'App\Models\Vacation');
@@ -80,10 +82,11 @@ try{
         $vacation->start = $request->start;
         $vacation->to = $request->to;
         $vacation->notes = $request->notes;
-        $vacation->acting = $request->acting;
+        $vacation->acting_employee_id = $request->acting_employee_id;
         $vacation->save();
         // update pivot tABLE
         $vacation->vacationEmployee()->sync($request->employee_id);
+        // $vacation->actingEmployeeVacations()->sync($request->acting_employee_id);
         $vacation->save();
 
         // update attachment

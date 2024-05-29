@@ -17,7 +17,17 @@ class JobGradeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->randomElement(['الأولى ب','الأولى أ','الثانية ب','الثانية أ','الثالثه ج','الثالثه ب','الثالثة أ']),
-        ];
+            'name' => $this->faker->unique()->randomElement([
+            'الأولى أ',
+            'الأولى ب',
+            'الثانية أ',
+            'الثانية ب',
+            'الثالثة أ',
+            'الثالثه ب',
+            'الثالثه ج',
+            'الرابعه أ',
+            'الرابعه ب',
+            ]
+        )];
     }
 }

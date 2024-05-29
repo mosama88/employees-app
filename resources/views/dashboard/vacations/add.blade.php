@@ -106,14 +106,14 @@
 
                         <div class="form-group col-6">
                             <label for="exampleInputaddress">القائم بأعماله</label>
-                            <select name="acting"
-                                class="form-control select2 @error('acting') is-invalid @enderror">
+                            <select name="acting_employee_id"
+                                class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
                                 <option disabled selected="">افتح قائمة التحديد</option>
                                 @foreach ($employees as $employee)
                                     <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                                 @endforeach
                             </select>
-                            <div id="acting-error" class="error-message alert alert-danger d-none"></div>
+                            <div id="acting_employee_id-error" class="error-message alert alert-danger d-none"></div>
 
                         </div>
 

@@ -3,11 +3,12 @@
 namespace App\Models;
 use Carbon\Carbon;
 use App\Models\JobGrade;
+use function PHPSTORM_META\type;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-use function PHPSTORM_META\type;
 
 class Employee extends Model
 {
@@ -24,6 +25,13 @@ protected $fillable =[
     'address_id',
     'department_id',
 ];
+
+   // العلاقة مع جدول EmployeeVacation كقائم بأعمال
+   public function actingEmployeeVacations(): HasMany
+   {
+       return $this->hasMany(Vacation::class, 'acting_employee_id');
+   }
+
 
     public function image(): MorphOne
     {

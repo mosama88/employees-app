@@ -3,18 +3,18 @@
 
 @section('page-title', 'تعديل طلب أجازة')
 @section('page-link-back')
-<li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}"><i class="fas fa-home"></i></a>
-</li>
-<li class="breadcrumb-item"><a href="{{ route('dashboard.vacations.index') }}">تعديل طلب أجازة</a>
-</li>
+    <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}"><i class="fas fa-home"></i></a>
+    </li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.vacations.index') }}">تعديل طلب أجازة</a>
+    </li>
 @endsection
 @section('current-page', 'تعديل طلب أجازة')
 @section('css')
-<link href="{{asset('dashboard/assets/plugins/fileuploads/css/fileupload.css')}}" rel="stylesheet" type="text/css"/>
-<link href="{{asset('dashboard/assets/plugins/fancyuploder/fancy_fileupload.css')}}" rel="stylesheet" />
+    <link href="{{ asset('dashboard/assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard/assets/plugins/fancyuploder/fancy_fileupload.css') }}" rel="stylesheet" />
 @endsection
 @section('content')
-{{--    @include('dashboard.messages_alert')--}}
+    {{--    @include('dashboard.messages_alert') --}}
 
     <div class="row row-sm">
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
@@ -40,23 +40,26 @@
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="exampleInputaddress">أختر الموظف</label>
-                                <select name="employee_id" class="form-control select2 @error('employee_id') is-invalid @enderror">
+                                <select name="employee_id"
+                                    class="form-control select2 @error('employee_id') is-invalid @enderror">
                                     <option disabled selected="">افتح قائمة التحديد</option>
-                                    @foreach($employees as $employee)
-                                        <option value="{{ $employee->id }}" {{ $vacation->vacationEmployee->contains($employee->id) ? 'selected' : '' }}>
+                                    @foreach ($employees as $employee)
+                                        <option value="{{ $employee->id }}"
+                                            {{ $vacation->vacationEmployee->contains($employee->id) ? 'selected' : '' }}>
                                             {{ $employee->name }}
                                         </option>
                                     @endforeach
                                 </select>
                                 @error('employee_id')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group col-6">
                                 <label for="exampleInputaddress">نوع الأجازه</label>
-                                <select name="type" class="form-control select2-no-search @error('type') is-invalid @enderror" id="selectFormgrade"
-                                        aria-label="Default select example" tabindex="-1">
+                                <select name="type"
+                                    class="form-control select2-no-search @error('type') is-invalid @enderror"
+                                    id="selectFormgrade" aria-label="Default select example" tabindex="-1">
                                     <option disabled selected="">افتح قائمة التحديد</option>
                                     <option value="satisfying"{{ $vacation->type === 'satisfying' ? 'selected' : '' }}>مرضى
                                     </option>
@@ -70,7 +73,7 @@
                                     </option>
                                 </select>
                                 @error('type')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -78,16 +81,18 @@
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="exampleInputto">من يوم</label>
-                                <input class="form-control fc-datepicker @error('file') is-invalid @enderror" name="start" value="{{ $vacation->start }}" placeholder="MM/DD/YYYY" type="text">
+                                <input class="form-control fc-datepicker @error('file') is-invalid @enderror" name="start"
+                                    value="{{ $vacation->start }}" placeholder="MM/DD/YYYY" type="text">
                                 @error('start')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group col-6">
                                 <label for="exampleInputto">إلى يوم</label>
-                                <input class="form-control fc-datepicker @error('file') is-invalid @enderror" name="to" value="{{ $vacation->to }}" placeholder="MM/DD/YYYY" type="text">
+                                <input class="form-control fc-datepicker @error('file') is-invalid @enderror" name="to"
+                                    value="{{ $vacation->to }}" placeholder="MM/DD/YYYY" type="text">
                                 @error('to')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -99,28 +104,47 @@
                             </div>
 
 
-                            {{-- Image Inputs --}}
                             <div class="form-group col-6">
-                                <label for="example-text-input" class=" col-form-label">المرفقات</label>
-                                <input class="form-control @error('photo') is-invalid @enderror" accept="photo/*" name="photo" type="file"
-                                       id="example-text-input" onchange="loadFile(event)">
-                                <img class="rounded-circle avatar-xl my-3" id="output" />
-                                @error('photo')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <label for="exampleInputaddress">القائم بأعماله</label>
+                                <select name="acting_employee_id" id="exampleInputaddress"
+                                    class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
+                                    <option disabled selected>افتح قائمة التحديد</option>
+                                    @foreach ($employees as $employee)
+                                    <option value="{{ $employee->id }}"
+                                        {{ $vacation->actingEmployeeVacations->contains($employee->id) ? 'selected' : '' }}>
+                                        {{ $employee->name }}
+                                    </option>
+                                @endforeach
+                                </select>
+                                @error('acting_employee_id')
+                                    <div id="acting_employee_id-error" class="error-message alert alert-danger">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </div>
-                        </div>
 
-                        {{-- Submit --}}
-                        <div class="col-12 mb-4 text-center">
-                            <input class="btn btn-outline-success" type="submit" value="تاكيد البيانات">
-                            <a href="{{ route('dashboard.vacations.index') }}"
-                               class="btn btn-outline-dark mx-2">رجوع</a>
                         </div>
-                    </form>
+                        {{-- Image Inputs --}}
+                        <div class="form-group col-6">
+                            <label for="example-text-input" class=" col-form-label">المرفقات</label>
+                            <input class="form-control @error('photo') is-invalid @enderror" accept="photo/*" name="photo"
+                                type="file" id="example-text-input" onchange="loadFile(event)">
+                            <img class="rounded-circle avatar-xl my-3" id="output" />
+                            @error('photo')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                 </div>
+
+                {{-- Submit --}}
+                <div class="col-12 mb-4 text-center">
+                    <input class="btn btn-outline-success" type="submit" value="تاكيد البيانات">
+                    <a href="{{ route('dashboard.vacations.index') }}" class="btn btn-outline-dark mx-2">رجوع</a>
+                </div>
+                </form>
             </div>
         </div>
+    </div>
     </div>
     <!-- Internal Select2 js-->
     <script src="{{ 'dashboard/assets/plugins/select2/js/select2.min.js' }}"></script>
@@ -139,7 +163,7 @@
 
 @section('scripts')
     <!-- Internal Select2.min js -->
-    <script src="{{asset('dashboard/assets/plugins/select2/js/select2.min.js')}}"></script>
+    <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
 
     <!--Internal  Datepicker js -->
     <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
@@ -172,4 +196,3 @@
 
 @endsection
 @endsection
-

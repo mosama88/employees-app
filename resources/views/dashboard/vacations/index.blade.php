@@ -33,6 +33,7 @@
                                         <th class="border-bottom-0">من</th>
                                         <th class="border-bottom-0">إلى</th>
                                         <th class="border-bottom-0">عدد الايام</th>
+                                        <th class="border-bottom-0">القائم بأعماله</th>
                                         <th class="border-bottom-0">ملاحظات</th>
                                         <th class="border-bottom-0">العمليات</th>
                                     </tr>
@@ -52,6 +53,11 @@
                                             <td>{{ $vacation->start }}</td>
                                             <td>{{ $vacation->to }}</td>
                                             <td>{{ $vacation->calculateTotalDaysExcludingFridays() }}</td>
+                                            <td>
+                                                @foreach ($vacation->actingEmployeeVacations as $employee)
+                                                {{ $employee->name }}
+                                                @endforeach
+                                            </td>
                                             <td>{{ $vacation->notes }}</td>
                                             <td>
                                                 {{-- Edit --}}
@@ -61,8 +67,8 @@
 
                                                 {{-- Print --}}
                                                 <a class="btn btn-outline-primary btn-sm"
-                                                href="{{route('dashboard.vacation-print',$vacation->id)}}">
-                                                <i class="fas fa-print"></i></a>
+                                                    href="{{ route('dashboard.vacation-print', $vacation->id) }}">
+                                                    <i class="fas fa-print"></i></a>
 
                                                 {{-- Delete --}}
                                                 <a class="modal-effect btn btn-outline-danger btn-sm"
@@ -72,7 +78,6 @@
                                         </tr>
                                         @include('dashboard.vacations.delete')
                                         {{-- @include('dashboard.vacations.print') --}}
-
                                     @endforeach
                                 </tbody>
                             </table>
@@ -85,7 +90,7 @@
 
     <div class="main-navbar-backdrop"></div>
 
-    @endsection
+@endsection
 
 @section('scripts')
 

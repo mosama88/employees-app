@@ -27,7 +27,7 @@ class VacationRequest extends FormRequest
             'to' => 'required|date',
             'notes' => 'nullable|string|max:1000',
             'employee_id'=> 'required|exists:employees,id',
-            'acting'=> 'required|exists:employees,id',
+            'acting_employee_id'=> 'required|exists:employees,id',
             'file'=> 'file|mimes:docx,doc,pdf,png,webp,jpg,jpeg',
         ];
     }

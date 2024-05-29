@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vacation extends Model
 {
@@ -17,8 +18,9 @@ class Vacation extends Model
         'to',
         'notes',
         'file',
-        'acting'
-    ];
+        'employee_id',
+        'acting_employee_id',
+        ];
 
 
     public function image(): MorphOne
@@ -28,7 +30,7 @@ class Vacation extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class,'acting');
+        return $this->belongsTo(Employee::class);
     }
 
 
@@ -104,6 +106,14 @@ class Vacation extends Model
     {
         return $this->belongsToMany(Employee::class, 'employee_vacation');
     }
+
+
+
+      // العلاقة مع جدول EmployeeVacation كقائم بأعمال
+   public function actingEmployeeVacations(): HasMany
+   {
+       return $this->hasMany(Employee::class, 'acting_employee_id');
+   }
 
 
     // Mutator for the 'start' attribute
