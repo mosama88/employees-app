@@ -32,13 +32,13 @@ class VacationController extends Controller
 
     public function store(VacationRequest $request)
     {
-try{
-            $vacation = new Vacation();
+       $vacation = new Vacation();
             $vacation->type = $request->type;
             $vacation->start = $request->start;
             $vacation->to = $request->to;
             $vacation->notes = $request->notes;
             $vacation->acting_employee_id = $request->acting_employee_id;
+
             $vacation->save();
 
             $vacation->vacationEmployee()->attach($request->employee_id);
@@ -51,12 +51,9 @@ try{
             session()->flash('success', 'تم أضافة الأجازه بنجاح');
             return redirect()->route('dashboard.vacations.index');
         }
-        catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
+    
 
-    }
+
     /**
      * Display the specified resource.
      */

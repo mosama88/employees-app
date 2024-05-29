@@ -54,9 +54,7 @@
                                             <td>{{ $vacation->to }}</td>
                                             <td>{{ $vacation->calculateTotalDaysExcludingFridays() }}</td>
                                             <td>
-                                                @foreach ($vacation->actingEmployeeVacations as $employee)
-                                                {{ $employee->name }}
-                                                @endforeach
+                                                {{$vacation->employee->name }}
                                             </td>
                                             <td>{{ $vacation->notes }}</td>
                                             <td>

@@ -30,7 +30,56 @@ class Vacation extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class,'acting_employee_id');
+    }
+
+
+    public function jobgrade()
+    {
+        return $this->belongsTo(JobGrade::class, 'job_grades_id');
+    }
+
+
+    public function vacationEmployee()
+    {
+        return $this->belongsToMany(Employee::class, 'employee_vacation');
+    }
+
+    public function typeVaction()
+    {
+        // تحقق مباشرة مما إذا كانت القيمة المعرفة باسم "type_blood" تساوي 1
+        if ($this->type == 'satisfying') {
+            echo "مرضى";
+        } elseif ($this->type == 'emergency') {
+            echo "عارضه";
+        } elseif ($this->type == 'regular') {
+            echo "إعتيادى";
+        } elseif ($this->type == 'Annual') {
+            echo "سنوى";
+        } elseif ($this->type == 'mission') {
+            echo "مأمورية";
+        }
+    }
+
+    public function getTotalDaysExcludingFridays()
+    {
+        // Get all vacations for this employee
+        $vacations = $this->vacations;
+
+        // Check if vacations are not null
+        if ($vacations) {
+            $totalDays = 0;
+
+            // Loop through each vacation and calculate total days excluding Fridays
+            foreach ($vacations as $vacation) {
+                $totalDays += $vacation->calculateTotalDaysExcludingFridays();
+            }
+
+            return $totalDays;
+        } else {
+            // If no vacations are found, return 0
+            return 0;
+        }
     }
 
 
@@ -56,64 +105,9 @@ class Vacation extends Model
     }
 
 
-    public function getTotalDaysExcludingFridays()
-    {
-        // Get all vacations for this employee
-        $vacations = $this->vacations;
 
-        // Check if vacations are not null
-        if ($vacations) {
-            $totalDays = 0;
+}
 
-            // Loop through each vacation and calculate total days excluding Fridays
-            foreach ($vacations as $vacation) {
-                $totalDays += $vacation->calculateTotalDaysExcludingFridays();
-            }
-
-            return $totalDays;
-        } else {
-            // If no vacations are found, return 0
-            return 0;
-        }
-    }
-
-    public function typeVaction()
-    {
-        // تحقق مباشرة مما إذا كانت القيمة المعرفة باسم "type_blood" تساوي 1
-        if ($this->type == 'satisfying') {
-            echo "مرضى";
-        } elseif ($this->type == 'emergency') {
-            echo "عارضه";
-        } elseif ($this->type == 'regular') {
-            echo "إعتيادى";
-        } elseif ($this->type == 'Annual') {
-            echo "سنوى";
-        } elseif ($this->type == 'mission') {
-            echo "مأمورية";
-        }
-    }
-
-    public function jobgrade()
-    {
-        return $this->belongsTo(JobGrade::class, 'job_grades_id');
-    }
-    // public function employees()
-    // {
-    //     return $this->hasMany(Employee::class, 'employee_id');
-    // }
-
-    public function vacationEmployee()
-    {
-        return $this->belongsToMany(Employee::class, 'employee_vacation');
-    }
-
-
-
-      // العلاقة مع جدول EmployeeVacation كقائم بأعمال
-   public function actingEmployeeVacations(): HasMany
-   {
-       return $this->hasMany(Employee::class, 'acting_employee_id');
-   }
 
 
     // Mutator for the 'start' attribute
@@ -127,6 +121,3 @@ class Vacation extends Model
     // {
     //     $this->attributes['to'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
     // }
-
-
-}

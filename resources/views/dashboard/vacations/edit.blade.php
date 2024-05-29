@@ -104,7 +104,7 @@
                             </div>
 
 
-                            <div class="form-group col-6">
+                            {{-- <div class="form-group col-6">
                                 <label for="exampleInputaddress">القائم بأعماله</label>
                                 <select name="acting_employee_id" id="exampleInputaddress"
                                     class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
@@ -121,7 +121,7 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
                         </div>
                         {{-- Image Inputs --}}
