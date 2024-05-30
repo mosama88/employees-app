@@ -26,33 +26,27 @@
 
 
                     <form id="vacationForm" action="{{ route('dashboard.vacations.store') }}" method="POST" enctype="multipart/form-data">
-
                         @csrf
-
-
-    <!-- Success Message -->
-    <div id="successMessage" class="alert alert-primary d-none" role="alert">
-        تم أضافة أجازة الموظف بنجاح <a href="{{ route('dashboard.vacations.index') }}" class="alert-link">أضغط هنا لمشاهدة الأضافة</a>
-    </div>
+                        <!-- Success Message -->
+                        <div id="successMessage" class="alert alert-primary d-none" role="alert">
+                            تم أضافة أجازة الموظف بنجاح <a href="{{ route('dashboard.vacations.index') }}" class="alert-link">أضغط هنا لمشاهدة الأضافة</a>
+                        </div>
 
                         <div class="row">
                             <div class="form-group col-6">
-                                <label for="exampleInputaddress">أختر الموظف</label>
-                                <select name="employee_id"
-                                    class="form-control select2 @error('employee_id') is-invalid @enderror">
-                                    <option disabled selected="">افتح قائمة التحديد</option>
+                                <label for="employeeSelect">أختر الموظف</label>
+                                <select name="employee_id" id="employeeSelect" class="form-control select2 @error('employee_id') is-invalid @enderror">
+                                    <option disabled selected>افتح قائمة التحديد</option>
                                     @foreach ($employees as $employee)
                                         <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                                     @endforeach
                                 </select>
                                 <div id="employee_id-error" class="error-message alert alert-danger d-none"></div>
-
                             </div>
                             <div class="form-group col-6" id="type_field">
-                                <label for="exampleInputaddress">نوع الأجازه</label>
-                                <select name="type" class="form-control select2-no-search @error('type') is-invalid @enderror"
-                                    id="selectFormgrade" aria-label="Default select example" tabindex="-1">
-                                    <option value="" selected="" disabled> -- افتح قائمة التحديد --</option>
+                                <label for="typeSelect">نوع الأجازه</label>
+                                <select name="type" id="typeSelect" class="form-control select2-no-search @error('type') is-invalid @enderror">
+                                    <option value="" selected disabled> -- افتح قائمة التحديد --</option>
                                     <option value="satisfying">مرضى</option>
                                     <option value="emergency">عارضه</option>
                                     <option value="regular">إعتيادى</option>
@@ -63,11 +57,10 @@
                             </div>
                         </div>
 
-
                         <div class="row">
                             <div class="form-group col-6" id="int_ext_field">
-                                <label for="exampleInputaddress">داخلية / خارجيه</label>
-                                <select name="int_ext" class="form-control select2 @error('int_ext') is-invalid @enderror">
+                                <label for="intExtSelect">داخلية / خارجيه</label>
+                                <select name="int_ext" id="intExtSelect" class="form-control select2 @error('int_ext') is-invalid @enderror">
                                     <option disabled selected>افتح قائمة التحديد</option>
                                     <option value="internal">نيابات</option>
                                     <option value="external">جهه خارجيه</option>
@@ -75,88 +68,73 @@
                                 <div id="int_ext-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
-                        
+
                         <div class="row" id="department_field">
                             <div class="form-group col-6">
-                                <label for="exampleInputdepartment">النيابات</label>
-                                <select name="department_id" value="{{ old('department_id') }}" class="form-control select2">
+                                <label for="departmentSelect">النيابات</label>
+                                <select name="department_id" id="departmentSelect" class="form-control select2">
                                     <option disabled selected>افتح قائمة التحديد</option>
                                     @foreach ($departments as $department)
-                                        <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>
-                                            {{ $department->branch }}
-                                        </option>
+                                        <option value="{{ $department->id }}">{{ $department->branch }}</option>
                                     @endforeach
                                 </select>
                                 <div id="department_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
-
-
-
                         <div class="row">
-                            <div class="form-group col-6">
-                                <label for="exampleInputto">من يوم</label>
-                                <input name="start"
-                                    class="form-control fc-datepicker @error('start') is-invalid @enderror"
-                                    placeholder="MM/DD/YYYY" type="date">
-                                    <div id="start-error" class="error-message alert alert-danger d-none"></div>
-                                </div>
-
-                            <div class="form-group col-6">
-                                <label for="exampleInputto">من يوم</label>
-                                <input name="to"
-                                    class="form-control fc-datepicker @error('to') is-invalid @enderror"
-                                    placeholder="MM/DD/YYYY" type="date">
-                                    <div id="to-error" class="error-message alert alert-danger d-none"></div>
-                                </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label for="exampleInputaddress">القائم بأعماله</label>
-                                <select name="acting_employee_id"
-                                    class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
-                                    <option disabled selected="">افتح قائمة التحديد</option>
+                            <div class="form-group col-6" id="acting_employee_field">
+                                <label for="actingEmployeeSelect">القائم بأعماله</label>
+                                <select name="acting_employee_id" id="actingEmployeeSelect" class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
+                                    <option disabled selected>افتح قائمة التحديد</option>
+                                    <option value="1">لا يوجد</option>
                                     @foreach ($employees as $employee)
                                         <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                                     @endforeach
                                 </select>
                                 <div id="acting_employee_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
-                            
+                        </div>
+
+                        <div class="row">
                             <div class="form-group col-6">
-                                <label for="examplenotes">ملاحظات</label>
-                                <textarea name="notes" class="form-control" id="examplenotes" placeholder="أدخل ملاحظاتك" rows="3"></textarea>
+                                <label for="startInput">من يوم</label>
+                                <input name="start" id="startInput" class="form-control fc-datepicker @error('start') is-invalid @enderror" type="date">
+                                <div id="start-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="toInput">إلى يوم</label>
+                                <input name="to" id="toInput" class="form-control fc-datepicker @error('to') is-invalid @enderror" type="date">
+                                <div id="to-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <label for="notesTextarea">ملاحظات</label>
+                                <textarea name="notes" id="notesTextarea" class="form-control" placeholder="أدخل ملاحظاتك" rows="3"></textarea>
                                 <div id="notes-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
-                            <div class="row">
-                                <div class="form-group col-12">
-                            {{-- Image Inputs --}}
-                                <label for="example-text-input" class=" col-form-label">المرفقات</label>
-                                <input class="form-control" accept="image/*" name="photo" value="{{ old('photo') }}"
-                                    type="file" id="example-text-input" onchange="loadFile(event)">
+
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <label for="photoInput">المرفقات</label>
+                                <input class="form-control" accept="image/*" name="photo" type="file" id="photoInput" onchange="loadFile(event)">
                                 <img class="rounded-circle avatar-xl my-3" id="output" />
                                 <div id="photo-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
-
-                       
-                </div>
-                {{-- Submit --}}
-                <div class="col-12 mb-4 text-center">
-                    <button class="btn btn-outline-success" type="submit">تاكيد البيانات</button>
-                    <a href="{{ route('dashboard.vacations.index') }}" class="btn btn-outline-dark mx-2">رجوع</a>
-                </div>
-            </div>
-            </form>
+                        <div class="col-12 mb-4 text-center">
+                            <button class="btn btn-outline-success" type="submit">تاكيد البيانات</button>
+                            <a href="{{ route('dashboard.vacations.index') }}" class="btn btn-outline-dark mx-2">رجوع</a>
+                        </div>
+                    </form>
 
         </div>
     </div>
-    </div>
-    </div>
+
 
 
 @endsection

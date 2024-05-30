@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Dashboard;
 
 use App\Models\Employee;
-use UniqueActingEmployee;
+use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class VacationRequest extends FormRequest
@@ -24,15 +24,33 @@ class VacationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type'=>'required|string|in:satisfying,emergency,regular,Annual,mission',
+            'type' => 'required|string|in:satisfying,emergency,regular,Annual,mission',
             'start' => 'required|date',
             'to' => 'required|date',
             'notes' => 'nullable|string|max:1000',
-            'employee_id'=> 'required|exists:employees,id',
-            // 'acting_employee_id' => ['nullable', new UniqueActingEmployee], // Apply custom rule
-            'file'=> 'file|mimes:docx,doc,pdf,png,webp,jpg,jpeg',
-            'status'=> 'nullable',
+            'employee_id' => 'required|exists:employees,id',
+            'file' => 'nullable|file|mimes:docx,doc,pdf,png,webp,jpg,jpeg',
+            'status' => 'nullable',
+            'int_ext' => 'nullable|string|in:internal,external',
+            'department_id' => 'nullable|exists:departments,id',
+            'acting_employee_id' => 'nullable|exists:employees,id',
         ];
+    }
+
+    protected function withValidator(Validator $validator)
+    {
+        $validator->sometimes('int_ext', 'required', function ($input) {
+            return $input->type === 'mission';
+        });
+
+        $validator->sometimes('department_id', 'required', function ($input) {
+            return $input->type === 'mission' && $input->int_ext === 'internal';
+        });
+
+        $validator->sometimes('acting_employee_id', 'required', function ($input) {
+            return $input->type !== 'mission';
+        });
+
     }
 
 

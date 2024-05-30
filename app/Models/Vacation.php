@@ -18,9 +18,10 @@ class Vacation extends Model
         'to',
         'notes',
         'file',
-        'employee_id',
-        'acting_employee_id',
+        'int_ext',
         'status',
+        'acting_employee_id',
+        'department_id',
         ];
 
 
@@ -40,6 +41,12 @@ class Vacation extends Model
         return $this->belongsTo(JobGrade::class, 'job_grades_id');
     }
 
+
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 
     public function vacationEmployee()
     {

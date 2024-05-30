@@ -81,7 +81,6 @@
                                     <th class="border-bottom-0">من</th>
                                     <th class="border-bottom-0">إلى</th>
                                     <th class="border-bottom-0">عدد الايام</th>
-                                    <th class="border-bottom-0">القائم بأعماله</th>
                                     <th class="border-bottom-0">حالة الأجازه</th>
                                     <th class="border-bottom-0">ملاحظات</th>
                                     <th class="border-bottom-0">العمليات</th>
@@ -100,7 +99,6 @@
                                         <td>{{ $vacation->start }}</td>
                                         <td>{{ $vacation->to }}</td>
                                         <td>{{ $vacation->calculateTotalDaysExcludingFridays() }}</td>
-                                        <td>{{ $vacation->employee->name }}</td>
                                         <td>
                                             @if ($vacation->status == '1')
                                                 <span class="badge badge-success">موافق</span>

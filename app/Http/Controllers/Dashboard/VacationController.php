@@ -33,22 +33,43 @@ class VacationController extends Controller
     }
 
     public function store(VacationRequest $request)
-    {
-       $vacation = new Vacation();
-            $vacation->type = $request->type;
-            $vacation->start = $request->start;
-            $vacation->to = $request->to;
-            $vacation->notes = $request->notes;
-            $vacation->status = 0;
-            $vacation->acting_employee_id = $request->acting_employee_id;
-            $vacation->save();
-            $vacation->vacationEmployee()->attach($request->employee_id);
-            //Upload img
-            $this->verifyAndStoreFile($request,'photo','vacations/','upload_image',$vacation->id,'App\Models\Vacation');
+{
+    try {
+        $vacation = new Vacation();
+        $vacation->type = $request->type;
+        $vacation->start = $request->start;
+        $vacation->to = $request->to;
+        $vacation->notes = $request->notes;
+        $vacation->status = 0;
 
-            session()->flash('success', 'تم أضافة الأجازه بنجاح');
-            return redirect()->route('dashboard.vacations.index');
+        if ($request->type === 'mission') {
+            $vacation->int_ext = $request->int_ext;
+            if ($request->int_ext === 'internal') {
+                $vacation->department_id = $request->department_id;
+            } else {
+                $vacation->department_id = null;
+            }
+            $vacation->acting_employee_id = null;
+        } else {
+            $vacation->acting_employee_id = $request->acting_employee_id;
+            $vacation->int_ext = null;
+            $vacation->department_id = null;
         }
+
+        $vacation->save();
+        $vacation->vacationEmployee()->attach($request->employee_id);
+
+        // Upload img
+        $this->verifyAndStoreFile($request, 'photo', 'vacations/', 'upload_image', $vacation->id, 'App\Models\Vacation');
+
+        session()->flash('success', 'تم أضافة الأجازة بنجاح');
+        return redirect()->route('dashboard.vacations.index');
+    } catch (\Exception $e) {
+        DB::rollback();
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+    }
+}
+
 
 
 
