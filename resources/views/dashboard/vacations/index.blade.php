@@ -32,57 +32,42 @@
                         <div class="my-4">
 
 
-                            {{-- Search Form --}}
-                            <form action="{{ route('dashboard.vacations.search') }}" method="GET">
-                                <div class="row">
 
-
-                                    <div class="form-group col-4">
-                                        <label for="">بحث بأسم الموظف</label>
-                                        <select name="employee_id" class="form-control select2-no-search"
-                                            id="selectFormgrade" aria-label="Default select example" tabindex="-1">
-                                            <option value="" selected disabled>-- افتح قائمة التحديد --</option>
-                                            @foreach ($employees as $employee)
-                                                <option value="{{ $employee->id }}"
-                                                    {{ (old('employee_id') ?? ($employee_id ?? '')) == $employee->id ? 'selected' : '' }}>
-                                                    {{ $employee->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    
-                                    <div class="form-group col-4">
-                                        <label for="">بحث بنوع الاجازه</label>
-                                        <select name="type" class="form-control select2-no-search" id="selectFormgrade"
-                                            aria-label="Default select example" tabindex="-1">
-                                            <option value="" selected disabled>-- افتح قائمة التحديد --</option>
-                                            <option value="satisfying"
-                                                {{ (old('type') ?? ($type ?? '')) == 'satisfying' ? 'selected' : '' }}>مرضى
-                                            </option>
-                                            <option value="emergency"
-                                                {{ (old('type') ?? ($type ?? '')) == 'emergency' ? 'selected' : '' }}>عارضه
-                                            </option>
-                                            <option value="regular"
-                                                {{ (old('type') ?? ($type ?? '')) == 'regular' ? 'selected' : '' }}>إعتيادى
-                                            </option>
-                                            <option value="Annual"
-                                                {{ (old('type') ?? ($type ?? '')) == 'Annual' ? 'selected' : '' }}>سنوى
-                                            </option>
-                                            <option value="mission"
-                                                {{ (old('type') ?? ($type ?? '')) == 'mission' ? 'selected' : '' }}>مأمورية
-                                            </option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-2">
-                                        <button class="btn btn-primary-gradient mt-4 mb-4" type="submit">إبحث</button>
-                                    </div>
-                                </div>
-                                {{-- End Row --}}
-
-
-                            </form>
+<div id="alertMessage" class="alert alert-danger mb-0 show d-none" role="alert">
+    <span class="alert-inner--icon"><i class="fe fe-slash"></i></span>
+    <span class="alert-inner--text"><strong>Danger!</strong> قم بتغيير بعض الأمور وحاول إرسال الطلب مرة أخرى.!</span>
+</div>
+{{-- Search Form --}}
+<form id="search-form" action="{{ route('dashboard.vacations.search') }}" method="GET">
+    <div class="row">
+        <div class="form-group col-4">
+            <label for="">بحث بأسم الموظف</label>
+            <select name="employee_id" class="form-control select2-no-search" id="selectFormgrade" aria-label="Default select example" tabindex="-1">
+                <option value="" selected disabled>-- افتح قائمة التحديد --</option>
+                @foreach ($employees as $employee)
+                    <option value="{{ $employee->id }}" {{ (old('employee_id') ?? ($employee_id ?? '')) == $employee->id ? 'selected' : '' }}>
+                        {{ $employee->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group col-4">
+            <label for="">بحث بنوع الاجازه</label>
+            <select name="type" class="form-control select2-no-search" id="selectFormgrade" aria-label="Default select example" tabindex="-1">
+                <option value="" selected disabled>-- افتح قائمة التحديد --</option>
+                <option value="satisfying" {{ (old('type') ?? ($type ?? '')) == 'satisfying' ? 'selected' : '' }}>مرضى</option>
+                <option value="emergency" {{ (old('type') ?? ($type ?? '')) == 'emergency' ? 'selected' : '' }}>عارضه</option>
+                <option value="regular" {{ (old('type') ?? ($type ?? '')) == 'regular' ? 'selected' : '' }}>إعتيادى</option>
+                <option value="Annual" {{ (old('type') ?? ($type ?? '')) == 'Annual' ? 'selected' : '' }}>سنوى</option>
+                <option value="mission" {{ (old('type') ?? ($type ?? '')) == 'mission' ? 'selected' : '' }}>مأمورية</option>
+            </select>
+        </div>
+        <div class="form-group col-2">
+            <button class="btn btn-primary-gradient mt-4 mb-4" type="button" id="searchButton">إبحث</button>
+        </div>
+    </div>
+    {{-- End Row --}}
+</form>
                         </div>
                     </div>
 
@@ -152,6 +137,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $vacations->render("pagination::bootstrap-5")  }}
                     </div><!-- bd -->
                 </div><!-- bd -->
             </div><!-- bd -->
@@ -237,5 +223,40 @@
         }
     </script>
 
+
+
+
+
+
+
+{{-- Script to validate form before submission --}}
+<script>
+    $(document).ready(function() {
+        $('#searchButton').on('click', function() {
+            // Check if employee_id and type are not selected
+            if (!$('[name="employee_id"]').val() && !$('[name="type"]').val()) {
+                $('#alertMessage').removeClass('d-none'); // Show the alert message
+
+                // Hide the alert message after 2 seconds
+                setTimeout(function() {
+                    $('#alertMessage').addClass('fade-out'); // Add the fade-out effect
+                    setTimeout(function() {
+                        $('#alertMessage').addClass('d-none'); // Hide the alert message after the fade-out effect
+                    }, 1500); // 1.5 seconds for the fade-out transition
+                }, 2000); // 2 seconds before starting the fade-out
+            } else {
+                $('#alertMessage').addClass('d-none'); // Hide the alert message if it's visible
+                $('#search-form').submit(); // Submit the form if one of the fields is selected
+            }
+        });
+    });
+</script>
+
+<style>
+    .fade-out {
+        opacity: 0;
+        transition: opacity 1.5s ease-out;
+    }
+</style>
 
 @endsection

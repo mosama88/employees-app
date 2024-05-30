@@ -46,21 +46,44 @@ class Vacation extends Model
         return $this->belongsToMany(Employee::class, 'employee_vacation');
     }
 
+    // public function typeVaction()
+    // {
+    //     // تحقق مباشرة مما إذا كانت القيمة المعرفة باسم "type_blood" تساوي 1
+    //     if ($this->type == 'satisfying') {
+    //         echo "مرضى";
+    //     } elseif ($this->type == 'emergency') {
+    //         echo "عارضه";
+    //     } elseif ($this->type == 'regular') {
+    //         echo "إعتيادى";
+    //     } elseif ($this->type == 'Annual') {
+    //         echo "سنوى";
+    //     } elseif ($this->type == 'mission') {
+    //         echo "مأمورية";
+    //     }
+
+    // }
+
+
     public function typeVaction()
-    {
-        // تحقق مباشرة مما إذا كانت القيمة المعرفة باسم "type_blood" تساوي 1
-        if ($this->type == 'satisfying') {
-            echo "مرضى";
-        } elseif ($this->type == 'emergency') {
-            echo "عارضه";
-        } elseif ($this->type == 'regular') {
-            echo "إعتيادى";
-        } elseif ($this->type == 'Annual') {
-            echo "سنوى";
-        } elseif ($this->type == 'mission') {
-            echo "مأمورية";
-        }
+{
+    switch ($this->type) {
+        case 'satisfying':
+            return 'مرضى';
+        case 'emergency':
+            return 'عارضة';
+        case 'regular':
+            return 'اعتيادية';
+        case 'Annual':
+            return 'سنوية';
+        case 'mission':
+            return 'مأمورية';
+        default:
+            return $this->type;
     }
+}
+
+
+
 
     public function getTotalDaysExcludingFridays()
     {

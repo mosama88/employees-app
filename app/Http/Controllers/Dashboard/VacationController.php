@@ -19,7 +19,7 @@ class VacationController extends Controller
 
     public function index()
     {
-        $vacations = Vacation::orderBy('created_at', 'desc')->with('vacationEmployee')->get();
+        $vacations = Vacation::orderBy('created_at', 'desc')->with('vacationEmployee')->paginate(10);
         $employees = Employee::all();
         return view('dashboard.vacations.index', compact('vacations', 'employees'));
     }
@@ -163,9 +163,9 @@ class VacationController extends Controller
 
         if ($searchTerm) {
             $query->where('type', 'like', '%' . $searchTerm . '%')
-                  ->orWhereHas('vacationEmployee', function ($q) use ($searchTerm) {
-                      $q->where('name', 'like', '%' . $searchTerm . '%');
-                  });
+                ->orWhereHas('vacationEmployee', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                });
         }
 
         if ($type) {
@@ -179,6 +179,7 @@ class VacationController extends Controller
         }
 
         $vacations = $query->orderBy('created_at', 'desc')->paginate(5);
+
         $employees = Employee::all();
 
         return view('dashboard.vacations.searchvacation', [
@@ -239,3 +240,4 @@ class VacationController extends Controller
 
 //     return view('dashboard.vacations.print', compact('vacation','employee','jobgrade','department'));
 // }
+
