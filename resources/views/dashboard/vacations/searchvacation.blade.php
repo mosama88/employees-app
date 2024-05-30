@@ -1,3 +1,4 @@
+
 @extends('dashboard.layouts.master')
 @section('title', 'الأجازات')
 @section('current-page', 'الأجازات')
@@ -29,60 +30,12 @@
                     </div>
 
                     <div class="card-body p-2">
-                        <div class="my-4">
+                        <div class="input-group col-6 my-4">
+                            <input type="text" name='search' class="form-control" placeholder="Search ...">
+                            <span class="input-group-append">
+                                <button class="btn btn-primary" type="button">Search</button>
+                            </span>
 
-
-                            {{-- Search Form --}}
-                            <form action="{{ route('dashboard.vacations.search') }}" method="GET">
-                                <div class="row">
-
-
-                                    <div class="form-group col-4">
-                                        <label for="">بحث بأسم الموظف</label>
-                                        <select name="employee_id" class="form-control select2-no-search"
-                                            id="selectFormgrade" aria-label="Default select example" tabindex="-1">
-                                            <option value="" selected disabled>-- افتح قائمة التحديد --</option>
-                                            @foreach ($employees as $employee)
-                                                <option value="{{ $employee->id }}"
-                                                    {{ (old('employee_id') ?? ($employee_id ?? '')) == $employee->id ? 'selected' : '' }}>
-                                                    {{ $employee->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    
-                                    <div class="form-group col-4">
-                                        <label for="">بحث بنوع الاجازه</label>
-                                        <select name="type" class="form-control select2-no-search" id="selectFormgrade"
-                                            aria-label="Default select example" tabindex="-1">
-                                            <option value="" selected disabled>-- افتح قائمة التحديد --</option>
-                                            <option value="satisfying"
-                                                {{ (old('type') ?? ($type ?? '')) == 'satisfying' ? 'selected' : '' }}>مرضى
-                                            </option>
-                                            <option value="emergency"
-                                                {{ (old('type') ?? ($type ?? '')) == 'emergency' ? 'selected' : '' }}>عارضه
-                                            </option>
-                                            <option value="regular"
-                                                {{ (old('type') ?? ($type ?? '')) == 'regular' ? 'selected' : '' }}>إعتيادى
-                                            </option>
-                                            <option value="Annual"
-                                                {{ (old('type') ?? ($type ?? '')) == 'Annual' ? 'selected' : '' }}>سنوى
-                                            </option>
-                                            <option value="mission"
-                                                {{ (old('type') ?? ($type ?? '')) == 'mission' ? 'selected' : '' }}>مأمورية
-                                            </option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-2">
-                                        <button class="btn btn-primary-gradient mt-4 mb-4" type="submit">إبحث</button>
-                                    </div>
-                                </div>
-                                {{-- End Row --}}
-
-
-                            </form>
                         </div>
                     </div>
 
