@@ -86,8 +86,9 @@ class VacationController extends Controller
     {
         $vacation = Vacation::findOrFail($id);
         $employees = Employee::all();
+        $departments = Department::all();
 
-        return view('dashboard.vacations.edit', compact('vacation', 'employees'));
+        return view('dashboard.vacations.edit', compact('vacation', 'employees','departments'));
     }
 
 

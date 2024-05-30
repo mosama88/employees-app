@@ -77,7 +77,46 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-6" id="int_ext_field">
+                                <label for="intExtSelect">داخلية / خارجيه</label>
+                                <select name="int_ext" id="intExtSelect"
+                                    class="form-control select2 @error('int_ext') is-invalid @enderror">
+                                    <option disabled selected>افتح قائمة التحديد</option>
+                                    <option value="internal">نيابات</option>
+                                    <option value="external">جهه خارجيه</option>
+                                </select>
+                                <div id="int_ext-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+                        </div>
 
+                        <div class="row" id="department_field">
+                            <div class="form-group col-6">
+                                <label for="departmentSelect">النيابات</label>
+                                <select name="department_id" id="departmentSelect" class="form-control select2">
+                                    <option disabled selected>افتح قائمة التحديد</option>
+                                    @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}">{{ $department->branch }}</option>
+                                    @endforeach
+                                </select>
+                                <div id="department_id-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-6" id="acting_employee_field">
+                                <label for="actingEmployeeSelect">القائم بأعماله</label>
+                                <select name="acting_employee_id" id="actingEmployeeSelect"
+                                    class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
+                                    <option disabled selected>افتح قائمة التحديد</option>
+                                    <option value="1">لا يوجد</option>
+                                    @foreach ($employees as $employee)
+                                        <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                                    @endforeach
+                                </select>
+                                <div id="acting_employee_id-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="exampleInputto">من يوم</label>
@@ -106,10 +145,12 @@
 
                             <div class="form-group col-6">
                                 <label for="exampleInputaddress">القائم بأعماله</label>
-                                <select name="acting_employee_id" id="exampleInputaddress" class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
+                                <select name="acting_employee_id" id="exampleInputaddress"
+                                    class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
                                     <option disabled selected>افتح قائمة التحديد</option>
                                     @foreach ($employees as $employee)
-                                        <option value="{{ $employee->id }}" {{ $vacation->employee && $vacation->employee->id == $employee->id ? 'selected' : '' }}>
+                                        <option value="{{ $employee->id }}"
+                                            {{ $vacation->employee && $vacation->employee->id == $employee->id ? 'selected' : '' }}>
                                             {{ $employee->name }}
                                         </option>
                                     @endforeach
@@ -126,19 +167,21 @@
                         <div class="form-group col-8">
                             <div class="checkbox">
                                 <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" data-checkboxes="mygroup" name="status" {{$vacation->status == 1 ? 'checked' : ''}} class="custom-control-input" id="checkbox-2">
+                                    <input type="checkbox" data-checkboxes="mygroup" name="status"
+                                        {{ $vacation->status == 1 ? 'checked' : '' }} class="custom-control-input"
+                                        id="checkbox-2">
                                     <label for="checkbox-2" class="custom-control-label mt-1">حالة الأجازه</label>
                                 </div>
                             </div>
                         </div>
 
-                   
-        
+
+
                         {{-- Image Inputs --}}
                         <div class="form-group col-8">
                             <label for="example-text-input" class=" col-form-label">المرفقات</label>
-                            <input class="form-control @error('photo') is-invalid @enderror" accept="photo/*" name="photo"
-                                type="file" id="example-text-input" onchange="loadFile(event)">
+                            <input class="form-control @error('photo') is-invalid @enderror" accept="photo/*"
+                                name="photo" type="file" id="example-text-input" onchange="loadFile(event)">
                             <img class="rounded-circle avatar-xl my-3" id="output" />
                             @error('photo')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -155,7 +198,7 @@
             </div>
         </div>
     </div>
-    </div>
+
     <!-- Internal Select2 js-->
     <script src="{{ 'dashboard/assets/plugins/select2/js/select2.min.js' }}"></script>
 
@@ -170,23 +213,12 @@
         };
     </script>
 
+@endsection
 
 @section('scripts')
     <!-- Internal Select2.min js -->
     <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
 
-    <!--Internal  Datepicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
-
-
-    <!--Internal  jquery.maskedinput js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
-
-    <!--Internal  spectrum-colorpicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
-
-    <!-- Internal Select2.min js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/select2/js/select2.min.js"></script>
 
     <!--Internal Ion.rangeSlider.min js -->
     <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
@@ -200,9 +232,28 @@
     <!--Internal  pickerjs js -->
     <script src="{{ asset('dashboard') }}/assets/plugins/pickerjs/picker.min.js"></script>
 
-    <!-- Internal form-elements js -->
-    <script src="{{ asset('dashboard') }}/assets/js/form-elements.js"></script>
+    <!--Internal  Form-elements js-->
+    <script src="{{ asset('dashboard') }}/assets/js/advanced-form-elements.js"></script>
+
+    <!--Internal Sumoselect js-->
+    <script src="{{ asset('dashboard') }}/assets/plugins/sumoselect/jquery.sumoselect.js"></script>
+
+    <!-- Internal  js-->
+
+    <!--Internal  Datepicker js -->
+    <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
 
 
-@endsection
+    <!--Internal  jquery.maskedinput js -->
+    <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
+
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
+
+
+
+    <!--Internal Ion.rangeSlider.min js -->
+    <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+
+    <script src="{{ asset('dashboard/assets/js/projects/add-vacation.js') }}"></script>
 @endsection
