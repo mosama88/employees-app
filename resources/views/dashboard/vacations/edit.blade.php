@@ -66,7 +66,7 @@
                                     <option value="satisfying"{{ $vacation->type === 'satisfying' ? 'selected' : '' }}>مرضى</option>
                                     <option value="emergency"{{ $vacation->type === 'emergency' ? 'selected' : '' }}>عارضة</option>
                                     <option value="regular"{{ $vacation->type === 'regular' ? 'selected' : '' }}>إعتيادى</option>
-                                    <option value="annual"{{ $vacation->type === 'annual' ? 'selected' : '' }}>سنوى</option>
+                                    <option value="Annual"{{ $vacation->type === 'Annual' ? 'selected' : '' }}>سنوى</option>
                                     <option value="mission"{{ $vacation->type === 'mission' ? 'selected' : '' }}>مأمورية</option>
                                 </select>
                                 @error('type')
