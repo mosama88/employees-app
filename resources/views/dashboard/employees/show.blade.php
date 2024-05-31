@@ -144,6 +144,7 @@
                                         <th>إلى</th>
                                         <th>القائم بأعماله</th>
                                         <th>عدد الأيام</th>
+                                        <th>حالة الاجازه</th>
                                         <th>المرفقات</th>
 
                                     </tr>
@@ -157,6 +158,15 @@
                                             <td>{{ $vacation->to }}</td>
                                             <td>{{$vacation->employee->name }}</td>
                                             <td>{{ $vacation->calculateTotalDaysExcludingFridays() }}</td>
+                                            <td>
+                                                @if(isset($vacation) && $vacation->status == 'pending')
+                                                <span class="badge badge-info">معلق</span>
+                                            @elseif(isset($vacation) && $vacation->status == 'approve')
+                                                <span class="badge badge-success">موافق</span>
+                                            @elseif(isset($vacation) && $vacation->status == 'reject')
+                                                <span class="badge badge-danger">مرفوض</span>
+                                            @endif
+                                            
                                             <td>
                                                 @if ($vacation->image)                                    
                                                     <a class="btn btn-outline-primary btn-sm" href="{{ asset('dashboard/assets/images/uploads/vacations/' . $vacation->image->filename) }}" download>
