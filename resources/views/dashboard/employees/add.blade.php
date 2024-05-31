@@ -33,6 +33,8 @@
                     <h4 class="card-title mb-1 text-center">أدخل بيانات الموظف</h4>
                 </div>
                 <div class="card-body pt-0">
+
+                    {{-- Form Add Employee --}}
                     <form id="employeeForm" action="{{ route('dashboard.employees.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf

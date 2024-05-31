@@ -12,6 +12,16 @@
 @section('css')
     <link href="{{asset('dashboard/assets/plugins/fileuploads/css/fileupload.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('dashboard/assets/plugins/fancyuploder/fancy_fileupload.css')}}" rel="stylesheet"/>
+
+    <style>
+        #vacationForm {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+    </style>
 @endsection
 @section('content')
     {{--    @include('dashboard.messages_alert')--}}
@@ -23,8 +33,62 @@
                     <h4 class="card-title mb-1 text-center">إعدادات الاجازه</h4>
                 </div>
                 <div class="card-body pt-0">
+                    <div class="card-header pb-0">
+                        <div class="d-flex justify-content-between">
+                            <div class="col-sm-6 col-md-3 mb-4">
+                                <a id="requestVacationBtn" class="btn btn-outline-primary btn-block" href="#">
+                                    <i class="fas fa-plus-square"></i>
+                                    طلب إجازة
+                                </a>
+                            </div>
+                        </div>
 
+
+                        <div class="table-responsive">
+                            <table class="table table-striped mg-b-0 text-md-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Salary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Joan Powell</td>
+                                        <td>Associate Developer</td>
+                                        <td>$450,870</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Gavin Gibson</td>
+                                        <td>Account manager</td>
+                                        <td>$230,540</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 hidden" id="vacationForm">
+                <div class="card  box-shadow-0 ">
+                    <div class="card-header">
+                        <h4 class="card-title mb-1 text-center">طلب أجازه</h4>
+                    </div>
+                    <div class="card-body pt-0">
+                    {{-- Setting Vacations Form --}}
                     <form>
+                        {{-- Success Message --}}
+                                <div id="successMessage" class="alert alert-primary d-none" role="alert">
+                                    تم أضافة إعدادت الاجازه بنجاح <a href="{{ route('dashboard.employees.index') }}"
+                                        class="alert-link">أضغط هنا لمشاهدة الأضافة</a>
+                                </div>
+
                         <div class="row">
                             <div class="form-group col-6">
                                 {{-- job_grades_id Inputs --}}
@@ -113,6 +177,7 @@
         </div>
     </div>
 
+    @endsection
 
     @section('scripts')
         <!-- Internal Select2.min js -->
@@ -145,5 +210,16 @@
         <!-- Internal form-elements js -->
         {{--        <script src="{{ asset('dashboard') }}/assets/js/form-elements.js"></script>--}}
 
+
+        <script>
+            $(document).ready(function() {
+    // Hide the form initially
+    $('#vacationForm').hide();
+
+    // Show the form when the "Request Vacation" button is clicked
+    $('#requestVacationBtn').click(function() {
+        $('#vacationForm').show();
+    });
+});
+        </script>
     @endsection
-@endsection
