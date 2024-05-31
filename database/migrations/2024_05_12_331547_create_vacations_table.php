@@ -12,14 +12,14 @@ return new class extends Migration {
     {
         Schema::create('vacations', function (Blueprint $table) {
             $table->id();
-            // مأمورية     سنوى       أعتيادى        عارضة       مرضى
+                                                 // مأمورية     سنوى       أعتيادى        عارضة       مرضى
             $table->enum('type', ['satisfying', 'emergency', 'regular', 'Annual', 'mission'])->default('emergency')->nullable();
             $table->date('start')->nullable();
             $table->date('to')->nullable();
             $table->text('notes')->nullable();
             $table->string('file')->nullable();
             $table->string('int_ext')->nullable();
-            $table->boolean('status')->nullable();
+            $table->enum('status', ['pending', 'approve', 'reject'])->default('pending')->nullable();
             $table->foreignId('acting_employee_id')->nullable()->references('id')->on('employees')->cascadeOnDelete();
             $table->foreignId('department_id')->nullable()->references('id')->on('departments')->cascadeOnDelete();
             $table->timestamps();

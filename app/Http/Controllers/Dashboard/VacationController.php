@@ -40,7 +40,7 @@ class VacationController extends Controller
         $vacation->start = $request->start;
         $vacation->to = $request->to;
         $vacation->notes = $request->notes;
-        $vacation->status = 0;
+        $vacation->status = 'pending';
 
         if ($request->type === 'mission') {
             $vacation->int_ext = $request->int_ext;
@@ -92,40 +92,55 @@ class VacationController extends Controller
     }
 
 
-    public function update(VacationRequest $request)
-    {
-        if (!$request->has('status'))
-           $request->request->add(['status' => 0]);
-       else
-           $request->request->add(['status' => 1]);
-        $vacation = Vacation::findOrFail($request->id);
-        $vacation->type = $request->type;
-        $vacation->start = $request->start;
-        $vacation->to = $request->to;
-        $vacation->notes = $request->notes;
-        $vacation->status = $request->status;;
-
-        $vacation->acting_employee_id = $request->acting_employee_id;
-        $vacation->save();
-        // update pivot tABLE
-        $vacation->vacationEmployee()->sync($request->employee_id);
-        $vacation->save();
-
-        // update attachment
-        if ($request->has('photo')) {
-            // Delete old attachment
-            if ($vacation->image) {
-                $old_img = $vacation->image->filename;
-                $this->Delete_attachment('upload_image', 'vacations/' . $old_img, $request->id);
-            }
-            //Upload img
-            $this->verifyAndStoreFile($request,'photo','vacations/','upload_image',$vacation->id,'App\Models\Vacation');
-        }
-
-
-        session()->flash('success', 'تم تعديل الأجازه بنجاح');
-        return redirect()->route('dashboard.vacations.index');
+    public function update(VacationRequest $request, $id)
+{
+    // تحقق مما إذا كانت قيمة status موجودة ومقبولة
+    if (!$request->has('status') || !in_array($request->status, ['pending', 'approve', 'reject'])) {
+        // إذا لم تكن قيمة status موجودة أو غير مقبولة، اضبطها إلى 'pending' كقيمة افتراضية
+        $request->request->set('status', 'pending');
     }
+
+    $vacation = Vacation::findOrFail($id);
+    $vacation->type = $request->type;
+    $vacation->start = $request->start;
+    $vacation->to = $request->to;
+    $vacation->notes = $request->notes;
+    $vacation->status = $request->status;
+
+    $vacation->acting_employee_id = $request->acting_employee_id;
+    if ($request->type === 'mission') {
+        $vacation->int_ext = $request->int_ext;
+        if ($request->int_ext === 'internal') {
+            $vacation->department_id = $request->department_id;
+        } else {
+            $vacation->department_id = null;
+        }
+        $vacation->acting_employee_id = null;
+    } else {
+        $vacation->acting_employee_id = $request->acting_employee_id;
+        $vacation->int_ext = null;
+        $vacation->department_id = null;
+    }
+    $vacation->save();
+
+    // تحديث جدول ال pivot
+    $vacation->vacationEmployee()->sync($request->employee_id);
+
+    // تحديث المرفقات
+    if ($request->has('photo')) {
+        // حذف المرفق القديم
+        if ($vacation->image) {
+            $old_img = $vacation->image->filename;
+            $this->Delete_attachment('upload_image', 'vacations/' . $old_img, $request->id);
+        }
+        // رفع الصورة
+        $this->verifyAndStoreFile($request, 'photo', 'vacations/', 'upload_image', $vacation->id, 'App\Models\Vacation');
+    }
+
+    session()->flash('success', 'تم تعديل الإجازة بنجاح');
+    return redirect()->route('dashboard.vacations.index');
+}
+
 
     public function destroy(Request $request)
     {

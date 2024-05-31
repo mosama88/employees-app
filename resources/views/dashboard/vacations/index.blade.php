@@ -100,11 +100,13 @@
                                         <td>{{ $vacation->to }}</td>
                                         <td>{{ $vacation->calculateTotalDaysExcludingFridays() }}</td>
                                         <td>
-                                            @if ($vacation->status == '1')
-                                                <span class="badge badge-success">موافق</span>
-                                            @else
-                                                <span class="badge badge-danger">غير موافق</span>
-                                            @endif
+                                            @if ($vacation->status == 'pending')
+                                            <span class="badge badge-info">معلق</span>
+                                        @elseif ($vacation->status == 'approve')
+                                            <span class="badge badge-success">موافق عليه</span>
+                                        @elseif ($vacation->status == 'reject')
+                                            <span class="badge badge-danger">مرفوض</span>
+                                        @endif
                                             <div class="{{ $vacation->status == '1' ? 'success' : 'danger' }} ml-1">
                                             </div>
                                         </td>
@@ -116,7 +118,7 @@
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <!-- Print -->
-                                            @if ($vacation->status == '1')
+                                            @if ($vacation->status == 'approve')
                                                 <a class="btn btn-outline-primary btn-sm"
                                                     href="{{ route('dashboard.vacation-print', $vacation->id) }}">
                                                     <i class="fas fa-print"></i>

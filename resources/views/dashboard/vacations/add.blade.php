@@ -87,7 +87,6 @@
                                 <label for="actingEmployeeSelect">القائم بأعماله</label>
                                 <select name="acting_employee_id" id="actingEmployeeSelect" class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
                                     <option disabled selected>افتح قائمة التحديد</option>
-                                    <option value="1">لا يوجد</option>
                                     @foreach ($employees as $employee)
                                         <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                                     @endforeach
