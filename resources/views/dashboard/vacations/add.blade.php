@@ -33,6 +33,8 @@
                         </div>
 
                         <div class="row">
+
+                            {{-- Employee Input --}}
                             <div class="form-group col-6">
                                 <label for="employeeSelect">أختر الموظف</label>
                                 <select name="employee_id" id="employeeSelect" class="form-control select2 @error('employee_id') is-invalid @enderror">
@@ -43,6 +45,8 @@
                                 </select>
                                 <div id="employee_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
+
+                            {{-- Type Of Vacation Input --}}
                             <div class="form-group col-6" id="type_field">
                                 <label for="typeSelect">نوع الأجازه</label>
                                 <select name="type" id="typeSelect" class="form-control select2-no-search @error('type') is-invalid @enderror">
@@ -58,6 +62,7 @@
                         </div>
 
                         <div class="row">
+                            {{-- Internal And External Input --}}
                             <div class="form-group col-6" id="int_ext_field">
                                 <label for="intExtSelect">داخلية / خارجيه</label>
                                 <select name="int_ext" id="intExtSelect" class="form-control select2 @error('int_ext') is-invalid @enderror">
@@ -67,10 +72,9 @@
                                 </select>
                                 <div id="int_ext-error" class="error-message alert alert-danger d-none"></div>
                             </div>
-                        </div>
 
-                        <div class="row" id="department_field">
-                            <div class="form-group col-6">
+                        {{-- Department Input --}}
+                            <div class="form-group col-6" id="department_field">
                                 <label for="departmentSelect">النيابات</label>
                                 <select name="department_id" id="departmentSelect" class="form-control select2">
                                     <option disabled selected>افتح قائمة التحديد</option>
@@ -83,6 +87,7 @@
                         </div>
 
                         <div class="row">
+                            {{-- Acting Employee Input --}}
                             <div class="form-group col-6" id="acting_employee_field">
                                 <label for="actingEmployeeSelect">القائم بأعماله</label>
                                 <select name="acting_employee_id" id="actingEmployeeSelect" class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
@@ -96,6 +101,7 @@
                         </div>
 
                         <div class="row">
+                            {{-- Start Input --}}
                             <div class="form-group col-6">
                                 <label for="startInput">من يوم</label>
                                 <input name="start" id="startInput" class="form-control fc-datepicker @error('start') is-invalid @enderror" type="date">
@@ -109,6 +115,7 @@
                         </div>
 
                         <div class="row">
+                            {{-- To Input --}}
                             <div class="form-group col-12">
                                 <label for="notesTextarea">ملاحظات</label>
                                 <textarea name="notes" id="notesTextarea" class="form-control" placeholder="أدخل ملاحظاتك" rows="3"></textarea>
@@ -117,6 +124,7 @@
                         </div>
 
                         <div class="row">
+                            {{-- Photo Input --}}
                             <div class="form-group col-12">
                                 <label for="photoInput">المرفقات</label>
                                 <input class="form-control" accept="image/*" name="photo" type="file" id="photoInput" onchange="loadFile(event)">

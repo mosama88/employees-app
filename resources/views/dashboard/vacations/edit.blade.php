@@ -24,11 +24,11 @@
                 </div>
                 <div class="card-body pt-0">
                     @if ($vacation->image)
-                        <img class="img-thumbnail rounded me-2" alt="200x200" style="width: 200px; height:200px"
+                        <img class="img-thumbnail rounded me-2 my-4" alt="200x200" style="width: 200px; height:200px"
                             src="{{ asset('dashboard/assets/images/uploads/vacations/' . $vacation->image->filename) }}"
                             data-holder-rendered="true">
                     @else
-                        <img class="img-thumbnail rounded me-2" alt="200x200" style="width: 200px; height:200px"
+                        <img class="img-thumbnail rounded me-2 my-4" alt="200x200" style="width: 200px; height:200px"
                             src="{{ asset('dashboard/assets/img/employees-default.png') }}" data-holder-rendered="true">
                     @endif
 
@@ -88,11 +88,9 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
                     
                         {{-- Department Inputs --}}
-                        <div class="row" id="department_field">
-                            <div class="form-group col-6">
+                            <div class="form-group col-6" id="department_field">
                                 <label for="departmentSelect">النيابات</label>
                                 <select name="department_id" id="departmentSelect" class="form-control select2 @error('department_id') is-invalid @enderror">
                                     <option disabled selected>افتح قائمة التحديد</option>
@@ -106,8 +104,9 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
                     
+                        </div>
+
                         {{-- Acting Employee Inputs --}}
                         <div class="row">
                             <div class="form-group col-6" id="acting_employee_field">
@@ -146,16 +145,10 @@
                             </div>
                         </div>
                     
-                        {{-- Notes Inputs --}}
                         <div class="row">
-                            <div class="form-group col-6">
-                                <label for="examplenotes">ملاحظات</label>
-                                <textarea class="form-control" id="examplenotes" name="notes" placeholder="أدخل ملاحظاتك" rows="3">{{ $vacation->notes }}</textarea>
-                            </div>
-                        </div>
-                    
+                      
                         {{-- Status Inputs --}}
-                        <div class="form-group col-8">
+                        <div class="form-group col-6">
                             <label for="status" class="mt-1">حالة الإجازة</label>
                             <select name="status" id="status" class="form-control">
                                 @foreach(['pending' => 'معلق', 'approve' => 'موافق عليه', 'reject' => 'مرفوض'] as $value => $label)
@@ -163,17 +156,30 @@
                                 @endforeach
                             </select>
                         </div>
-                    
+
+                        {{-- Notes Inputs --}}
+                        <div class="form-group col-6">
+                            <label for="examplenotes">ملاحظات</label>
+                            <textarea class="form-control" id="examplenotes" name="notes" placeholder="أدخل ملاحظاتك" rows="3">{{ $vacation->notes }}</textarea>
+                        </div>
+
+                    </div>
+
+                        <div class="row">
                         {{-- Image Inputs --}}
-                        <div class="form-group col-8">
+                        <div class="form-group col-10">
                             <label for="example-text-input" class="col-form-label">المرفقات</label>
                             <input class="form-control @error('photo') is-invalid @enderror" accept="photo/*" name="photo" type="file" id="example-text-input" onchange="loadFile(event)">
-                            <img class="rounded-circle avatar-xl my-3" id="output" />
+                            <img class="rounded-circle avatar-xl my-3"  />
+
+                            <img alt="Responsive image" class="img-fluid" id="output">
+
                             @error('photo')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                    
+                    </div>
+
                         {{-- Submit --}}
                         <div class="col-12 mb-4 text-center">
                             <input class="btn btn-outline-success" type="submit" value="تأكيد البيانات">
@@ -189,13 +195,7 @@
 
 
     <script>
-        var loadFile = function(event) {
-            var output = document.getElementById('output');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
-            }
-        };
+
     </script>
 
 @endsection
