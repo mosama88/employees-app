@@ -64,16 +64,15 @@
                                                 {{-- emergency --}}
                                                 <td>عارضه</td>
                                                 <td class="text-right">
-                                                    @php
-                                                        $totalSatisfyingDays = 0;
-                                                        foreach ($vacations as $vacation) {
-                                                            if ($vacation->type === 'emergency') {
-                                                                $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
-                                                            }
-                                                        }
-                                                        echo $totalSatisfyingDays;
-                                                    @endphp
-    
+                                                @php
+                                                $totalEmergencyDays = 0;
+                                                foreach ($vacations as $vacation) {
+                                                    if ($vacation->type === 'emergency' && $vacation->status === 'approve') {
+                                                        $totalEmergencyDays += $vacation->calculateTotalDaysExcludingFridays();
+                                                    }
+                                                }
+                                                echo $totalEmergencyDays;
+                                            @endphp
                                                 </td>
                                             </tr>
                                             <tr>
@@ -81,13 +80,13 @@
                                                 <td><span>إعتيادى</span></td>
                                                 <td class="text-right">
                                                     @php
-                                                        $totalSatisfyingDays = 0;
-                                                        foreach ($vacations as $vacation) {
-                                                            if ($vacation->type === 'regular') {
-                                                                $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
-                                                            }
+                                                    $totalRegularDays = 0;
+                                                    foreach ($vacations as $vacation) {
+                                                        if ($vacation->type === 'regular' && $vacation->status === 'approve') {
+                                                            $totalRegularDays += $vacation->calculateTotalDaysExcludingFridays();
                                                         }
-                                                        echo $totalSatisfyingDays;
+                                                    }
+                                                    echo $totalRegularDays;
                                                     @endphp
                                                 </td>
                                             </tr>
@@ -97,13 +96,13 @@
                                                 <td>سنوى</td>
                                                 <td class="text-right">
                                                     @php
-                                                        $totalSatisfyingDays = 0;
-                                                        foreach ($vacations as $vacation) {
-                                                            if ($vacation->type === 'Annual') {
-                                                                $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
-                                                            }
+                                                    $totalAnnualDays = 0;
+                                                    foreach ($vacations as $vacation) {
+                                                        if ($vacation->type === 'Annual' && $vacation->status === 'approve') {
+                                                            $totalAnnualDays += $vacation->calculateTotalDaysExcludingFridays();
                                                         }
-                                                        echo $totalSatisfyingDays;
+                                                    }
+                                                    echo $totalAnnualDays;
                                                     @endphp
                                                 </td>
                                             </tr>
@@ -113,13 +112,13 @@
                                                 <td>مرضى</td>
                                                 <td class="text-right">
                                                     @php
-                                                        $totalSatisfyingDays = 0;
-                                                        foreach ($vacations as $vacation) {
-                                                            if ($vacation->type === 'satisfying') {
-                                                                $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
-                                                            }
+                                                    $totalSatisfyingDays = 0;
+                                                    foreach ($vacations as $vacation) {
+                                                        if ($vacation->type === 'satisfying' && $vacation->status === 'approve') {
+                                                            $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
                                                         }
-                                                        echo $totalSatisfyingDays;
+                                                    }
+                                                    echo $totalSatisfyingDays;
                                                     @endphp
                                                 </td>
                                             </tr>
