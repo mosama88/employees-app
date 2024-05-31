@@ -155,7 +155,7 @@
                                             <td>{{ $vacation->typeVaction() }}</td>
                                             <td>{{ $vacation->start }}</td>
                                             <td>{{ $vacation->to }}</td>
-                                            <td>{{$vacation->employee->name }}</td>
+                                            <td>{{$vacation->employee?->name }}</td>
                                             <td>{{ $vacation->calculateTotalDaysExcludingFridays() }}</td>
                                             <td>
                                                 @if(isset($vacation) && $vacation->status == 'pending')
