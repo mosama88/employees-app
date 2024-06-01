@@ -53,22 +53,7 @@ class Vacation extends Model
         return $this->belongsToMany(Employee::class, 'employee_vacation');
     }
 
-    // public function typeVaction()
-    // {
-    //     // تحقق مباشرة مما إذا كانت القيمة المعرفة باسم "type_blood" تساوي 1
-    //     if ($this->type == 'satisfying') {
-    //         echo "مرضى";
-    //     } elseif ($this->type == 'emergency') {
-    //         echo "عارضه";
-    //     } elseif ($this->type == 'regular') {
-    //         echo "إعتيادى";
-    //     } elseif ($this->type == 'Annual') {
-    //         echo "سنوى";
-    //     } elseif ($this->type == 'mission') {
-    //         echo "مأمورية";
-    //     }
 
-    // }
 
 
     public function typeVaction()
@@ -151,4 +136,23 @@ class Vacation extends Model
     // public function setToAttribute($value)
     // {
     //     $this->attributes['to'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
+    // }
+
+
+
+        // public function typeVaction()
+    // {
+    //     // تحقق مباشرة مما إذا كانت القيمة المعرفة باسم "type_blood" تساوي 1
+    //     if ($this->type == 'satisfying') {
+    //         echo "مرضى";
+    //     } elseif ($this->type == 'emergency') {
+    //         echo "عارضه";
+    //     } elseif ($this->type == 'regular') {
+    //         echo "إعتيادى";
+    //     } elseif ($this->type == 'Annual') {
+    //         echo "سنوى";
+    //     } elseif ($this->type == 'mission') {
+    //         echo "مأمورية";
+    //     }
+
     // }

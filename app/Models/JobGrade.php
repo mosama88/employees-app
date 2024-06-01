@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Job;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class JobGrade extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
+            'name',
+            'num_of_day',
     ];
 
 
@@ -20,8 +22,13 @@ class JobGrade extends Model
     }
 
 
-    public function vacation()
+    public function vacations()
     {
-        return $this->belongsTo(Vacation::class);
+        return $this->hasMany(Vacation::class);
     }
+
+    public function job()
+{
+    return $this->belongsTo(Job::class);
+}
 }

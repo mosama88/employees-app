@@ -14,7 +14,7 @@ class JobGradeseeder extends Seeder
      */
     public function run(): void
     {
-        JobGrade::factory()->count(6)->create();
+        JobGrade::factory()->count(10)->create();
 
     }
 }

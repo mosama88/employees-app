@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Job;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,22 +17,28 @@ class JobGradeFactory extends Factory
      */
     public function definition(): array
     {
+        $jobIds = Job::pluck('id')->toArray();
+
+        if (empty($jobIds)) {
+            // قم بإنشاء سجل افتراضي في جدول jobs إذا كان فارغًا
+            $job = Job::create(['name' => 'Default Job']);
+            $jobIds = [$job->id];
+        }
+        
         return [
-            'grade' => $this->faker->unique()->randomElement([
+            'name' => $this->faker->randomElement([
                 'الأولى أ',
                 'الأولى ب',
                 'الثانية أ',
                 'الثانية ب',
                 'الثالثة أ',
-                'الثالثه ب',
-                'الثالثه ج',
-                'الرابعه أ',
-                'الرابعه ب',
+                'الثالثة ب',
+                'الثالثة ج',
+                'الرابعة أ',
+                'الرابعة ب',
             ]),
-            'name' => $this->faker->unique()->randomElement([
-                'باحث تنمية إدارية',
-                'كاتب رابع',
-            ])
+            'num_of_day' => $this->faker->numberBetween(10, 30),
+            'job_id' => $this->faker->randomElement($jobIds),
         ];
     }
 }

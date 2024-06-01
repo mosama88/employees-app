@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('job_grades', function (Blueprint $table) {
+        Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->integer('num_of_day')->nullable();
-            $table->foreignId('job_id')->references('id')->on('jobs')->cascadeOnDelete();
-
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('job_grades');
+        Schema::dropIfExists('jobs');
     }
 };
