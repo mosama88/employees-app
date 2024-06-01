@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Job;
 use App\Models\JobGrade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,13 +17,15 @@ class JobGradeController extends Controller
     public function index()
     {
         $jobgrades = JobGrade::orderBy('created_at', 'desc')->get();
-        return view('dashboard.jobgrades.index', compact('jobgrades'));
+        $jobs = Job::get();
+        return view('dashboard.jobgrades.index', compact('jobgrades','jobs'));
     }
 
 
     public function create()
     {
-        return view('dashboard.jobgrades.add',);
+        $jobs = Job::get();
+        return view('dashboard.jobgrades.add',compact('jobs'));
     }
 
     public function store(JobGradeRequest $request)
@@ -30,6 +33,8 @@ class JobGradeController extends Controller
         try {
             $jobgrade = new JobGrade();
             $jobgrade->name = $request->name;
+            $jobgrade->job_id = $request->job_id;
+
             $jobgrade->save();
 
             // Return a JSON response indicating success
@@ -51,7 +56,9 @@ class JobGradeController extends Controller
     public function edit($id)
     {
         $jobgrade = JobGrade::find($id);
-        return view('dashboard.jobgrades.edit', ['jobgrade'=>$jobgrade ]);
+        $jobs = Job::get();
+
+        return view('dashboard.jobgrades.edit', ['jobgrade'=>$jobgrade ,'jobs'=>$jobs ]);
     }
 
 
@@ -60,6 +67,7 @@ class JobGradeController extends Controller
         try {
         $jobgrade = JobGrade::findOrFail($request->id);
         $jobgrade->name = $request->name;
+        $jobgrade->job_id = $request->job_id;
         $jobgrade->save();
         session()->flash('success', 'تم تعديل الدرجه الوظيفية بنجاح');
         return redirect()->route('dashboard.jobgrades.index');

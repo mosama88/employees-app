@@ -12,6 +12,7 @@ class JobGrade extends Model
 
     protected $fillable = [
             'name',
+            'job_id'
     ];
 
 
