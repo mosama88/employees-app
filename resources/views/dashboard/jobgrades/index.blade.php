@@ -39,6 +39,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>اسم الدرجه الوظيفية</th>
+                                    <th>اسم الوظيفة</th>
                                     <th>العمليات</th>
                                 </tr>
                             </thead>
@@ -47,6 +48,7 @@
                                     <tr id="JobgradeRow{{ $jobgrade->id }}">
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $jobgrade->name }}</td>
+                                        <td>{{ $jobgrade->job->name }}</td>
                                         <td>
                                             {{-- Edit --}}
                                             <a class="modal-effect btn btn-outline-info btn-sm" data-effect="effect-scale"

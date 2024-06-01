@@ -17,6 +17,22 @@
                         <input type="text" name="name" value="{{$jobgrade->name}}" class="form-control" id="inputName" placeholder="أدخل أسم الدرجه الوظيفية">
                     </div>
 
+                    <div class="form-group mb-3">
+                        <label>أسم الوظيفه</label>
+                        <select name="job_id" class="form-control select2 @error('job_id') is-invalid @enderror">
+                        <option disabled selected="">افتح قائمة التحديد</option>
+                            @foreach($jobs as $job)
+                            <option
+                            value="{{ $job->id }}"{{ $job->id == $jobgrade->job_id ? 'selected' : '' }}>{{$job->name}}
+
+                        </option>
+                            @endforeach
+                        </select>
+                            @error('job_id')
+                            <div class="alert alert-danger p-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                     <div class="modal-footer">
                         <button class="btn ripple btn-primary" type="submit" type="button">تأكيد البيانات</button>
                         <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">إغلاق</button>

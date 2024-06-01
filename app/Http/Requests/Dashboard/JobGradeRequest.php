@@ -23,7 +23,7 @@ class JobGradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:10|max:300',
+            'name' => 'required|string|min:5|max:300',
             'job_id'=> 'required|exists:jobs,id',
         ];
     }
@@ -33,7 +33,7 @@ class JobGradeRequest extends FormRequest
     {
         return [
             'name.required'=>'حقل الدرجه الوظيفيه مطلوب .',
-            'name.min'=>'برجاء كتابة حقل الدرجه الوظيفيه أكثر من 10 كلمات.',
+            'name.min'=>'برجاء كتابة حقل الدرجه الوظيفيه أكثر من 5 كلمات.',
             'name.max'=>'برجاء كتابة حقل الدرجه الوظيفيه أقل من من 300 كلمة.',
             'job_id.required'=>'حقل الوظيفه مطلوب .',
             'job_id.exists'=>'حقل الوظيفه غير موجود .',
