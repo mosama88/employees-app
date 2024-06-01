@@ -47,23 +47,23 @@
                         <input type="hidden" name="id" value="{{ $employee->id }}">
                         {{-- Success Message --}}
                         <div id="successMessage" class="alert alert-success d-none" role="alert">
-                            تم تعديل بيانات <span class="alert-link">{{ $employee->name }}</span> بنجاح <a href="{{ route('dashboard.employees.index') }}"
-                                class="alert-link">أضغط هنا لمشاهدة التعديل</a>
+                            تم تعديل بيانات <span class="alert-link">{{ $employee->name }}</span> بنجاح <a
+                                href="{{ route('dashboard.employees.index') }}" class="alert-link">أضغط هنا لمشاهدة
+                                التعديل</a>
                         </div>
                         <div class="row">
                             <div class="form-group col-6">
                                 {{-- Name Inputs --}}
                                 <label for="exampleInputEmail1">أسم الموظف</label>
                                 <input type="text" name="name" value="{{ $employee->name }}" class="form-control"
-                                placeholder="أدخل الأسم">
-                                    <div id="name-error" class="error-message alert alert-danger d-none"></div>
+                                    placeholder="أدخل الأسم">
+                                <div id="name-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
                             {{-- Appointments Inputs --}}
                             <div class="form-group col-6">
-                                <label for="exampleInputappoint">المواعيد</label>
-                                <select multiple="multiple" class="testselect2"
-                                    name="appointments[]">
+                                <label for="exampleInputEmail1">الراحة الاسبوعية</label>
+                                <select multiple="multiple" class="testselect2" name="appointments[]">
                                     <option disabled selected>افتح قائمة التحديد</option>
                                     @foreach ($appointments as $appointment)
                                         @php $check = []; @endphp
@@ -87,14 +87,14 @@
                                 <label for="exampleInputEmail1">الهاتف</label>
                                 <input type="tel" class="form-control" value="{{ $employee->phone }}" name="phone"
                                     id="exampleInputEmail1" placeholder="01111111">
-                                    <div id="phone-error" class="error-message alert alert-danger d-none"></div>
+                                <div id="phone-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                             <div class="form-group col-6">
                                 {{-- alter_phone Inputs --}}
                                 <label for="exampleInputPassword1">هاتف أخر</label>
                                 <input type="tel" class="form-control" value="{{ $employee->alter_phone }}"
                                     name="alter_phone" id="exampleInputPassword1" placeholder="01111111">
-                                    <div id="alter_phone-error" class="error-message alert alert-danger d-none"></div>
+                                <div id="alter_phone-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
@@ -102,20 +102,18 @@
                             {{-- hiring_date Inputs --}}
                             <div class="form-group col-6">
                                 <label for="hiring_date">تاريخ التعيين</label>
-                                <input class="form-control fc-datepicker"
-                                    value="{{ $employee->hiring_date }}" name="hiring_date" placeholder="MM/DD/YYYY"
-                                    type="date">
-                                    <div id="hiring_date-error" class="error-message alert alert-danger d-none"></div>
+                                <input class="form-control fc-datepicker" value="{{ $employee->hiring_date }}"
+                                    name="hiring_date" placeholder="MM/DD/YYYY" type="date">
+                                <div id="hiring_date-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
 
                             {{-- start_from Inputs --}}
                             <div class="form-group col-6">
                                 <label for="start_from">بداية أستلام العمل بالادارة</label>
-                                <input class="form-control fc-datepicker"
-                                    value="{{ $employee->start_from }}" name="start_from" placeholder="MM/DD/YYYY"
-                                    type="date">
-                                    <div id="start_from-error" class="error-message alert alert-danger d-none"></div>
+                                <input class="form-control fc-datepicker" value="{{ $employee->start_from }}"
+                                    name="start_from" placeholder="MM/DD/YYYY" type="date">
+                                <div id="start_from-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
@@ -123,8 +121,7 @@
                             <div class="form-group col-6">
                                 {{-- Address Inputs --}}
                                 <label for="exampleInputaddress">المحافظة</label>
-                                <select name="address_id" value="{{ old('address_id') }}"
-                                    class="form-control select2">
+                                <select name="address_id" value="{{ old('address_id') }}" class="form-control select2">
                                     <option disabled selected="">افتح قائمة التحديد</option>
                                     @foreach ($addresses as $address)
                                         <option
@@ -170,15 +167,23 @@
                             {{-- Image Inputs --}}
                             <div class="form-group col-6">
                                 <label for="example-text-input">تغيير صورة الموظف</label>
-                                <input class="form-control" accept="image/*"
-                                    name="photo" value="{{ old('photo') }}" type="file" id="example-text-input"
-                                    onchange="loadFile(event)">
+                                <input class="form-control" accept="image/*" name="photo" value="{{ old('photo') }}"
+                                    type="file" id="example-text-input" onchange="loadFile(event)">
                                 <img class="rounded-circle avatar-xl my-3" id="output" />
                                 <div id="photo-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mt-3 mb-0">Submit</button>
+                        {{-- Submit --}}
+                        <div class="row row-xs wd-xl-80p">
+                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><button type="submit"
+                                    class="btn btn-success btn-with-icon btn-block"><i class="typcn typcn-edit"></i> تأكيد
+                                    البيانات</button></div>
+                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><a
+                                    href="{{ route('dashboard.employees.index') }}" type="submit"
+                                    class="btn btn-info btn-with-icon btn-block"><i
+                                        class="typcn typcn-arrow-back-outline"></i> رجوع</a></div>
+                        </div>
                     </form>
                 </div>
             </div>

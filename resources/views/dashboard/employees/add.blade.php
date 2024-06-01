@@ -56,7 +56,7 @@
 
                             {{-- Appointments Inputs --}}
                             <div class="form-group col-6">
-                                <label for="exampleInputEmail1">المواعيد</label>
+                                <label for="exampleInputEmail1">الراحة الاسبوعية</label>
                                 <select multiple="multiple" class="testselect2" name="appointments[]">
                                     <option disabled selected>افتح قائمة التحديد</option>
                                     @foreach ($appointments as $appointment)
@@ -166,11 +166,16 @@
                             </div>
                         </div>
 
-                        {{-- Submit --}}
-                        <div class="col-12 mb-4 text-center">
-                            <input class="btn btn-outline-success" type="submit" value="تاكيد البيانات">
-                            <a href="{{ route('dashboard.employees.index') }}" class="btn btn-outline-dark mx-2">رجوع</a>
-                        </div>
+                               {{-- Submit --}}
+                               <div class="row row-xs wd-xl-80p">
+                                <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><button type="submit"
+                                        class="btn btn-success btn-with-icon btn-block"><i class="typcn typcn-edit"></i> تأكيد
+                                        البيانات</button></div>
+                                <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><a
+                                        href="{{ route('dashboard.employees.index') }}" type="submit"
+                                        class="btn btn-info btn-with-icon btn-block"><i
+                                            class="typcn typcn-arrow-back-outline"></i> رجوع</a></div>
+                            </div>
                     </form>
                 </div>
             </div>

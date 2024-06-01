@@ -265,7 +265,8 @@
                         $('#alertMessage').addClass('fade-out'); // Add the fade-out effect
                         setTimeout(function() {
                             $('#alertMessage').addClass(
-                            'd-none'); // Hide the alert message after the fade-out effect
+                                'd-none'
+                                ); // Hide the alert message after the fade-out effect
                         }, 1500); // 1.5 seconds for the fade-out transition
                     }, 2000); // 2 seconds before starting the fade-out
                 } else {

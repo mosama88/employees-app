@@ -40,7 +40,7 @@
                                         <th class="border-bottom-0">الدرجه</th>
                                         <th class="border-bottom-0">المحافظة</th>
                                         <th class="border-bottom-0">القسم</th>
-                                        <th class="border-bottom-0">الحضور</th>
+                                        <th class="border-bottom-0">الراحة الاسبوعية</th>
                                         <th class="border-bottom-0">العمليات</th>
                                     </tr>
                                 </thead>
@@ -72,6 +72,8 @@
                                                 @foreach ($employee->employeeAppointments as $appointment)
                                                     {{ $appointment->name }}
                                                 @endforeach
+
+
                                             </td>
                                             <td>
                                                 {{-- Show --}}

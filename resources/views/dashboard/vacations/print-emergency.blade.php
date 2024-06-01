@@ -60,16 +60,17 @@
                                                         </h4>
                                                     </div>
                                                     <div class="col-6">
-                                                        <h4>الوظيفية / إدارة التحول الرقمى</h4>
+                                                        <h4>الوظيفية / {{ $employee->department?->name }}</h4>
                                                     </div>
 
                                                 </div>
                                                 <div class="row mg-t-20">
                                                     <div class="col-6">
-                                                        <h4>جهه العمل / {{ $employee->department->name }}</h4>
+                                                        <h4>جهه العمل / </h4>
                                                     </div>
                                                     <div class="col-6">
-                                                        <h4>مدة الأجازه / {{ $vacation->calculateTotalDaysExcludingFridays() }} يوم</h4>
+                                                        <h4>مدة الأجازه /
+                                                            {{ $vacation->calculateTotalDaysExcludingFridays() }} يوم</h4>
                                                     </div>
                                                 </div>
                                                 <div class="row mg-t-20">
@@ -141,41 +142,41 @@
                                                     </div>
                                                 </div>
 
-                                                    <div class="row mg-t-20">
+                                                <div class="row mg-t-20">
 
-                                                        <div class="col-8">
+                                                    <div class="col-8">
 
-                                                        </div>
-
-
-                                                        <div class="col-4">
-                                                            <h5 class="">نائب رئيس الهيئة</h5><br>
-                                                            <h5 class="">مدير</h5><br>
-                                                            <h4 class="">المستشار / </h4><br>
-                                                        </div>
                                                     </div>
 
 
-
-                                                    <hr class="row mg-b-40">
-                                                    <a href="#" class="btn btn-danger float-left mt-3 mr-2"
-                                                        id="print_Button" onclick="printDiv()">
-                                                        <i class="mdi mdi-printer ml-1"></i>طباعه
-                                                    </a>
+                                                    <div class="col-4">
+                                                        <h5 class="">نائب رئيس الهيئة</h5><br>
+                                                        <h5 class="">مدير</h5><br>
+                                                        <h4 class="">المستشار / </h4><br>
+                                                    </div>
                                                 </div>
+
+
+
+                                                <hr class="row mg-b-40">
+                                                <a href="#" class="btn btn-danger float-left mt-3 mr-2"
+                                                    id="print_Button" onclick="printDiv()">
+                                                    <i class="mdi mdi-printer ml-1"></i>طباعه
+                                                </a>
                                             </div>
                                         </div>
-                                    </div><!-- COL-END -->
-                                </div>
-
+                                    </div>
+                                </div><!-- COL-END -->
                             </div>
+
                         </div>
                     </div>
-                </div><!-- COL-END -->
-            </div>
-            <!-- row closed -->
+                </div>
+            </div><!-- COL-END -->
         </div>
-        <!-- Container closed -->
+        <!-- row closed -->
+    </div>
+    <!-- Container closed -->
     </div>
 
 

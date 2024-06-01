@@ -26,7 +26,7 @@ class VacationRequest extends FormRequest
         return [
             'type' => 'required|string|in:satisfying,emergency,regular,Annual,mission',
             'start' => 'required|date',
-            'to' => 'required|date|after:start',
+            'to' => 'required|date|after:start +1 day',
             'notes' => 'nullable|string|max:1000',
             'employee_id' => 'required|exists:employees,id',
             'file' => 'nullable|file|mimes:docx,doc,pdf,png,webp,jpg,jpeg',
