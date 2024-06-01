@@ -100,7 +100,7 @@
 
                         <div class="row">
                             {{-- hiring_date Inputs --}}
-                            <div class="form-group col-6">
+                            <div class="form-group col-4">
                                 <label for="hiring_date">تاريخ التعيين</label>
                                 <input class="form-control fc-datepicker" value="{{ $employee->hiring_date }}"
                                     name="hiring_date" placeholder="MM/DD/YYYY" type="date">
@@ -109,12 +109,20 @@
 
 
                             {{-- start_from Inputs --}}
-                            <div class="form-group col-6">
+                            <div class="form-group col-4">
                                 <label for="start_from">بداية أستلام العمل بالادارة</label>
                                 <input class="form-control fc-datepicker" value="{{ $employee->start_from }}"
                                     name="start_from" placeholder="MM/DD/YYYY" type="date">
                                 <div id="start_from-error" class="error-message alert alert-danger d-none"></div>
                             </div>
+
+                                    {{-- Birth Date Inputs --}}
+                                    <div class="form-group col-4">
+                                        <label for="birth_date">تاريخ الميلاد</label>
+                                        <input class="form-control fc-datepicker" name="birth_date" value="{{ $employee->birth_date }}" placeholder="MM/DD/YYYY"
+                                            type="date">
+                                        <div id="birth_date-error" class="error-message alert alert-danger d-none"></div>
+                                    </div>
                         </div>
 
                         <div class="row">

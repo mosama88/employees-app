@@ -25,6 +25,7 @@ class EmployeeFactory extends Factory
             'alter_phone'=>$this->faker->regexify('/^(012|015|010|011)[0-9]{8}$/'),
             'hiring_date' => $this->faker->dateTimeBetween('2000-05-01', '2016-05-01')->format('Y-m-d'),
             'start_from'=>$this->faker->dateTimeBetween('2000-05-01', '2016-05-01')->format('Y-m-d'),
+            'birth_date'=>$this->faker->dateTimeBetween('1970-05-01', '1998-05-01')->format('Y-m-d'),
             'num_of_days' => $this->faker->numberBetween(20, 40),
             'job_grades_id'=>JobGrade::all()->random()->id,
             'address_id'=>Address::all()->random()->id,

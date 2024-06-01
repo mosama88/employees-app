@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('alter_phone')->nullable();
             $table->date('hiring_date')->nullable();
             $table->date('start_from')->nullable();
+            $table->date('birth_date')->nullable();
             $table->string('num_of_days')->nullable();
             $table->foreignId('job_grades_id')->references('id')->on('job_grades')->onDelete('cascade');
             $table->foreignId('address_id')->references('id')->on('addresses')->onDelete('cascade');
@@ -25,7 +26,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */
