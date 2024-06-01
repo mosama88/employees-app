@@ -50,6 +50,7 @@ class EmployeeController extends Controller
             $employee->job_grades_id = $request->job_grades_id;
             $employee->address_id = $request->address_id;
             $employee->department_id = $request->department_id;
+            $employee->num_of_days = $vacationDays; // Save the calculated vacation days
             $employee->save();
             $employee->employeeAppointments()->attach($request->appointments);
 
