@@ -19,21 +19,6 @@ class EmployeeController extends Controller
 
     use UploadTrait;
 
-    private function calculateVacationDays($hiringDate, $birthDate)
-{
-    $hiringDate = Carbon::createFromFormat('Y-m-d', $hiringDate);
-    $birthDate = Carbon::createFromFormat('Y-m-d', $birthDate);
-
-    $yearsSinceHiring = $hiringDate->diffInYears(Carbon::now());
-
-    if ($yearsSinceHiring < 10) {
-        return 21;
-    } elseif ($yearsSinceHiring < 50) {
-        return 30;
-    } else {
-        return 40;
-    }
-}
 
 
     public function index()
@@ -51,11 +36,56 @@ class EmployeeController extends Controller
         return view('dashboard.employees.add',compact('jobgrades','addresses','departments','appointments'));
     }
 
+
+    private function calculateVacationDaysFromDates($hiringDate, $birthDate)
+{
+    $hiringDate = Carbon::createFromFormat('Y-m-d', $hiringDate); //تاريخ التعيين
+    $birthDate = Carbon::createFromFormat('Y-m-d', $birthDate); //تاريخ الميلاد
+
+    $yearsSinceHiring = $hiringDate->diffInYears(Carbon::now());
+    $yearsSinceBirthDate = $birthDate->diffInYears(Carbon::now());
+
+    if ($yearsSinceBirthDate >= 50) {
+        return 40;
+    } elseif ($yearsSinceHiring < 10) {
+        return 21;
+    } elseif ($yearsSinceHiring < 50) {
+        return 30;
+    } else {
+        return 30; // Default value if no other condition is met
+    }
+}
+
+    
+public function calculateVacationDays(Request $request)
+{
+    $hiringDate = Carbon::createFromFormat('Y-m-d', $request->input('hiring_date'));
+    $birthDate = Carbon::createFromFormat('Y-m-d', $request->input('birth_date'));
+
+    $yearsSinceHiring = $hiringDate->diffInYears(Carbon::now());
+    $yearsSinceBirthDate = $birthDate->diffInYears(Carbon::now());
+
+    if ($yearsSinceBirthDate >= 50) {
+        $vacationDays = 40;
+    } elseif ($yearsSinceHiring < 10) {
+        $vacationDays = 21;
+    } elseif ($yearsSinceHiring < 50) {
+        $vacationDays = 30;
+    } else {
+        $vacationDays = 30; // Default value if no other condition is met
+    }
+
+    return response()->json(['vacation_days' => $vacationDays]);
+}
+
+    
+
+
     public function store(EmployeeRequest $request)
 {
     try {
-        // Calculate vacation days
-        $vacationDays = $this->calculateVacationDays($request->hiring_date, $request->birth_date);
+        // Calculate vacation days using the renamed method to avoid conflict
+        $vacationDays = $this->calculateVacationDaysFromDates($request->hiring_date, $request->birth_date);
 
         $employee = new Employee();
         $employee->name = $request->name;
@@ -111,8 +141,8 @@ class EmployeeController extends Controller
 
     public function update(EmployeeRequest $request)
     {
-         // Calculate vacation days
-         $vacationDays = $this->calculateVacationDays($request->hiring_date, $request->birth_date);
+          // Calculate vacation days using the renamed method to avoid conflict
+        $vacationDays = $this->calculateVacationDaysFromDates($request->hiring_date, $request->birth_date);
         $employee = Employee::findOrFail($request->id);
         $employee->name = $request->name;
         $employee->phone = $request->phone;
@@ -193,23 +223,7 @@ class EmployeeController extends Controller
 
 
 
-    // public function calculateVacationDays(Request $request)
-    // {
-    //     $hiringDate = Carbon::createFromFormat('Y-m-d', $request->input('hiring_date'));
-    //     $birthDate = Carbon::createFromFormat('Y-m-d', $request->input('birth_date'));
-    
-    //     $yearsSinceHiring = $hiringDate->diffInYears(Carbon::now());
-    
-    //     if ($yearsSinceHiring < 10) {
-    //         $vacationDays = 21;
-    //     } elseif ($yearsSinceHiring < 50) {
-    //         $vacationDays = 30;
-    //     } else {
-    //         $vacationDays = 40;
-    //     }
-    
-    //     return response()->json(['vacation_days' => $vacationDays]);
-    // }
+
     
 
 }

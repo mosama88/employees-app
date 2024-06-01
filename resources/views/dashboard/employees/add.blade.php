@@ -91,7 +91,7 @@
 
                         <div class="row">
                             {{-- Birth Date Inputs --}}
-                            <div class="form-group col-4">
+                            <div class="form-group col-3">
                                 <label for="birth_date">تاريخ الميلاد</label>
                                 <input id="birth_date" class="form-control fc-datepicker" name="birth_date"
                                     placeholder="MM/DD/YYYY" type="date">
@@ -99,7 +99,7 @@
                             </div>
 
                             {{-- Hiring Date Inputs --}}
-                            <div class="form-group col-4">
+                            <div class="form-group col-3">
                                 <label for="hiring_date">تاريخ التعيين</label>
                                 <input id="hiring_date" class="form-control fc-datepicker" name="hiring_date"
                                     placeholder="MM/DD/YYYY" type="date">
@@ -107,13 +107,20 @@
                             </div>
 
                             {{-- start_from Inputs --}}
-                            <div class="form-group col-4">
+                            <div class="form-group col-3">
                                 <label for="start_from">بداية أستلام العمل بالادارة</label>
                                 <input class="form-control fc-datepicker" name="start_from" placeholder="MM/DD/YYYY"
                                     type="date">
                                 <div id="start_from-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
+                            {{-- Number Of Days Inputs --}}
+                            <div class="form-group col-3">
+                                <label for="num_of_days">عدد الأجازات المستحقه</label>
+                                <input id="num_of_days" name="num_of_days" class="form-control fc-datepicker"
+                                    placeholder="أدخل الاجازات المستحقه" type="text" readonly>
+                                <div id="num_of_days-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
                         </div>
 
 
@@ -246,33 +253,32 @@
 
 
     <script>
-        // حساب الاجازات أتوماتيك
-        document.getElementById('hiring_date').addEventListener('change', calculateVacationDays);
-        document.getElementById('birth_date').addEventListener('change', calculateVacationDays);
+    document.getElementById('hiring_date').addEventListener('change', calculateVacationDays);
+    document.getElementById('birth_date').addEventListener('change', calculateVacationDays);
 
-        function calculateVacationDays() {
-            var hiringDate = document.getElementById('hiring_date').value;
-            var birthDate = document.getElementById('birth_date').value;
+    function calculateVacationDays() {
+        var hiringDate = document.getElementById('hiring_date').value;
+        var birthDate = document.getElementById('birth_date').value;
 
-            if (hiringDate && birthDate) {
-                fetch('{{ route('dashboard.calculateVacationDays') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({
-                            hiring_date: hiringDate,
-                            birth_date: birthDate
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById('num_of_days').value = data.vacation_days;
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
+        if (hiringDate && birthDate) {
+            fetch('{{ route("dashboard.calculateVacationDays") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    hiring_date: hiringDate,
+                    birth_date: birthDate
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('num_of_days').value = data.vacation_days;
+            })
+            .catch(error => console.error('Error:', error));
         }
+    }
     </script>
 
 
