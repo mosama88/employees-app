@@ -19,7 +19,7 @@ class VacationController extends Controller
 
     public function index()
     {
-        $vacations = Vacation::orderBy('created_at', 'desc')->with('vacationEmployee')->paginate(10);
+        $vacations = Vacation::orderBy('created_at', 'desc','type','start','to','status')->with('vacationEmployee')->take(10)->get();
         $employees = Employee::all();
         return view('dashboard.vacations.index', compact('vacations', 'employees'));
     }

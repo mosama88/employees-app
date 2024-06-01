@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('job_grades', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('grade')->nullable();
             $table->timestamps();
         });
     }

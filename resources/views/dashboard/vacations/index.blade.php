@@ -160,7 +160,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $vacations->render('pagination::bootstrap-5') }}
                     </div><!-- bd -->
                 </div><!-- bd -->
             </div><!-- bd -->
@@ -194,7 +193,6 @@
 
     <!--Internal  Datatable js -->
     <script src="{{ asset('dashboard/assets/js/table-data.js') }}"></script>
-
 
     <script>
         // Delete
