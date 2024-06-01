@@ -25,12 +25,13 @@
 @endsection
 @section('current-page', 'أضافة موظف')
 @section('content')
-@include('dashboard.messages_alert')
 
     <div class="row row-sm">
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
             <div class="card  box-shadow-0 ">
                 <div class="card-header">
+                    @include('dashboard.messages_alert')
+
                     <h4 class="card-title mb-1 text-center">أدخل بيانات الموظف</h4>
                 </div>
                 <div class="card-body pt-0">
@@ -75,8 +76,7 @@
                             <div class="form-group col-6">
                                 {{-- phone Inputs --}}
                                 <label for="exampleInputEmail1">الهاتف</label>
-                                <input type="tel" value="{{ old('phone') }}"
-                                    class="form-control" name="phone"
+                                <input type="tel" value="{{ old('phone') }}" class="form-control" name="phone"
                                     id="exampleInputEmail1" placeholder="01111111">
                                 <div id="phone-error" class="error-message alert alert-danger d-none"></div>
                             </div>
@@ -90,13 +90,21 @@
                         </div>
 
                         <div class="row">
-                       {{-- Hiring Date Inputs --}}
+                            {{-- Birth Date Inputs --}}
                             <div class="form-group col-4">
-                                <label for="hiring_date">تاريخ التعيين</label>
-                                <input id="hiring_date" class="form-control fc-datepicker" name="hiring_date" placeholder="MM/DD/YYYY" type="date">
-                                <div id="hiring_date-error" class="error-message alert alert-danger d-none"></div>
+                                <label for="birth_date">تاريخ الميلاد</label>
+                                <input id="birth_date" class="form-control fc-datepicker" name="birth_date"
+                                    placeholder="MM/DD/YYYY" type="date">
+                                <div id="birth_date-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
+                            {{-- Hiring Date Inputs --}}
+                            <div class="form-group col-4">
+                                <label for="hiring_date">تاريخ التعيين</label>
+                                <input id="hiring_date" class="form-control fc-datepicker" name="hiring_date"
+                                    placeholder="MM/DD/YYYY" type="date">
+                                <div id="hiring_date-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
 
                             {{-- start_from Inputs --}}
                             <div class="form-group col-4">
@@ -106,12 +114,6 @@
                                 <div id="start_from-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
-                            {{-- Birth Date Inputs --}}
-                            <div class="form-group col-4">
-                                <label for="birth_date">تاريخ الميلاد</label>
-                                <input id="birth_date" class="form-control fc-datepicker" name="birth_date" placeholder="MM/DD/YYYY" type="date">
-                                <div id="birth_date-error" class="error-message alert alert-danger d-none"></div>
-                            </div>
                         </div>
 
 
@@ -148,23 +150,6 @@
 
 
 
-                        <div class="row">
-                            <div class="form-group col-6">
-                                {{-- Number Of Days Inputs --}}
-                                <label for="num_of_days">عدد الأجازات المستحقه</label>
-                                <input id="num_of_days" name="num_of_days" class="form-control fc-datepicker" placeholder="أدخل الاجازات المستحقه" type="text" readonly>
-                                <div id="num_of_days-error" class="error-message alert alert-danger d-none"></div>
-                            </div>
-
-                            {{-- Address Inputs --}}
-                            {{-- <div class="form-group col-6">
-                                <label for="exampleInputnum_of_days">عدد الأجازات المستحقه</label>
-                                <input name="num_of_days" class="form-control fc-datepicker" id="exampleInputnum_of_days"  placeholder="أدخل الاجازات المستحقه"
-                                type="text">
-                                <div id="num_of_days-error" class="error-message alert alert-danger d-none"></div>
-                            </div> --}}
-                        </div>
-
 
 
                         <div class="row">
@@ -193,16 +178,16 @@
                             </div>
                         </div>
 
-                               {{-- Submit --}}
-                               <div class="row row-xs wd-xl-80p">
-                                <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><button type="submit"
-                                        class="btn btn-success btn-with-icon btn-block"><i class="typcn typcn-edit"></i> تأكيد
-                                        البيانات</button></div>
-                                <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><a
-                                        href="{{ route('dashboard.employees.index') }}" type="submit"
-                                        class="btn btn-info btn-with-icon btn-block"><i
-                                            class="typcn typcn-arrow-back-outline"></i> رجوع</a></div>
-                            </div>
+                        {{-- Submit --}}
+                        <div class="row row-xs wd-xl-80p">
+                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><button type="submit"
+                                    class="btn btn-success btn-with-icon btn-block"><i class="typcn typcn-edit"></i> تأكيد
+                                    البيانات</button></div>
+                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><a
+                                    href="{{ route('dashboard.employees.index') }}" type="submit"
+                                    class="btn btn-info btn-with-icon btn-block"><i
+                                        class="typcn typcn-arrow-back-outline"></i> رجوع</a></div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -259,32 +244,33 @@
     <script src="{{ asset('dashboard/assets/js/projects/add-employee.js') }}"></script>
 
 
-    
+
     <script>
+        // حساب الاجازات أتوماتيك
         document.getElementById('hiring_date').addEventListener('change', calculateVacationDays);
         document.getElementById('birth_date').addEventListener('change', calculateVacationDays);
-    
+
         function calculateVacationDays() {
             var hiringDate = document.getElementById('hiring_date').value;
             var birthDate = document.getElementById('birth_date').value;
-    
+
             if (hiringDate && birthDate) {
-                fetch('{{ route("dashboard.calculateVacationDays") }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        hiring_date: hiringDate,
-                        birth_date: birthDate
+                fetch('{{ route('dashboard.calculateVacationDays') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            hiring_date: hiringDate,
+                            birth_date: birthDate
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('num_of_days').value = data.vacation_days;
-                })
-                .catch(error => console.error('Error:', error));
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('num_of_days').value = data.vacation_days;
+                    })
+                    .catch(error => console.error('Error:', error));
             }
         }
     </script>

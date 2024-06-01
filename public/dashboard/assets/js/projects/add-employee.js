@@ -1,4 +1,10 @@
 
+
+
+
+
+
+
 $(document).ready(function() {
     $('#employeeForm').on('submit', function(e) {
         e.preventDefault(); // Prevent the default form submission
@@ -96,3 +102,12 @@ var loadFile = function (event) {
         URL.revokeObjectURL(output.src) // free memory
     }
 };
+
+
+
+
+
+
+
+
+

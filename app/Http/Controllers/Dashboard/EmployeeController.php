@@ -19,6 +19,23 @@ class EmployeeController extends Controller
 
     use UploadTrait;
 
+    private function calculateVacationDays($hiringDate, $birthDate)
+{
+    $hiringDate = Carbon::createFromFormat('Y-m-d', $hiringDate);
+    $birthDate = Carbon::createFromFormat('Y-m-d', $birthDate);
+
+    $yearsSinceHiring = $hiringDate->diffInYears(Carbon::now());
+
+    if ($yearsSinceHiring < 10) {
+        return 21;
+    } elseif ($yearsSinceHiring < 50) {
+        return 30;
+    } else {
+        return 40;
+    }
+}
+
+
     public function index()
     {
         $employees = Employee::orderBy('created_at', 'desc')->with('employeeAppointments')->get();
@@ -35,36 +52,34 @@ class EmployeeController extends Controller
     }
 
     public function store(EmployeeRequest $request)
-    {
-        try{
-            // Calculate vacation days
+{
+    try {
+        // Calculate vacation days
         $vacationDays = $this->calculateVacationDays($request->hiring_date, $request->birth_date);
 
-            $employee = new Employee();
-            $employee->name = $request->name;
-            $employee->phone = $request->phone;
-            $employee->alter_phone = $request->alter_phone;
-            $employee->hiring_date = $request->hiring_date;
-            $employee->start_from = $request->start_from;
-            $employee->birth_date = $request->birth_date;
-            $employee->job_grades_id = $request->job_grades_id;
-            $employee->address_id = $request->address_id;
-            $employee->department_id = $request->department_id;
-            $employee->num_of_days = $vacationDays; // Save the calculated vacation days
-            $employee->save();
-            $employee->employeeAppointments()->attach($request->appointments);
+        $employee = new Employee();
+        $employee->name = $request->name;
+        $employee->phone = $request->phone;
+        $employee->alter_phone = $request->alter_phone;
+        $employee->hiring_date = $request->hiring_date;
+        $employee->start_from = $request->start_from;
+        $employee->birth_date = $request->birth_date;
+        $employee->job_grades_id = $request->job_grades_id;
+        $employee->address_id = $request->address_id;
+        $employee->department_id = $request->department_id;
+        $employee->num_of_days = $vacationDays; // Save the calculated vacation days
+        $employee->save();
+        $employee->employeeAppointments()->attach($request->appointments);
 
-            //Upload img
-            $this->verifyAndStoreImage($request,'photo','employees/','upload_image',$employee->id,'App\Models\Employee');
+        // Upload img
+        $this->verifyAndStoreImage($request, 'photo', 'employees/', 'upload_image', $employee->id, 'App\Models\Employee');
 
-            // session()->flash('success', 'تم أضافة بيانات الموظف بنجاح');
-            return response()->json(['success' => 'تم أضافة بيانات الموظف بنجاح']);
-        }
-        catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
+        return response()->json(['success' => 'تم أضافة بيانات الموظف بنجاح']);
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
+}
+
 
     /**
      * Display the specified resource.
@@ -96,6 +111,8 @@ class EmployeeController extends Controller
 
     public function update(EmployeeRequest $request)
     {
+         // Calculate vacation days
+         $vacationDays = $this->calculateVacationDays($request->hiring_date, $request->birth_date);
         $employee = Employee::findOrFail($request->id);
         $employee->name = $request->name;
         $employee->phone = $request->phone;
@@ -103,10 +120,10 @@ class EmployeeController extends Controller
         $employee->hiring_date = $request->hiring_date;
         $employee->start_from = $request->start_from;
         $employee->birth_date = $request->birth_date;
-        $employee->num_of_days = $request->num_of_days;
         $employee->job_grades_id = $request->job_grades_id;
         $employee->address_id = $request->address_id;
         $employee->department_id = $request->department_id;
+        $employee->num_of_days = $vacationDays; // Save the calculated vacation days
         $employee->save();
 
         // update pivot tABLE
@@ -176,23 +193,23 @@ class EmployeeController extends Controller
 
 
 
-    public function calculateVacationDays(Request $request)
-    {
-        $hiringDate = Carbon::createFromFormat('Y-m-d', $request->input('hiring_date'));
-        $birthDate = Carbon::createFromFormat('Y-m-d', $request->input('birth_date'));
+    // public function calculateVacationDays(Request $request)
+    // {
+    //     $hiringDate = Carbon::createFromFormat('Y-m-d', $request->input('hiring_date'));
+    //     $birthDate = Carbon::createFromFormat('Y-m-d', $request->input('birth_date'));
     
-        $yearsSinceHiring = $hiringDate->diffInYears(Carbon::now());
+    //     $yearsSinceHiring = $hiringDate->diffInYears(Carbon::now());
     
-        if ($yearsSinceHiring < 10) {
-            $vacationDays = 21;
-        } elseif ($yearsSinceHiring < 50) {
-            $vacationDays = 30;
-        } else {
-            $vacationDays = 40;
-        }
+    //     if ($yearsSinceHiring < 10) {
+    //         $vacationDays = 21;
+    //     } elseif ($yearsSinceHiring < 50) {
+    //         $vacationDays = 30;
+    //     } else {
+    //         $vacationDays = 40;
+    //     }
     
-        return response()->json(['vacation_days' => $vacationDays]);
-    }
+    //     return response()->json(['vacation_days' => $vacationDays]);
+    // }
     
 
 }
