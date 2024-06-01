@@ -114,7 +114,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <div id="acting_employee_id-error" class="error-message alert alert-danger d-none"></div>r
+                                <div id="acting_employee_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
@@ -169,64 +169,61 @@
                     </div>
 
                         {{-- Submit --}}
-                        <div class="col-12 mb-4 text-center">
-                            <input class="btn btn-outline-success" type="submit" value="تأكيد البيانات">
-                            <a href="{{ route('dashboard.vacations.index') }}" class="btn btn-outline-dark mx-2">رجوع</a>
+                        <div class="row row-xs wd-xl-80p">
+                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><button  type="submit" class="btn btn-success btn-with-icon btn-block"><i class="typcn typcn-edit"></i> تأكيد البيانات</button></div>
+                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><a  href="{{ route('dashboard.vacations.index') }}" type="submit" class="btn btn-info btn-with-icon btn-block"><i class="typcn typcn-arrow-back-outline"></i> رجوع</a></div>
                         </div>
+
                     </form>
             </div>
         </div>
     </div>
 
-    <!-- Internal Select2 js-->
-    <script src="{{ 'dashboard/assets/plugins/select2/js/select2.min.js' }}"></script>
-
-
-    <script>
-
-    </script>
-
 @endsection
 
 @section('scripts')
-    <!-- Internal Select2.min js -->
-    <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
+  <!-- Internal Select2.min js -->
+  <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
 
 
-    <!--Internal Ion.rangeSlider.min js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+  <!--Internal Ion.rangeSlider.min js -->
+  <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
 
-    <!--Internal  jquery-simple-datetimepicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
+  <!--Internal  jquery-simple-datetimepicker js -->
+  <script src="{{ asset('dashboard') }}/assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
 
-    <!-- Ionicons js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+  <!-- Ionicons js -->
+  <script src="{{ asset('dashboard') }}/assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
 
-    <!--Internal  pickerjs js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/pickerjs/picker.min.js"></script>
-
-    <!--Internal  Form-elements js-->
-    <script src="{{ asset('dashboard') }}/assets/js/advanced-form-elements.js"></script>
-
-    <!--Internal Sumoselect js-->
-    <script src="{{ asset('dashboard') }}/assets/plugins/sumoselect/jquery.sumoselect.js"></script>
-
-    <!-- Internal  js-->
-
-    <!--Internal  Datepicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
-
-
-    <!--Internal  jquery.maskedinput js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
-
-    <!--Internal  spectrum-colorpicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
+  <!--Internal  pickerjs js -->
+  <script src="{{ asset('dashboard') }}/assets/plugins/pickerjs/picker.min.js"></script>
 
 
 
-    <!--Internal Ion.rangeSlider.min js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+  <!--Internal  Form-elements js-->
+  <script src="{{ asset('dashboard') }}/assets/js/advanced-form-elements.js"></script>
+
+  <!--Internal Sumoselect js-->
+  <script src="{{ asset('dashboard') }}/assets/plugins/sumoselect/jquery.sumoselect.js"></script>
+
+  <!-- Internal  js-->
+
+  <!--Internal  Datepicker js -->
+  <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
+
+
+  <!--Internal  jquery.maskedinput js -->
+  <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
+
+  <!--Internal  spectrum-colorpicker js -->
+  <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
+
+
+
+  <!--Internal Ion.rangeSlider.min js -->
+  <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+
+
 
     <script src="{{ asset('dashboard/assets/js/projects/edit-vacation.js') }}"></script>
 

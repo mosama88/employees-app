@@ -141,9 +141,10 @@
                             </div>
                         </div> --}}
 
-                        <div class="col-12 mb-4 text-center">
-                            <button class="btn btn-outline-success" type="submit">تاكيد البيانات</button>
-                            <a href="{{ route('dashboard.vacations.index') }}" class="btn btn-outline-dark mx-2">رجوع</a>
+                         {{-- Submit --}}
+                         <div class="row row-xs wd-xl-80p">
+                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><button  type="submit" class="btn btn-success btn-with-icon btn-block"><i class="typcn typcn-edit"></i> تأكيد البيانات</button></div>
+                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><a  href="{{ route('dashboard.vacations.index') }}" type="submit" class="btn btn-info btn-with-icon btn-block"><i class="typcn typcn-arrow-back-outline"></i> رجوع</a></div>
                         </div>
                     </form>
 
