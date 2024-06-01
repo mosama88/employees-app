@@ -90,3 +90,69 @@ var loadFile = function(event) {
     }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $('#vacationForm').on('submit', function(e) {
+//     e.preventDefault(); // منع إرسال النموذج الافتراضي
+
+//     // إخفاء جميع رسائل الخطأ في البداية
+//     $('.error-message').addClass('d-none').html('');
+
+//     // إخفاء رسالة النجاح في البداية
+//     $('#successMessage').addClass('d-none');
+
+//     var formData = new FormData(this);
+
+//     // AJAX request to validate form data
+//     $.ajax({
+//         url: "{{ route('dashboard.vacations.update', $vacation->id) }}", // يجب استبدال هذا بالمسار الصحيح لتحقق الصحة في الخادم
+//         type: 'POST',
+//         data: formData,
+//         contentType: false,
+//         processData: false,
+//         success: function(response) {
+//             if (response.success) {
+//                 // إذا تم التحقق من الصحة بنجاح، قم بإرسال النموذج
+//                 $.ajax({
+//                     url: $('#vacationForm').attr('action'),
+//                     type: 'POST',
+//                     data: formData,
+//                     contentType: false,
+//                     processData: false,
+//                     success: function(response) {
+//                         // التعامل مع الرد الناجح
+//                         // ...
+//                     },
+//                     error: function(xhr) {
+//                         // التعامل مع الرد الفاشل
+//                         // ...
+//                     }
+//                 });
+//             } else {
+//                 // إذا كان هناك أخطاء في التحقق من الصحة، عرض رسائل الخطأ
+//                 var errors = response.errors;
+//                 for (var field in errors) {
+//                     var errorMessage = errors[field].join('<br>');
+//                     $('#' + field + '-error').html(errorMessage).removeClass('d-none');
+//                 }
+//             }
+//         },
+//         error: function(xhr) {
+//             // التعامل مع الرد الفاشل في التحقق من الصحة
+//             // ...
+//         }
+//     });
+// });

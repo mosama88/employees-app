@@ -199,5 +199,70 @@
             <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
 
             <script src="{{ asset('dashboard/assets/js/projects/add-vacation.js') }}"></script>
+ <script>
+        // تعيين مسار فهرس العطلات إلى متغير JavaScript
+        var vacationIndexRoute = "{{ route('dashboard.vacations.index') }}";
 
+        $(document).ready(function() {
+            // إخفاء الحقول عند التحميل الأولي
+            $('div#int_ext_field').hide();
+            $('div#department_field').hide();
+            $('div#acting_employee_field').hide();
+
+            // عرض وإخفاء الحقول بناءً على نوع الأجازة
+            $('#typeSelect').change(function() {
+                var selectedType = $(this).val();
+                if (selectedType === 'mission') {
+                    $('div#int_ext_field').show();
+                    $('div#acting_employee_field').hide();
+                } else {
+                    $('div#int_ext_field').hide();
+                    $('div#department_field').hide();
+                    $('div#acting_employee_field').show();
+                }
+            });
+
+            // عرض وإخفاء حقل القسم بناءً على داخلية / خارجية
+            $('#intExtSelect').change(function() {
+                var selectedIntExt = $(this).val();
+                if (selectedIntExt === 'internal') {
+                    $('div#department_field').show();
+                } else {
+                    $('div#department_field').hide();
+                }
+            });
+
+            // إرسال النموذج باستخدام Ajax
+            $('#vacationForm').submit(function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            $('#successMessage').removeClass('d-none');
+                            setTimeout(function() {
+                                window.location.href = vacationIndexRoute;
+                            }, 1000);
+                        }
+                    },
+                    error: function(xhr) {
+                        var errors = xhr.responseJSON.errors;
+                        for (var key in errors) {
+                            if (errors.hasOwnProperty(key)) {
+                                var errorDiv = $('#' + key + '-error');
+                                errorDiv.text(errors[key][0]);
+                                errorDiv.removeClass('d-none');
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
         @endsection

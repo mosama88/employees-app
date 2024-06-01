@@ -33,42 +33,54 @@ class VacationController extends Controller
     }
 
     public function store(VacationRequest $request)
-{
-    try {
-        $vacation = new Vacation();
-        $vacation->type = $request->type;
-        $vacation->start = $request->start;
-        $vacation->to = $request->to;
-        $vacation->notes = $request->notes;
-        $vacation->status = 'pending';
+    {
+        try {
+            DB::beginTransaction();
 
-        if ($request->type === 'mission') {
-            $vacation->int_ext = $request->int_ext;
-            if ($request->int_ext === 'internal') {
-                $vacation->department_id = $request->department_id;
+            $vacation = new Vacation();
+            $vacation->type = $request->type;
+            $vacation->start = $request->start;
+            $vacation->to = $request->to;
+            $vacation->notes = $request->notes;
+            $vacation->status = 'pending';
+
+            if ($request->type === 'mission') {
+                $vacation->int_ext = $request->int_ext;
+                if ($request->int_ext === 'internal') {
+                    $vacation->department_id = $request->department_id;
+                } else {
+                    $vacation->department_id = null;
+                }
+                $vacation->acting_employee_id = null;
             } else {
+                $vacation->acting_employee_id = $request->acting_employee_id;
+                $vacation->int_ext = null;
                 $vacation->department_id = null;
             }
-            $vacation->acting_employee_id = null;
-        } else {
-            $vacation->acting_employee_id = $request->acting_employee_id;
-            $vacation->int_ext = null;
-            $vacation->department_id = null;
+
+            $vacation->save();
+            $vacation->vacationEmployee()->attach($request->employee_id);
+
+            // Upload img
+            $this->verifyAndStoreFile($request, 'photo', 'vacations/', 'upload_image', $vacation->id, 'App\Models\Vacation');
+
+            DB::commit();
+
+            // إرجاع الرد بناءً على نوع الطلب
+            if ($request->ajax()) {
+                return response()->json(['success' => 'تم أضافة بيانات الموظف بنجاح']);
+            } else {
+                return redirect()->route('dashboard.vacations.index')->with('success', 'تم أضافة الأجازة بنجاح');
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            if ($request->ajax()) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            } else {
+                return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            }
         }
-
-        $vacation->save();
-        $vacation->vacationEmployee()->attach($request->employee_id);
-
-        // Upload img
-        $this->verifyAndStoreFile($request, 'photo', 'vacations/', 'upload_image', $vacation->id, 'App\Models\Vacation');
-
-        session()->flash('success', 'تم أضافة الأجازة بنجاح');
-        return redirect()->route('dashboard.vacations.index');
-    } catch (\Exception $e) {
-        DB::rollback();
-        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
-}
 
 
 
@@ -92,6 +104,7 @@ class VacationController extends Controller
     }
 
 
+    // Start Update Vacation
     public function update(VacationRequest $request, $id)
 {
     // تحقق مما إذا كانت قيمة status موجودة ومقبولة
@@ -137,11 +150,16 @@ class VacationController extends Controller
         $this->verifyAndStoreFile($request, 'photo', 'vacations/', 'upload_image', $vacation->id, 'App\Models\Vacation');
     }
 
-    session()->flash('success', 'تم تعديل الإجازة بنجاح');
-    return redirect()->route('dashboard.vacations.index');
+    // إرجاع الرد بناءً على نوع الطلب
+    if ($request->ajax()) {
+        return response()->json(['success' => 'تم تعديل بيانات الموظف بنجاح']);
+    } else {
+        return redirect()->route('dashboard.vacations.index')->with('success', 'تم تعديل الأجازة بنجاح');
+    }
 }
+    // End Update Vacation
 
-
+    // Start Delete Vacation
     public function destroy(Request $request)
     {
         if ($request->page_id == 1) {
@@ -170,6 +188,7 @@ class VacationController extends Controller
 
     }
 
+    // End Delete Vacation
 
 
 

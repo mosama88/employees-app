@@ -53,9 +53,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('employee_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="employee_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
                             {{-- Type Of Vacation Inputs --}}
@@ -72,6 +70,7 @@
                                 @error('type')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
+                                <div id="type-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
@@ -84,9 +83,7 @@
                                     <option value="internal" {{ $vacation->int_ext === 'internal' ? 'selected' : '' }}>داخلية</option>
                                     <option value="external" {{ $vacation->int_ext === 'external' ? 'selected' : '' }}>خارجية</option>
                                 </select>
-                                @error('int_ext')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="int_ext-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
                         {{-- Department Inputs --}}
@@ -100,9 +97,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('department_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="department_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
                         </div>
@@ -119,9 +114,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('acting_employee_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="acting_employee_id-error" class="error-message alert alert-danger d-none"></div>r
                             </div>
                         </div>
 
@@ -130,18 +123,14 @@
                             <div class="form-group col-6">
                                 <label for="exampleInputto">من يوم</label>
                                 <input class="form-control fc-datepicker @error('start') is-invalid @enderror" name="start" value="{{ $vacation->start }}" placeholder="MM/DD/YYYY" type="text">
-                                @error('start')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="start-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
                             {{-- To Inputs --}}
                             <div class="form-group col-6">
                                 <label for="exampleInputto">إلى يوم</label>
                                 <input class="form-control fc-datepicker @error('to') is-invalid @enderror" name="to" value="{{ $vacation->to }}" placeholder="MM/DD/YYYY" type="text">
-                                @error('to')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div id="to-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
 
@@ -155,12 +144,14 @@
                                     <option value="{{ $value }}" {{ $vacation->status == $value ? 'selected' : '' }}>{{ $label }}</option>
                                 @endforeach
                             </select>
+                            <div id="status-error" class="error-message alert alert-danger d-none"></div>
                         </div>
 
                         {{-- Notes Inputs --}}
                         <div class="form-group col-6">
                             <label for="examplenotes">ملاحظات</label>
                             <textarea class="form-control" id="examplenotes" name="notes" placeholder="أدخل ملاحظاتك" rows="3">{{ $vacation->notes }}</textarea>
+                            <div id="notes-error" class="error-message alert alert-danger d-none"></div>
                         </div>
 
                     </div>
@@ -173,10 +164,7 @@
                             <img class="rounded-circle avatar-xl my-3"  />
 
                             <img alt="Responsive image" class="img-fluid" id="output">
-
-                            @error('photo')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                            <div id="file-error" class="error-message alert alert-danger d-none"></div>
                         </div>
                     </div>
 
@@ -241,5 +229,6 @@
     <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
 
     <script src="{{ asset('dashboard/assets/js/projects/edit-vacation.js') }}"></script>
+
 
 @endsection
