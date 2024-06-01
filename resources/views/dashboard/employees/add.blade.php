@@ -90,11 +90,10 @@
                         </div>
 
                         <div class="row">
-                            {{-- hiring_date Inputs --}}
+                       {{-- Hiring Date Inputs --}}
                             <div class="form-group col-4">
                                 <label for="hiring_date">تاريخ التعيين</label>
-                                <input class="form-control fc-datepicker"
-                                    name="hiring_date" placeholder="MM/DD/YYYY" type="date">
+                                <input id="hiring_date" class="form-control fc-datepicker" name="hiring_date" placeholder="MM/DD/YYYY" type="date">
                                 <div id="hiring_date-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
@@ -107,13 +106,12 @@
                                 <div id="start_from-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
-                                  {{-- Birth Date Inputs --}}
-                                  <div class="form-group col-4">
-                                    <label for="birth_date">تاريخ الميلاد</label>
-                                    <input class="form-control fc-datepicker" name="birth_date" placeholder="MM/DD/YYYY"
-                                        type="date">
-                                    <div id="birth_date-error" class="error-message alert alert-danger d-none"></div>
-                                </div>
+                            {{-- Birth Date Inputs --}}
+                            <div class="form-group col-4">
+                                <label for="birth_date">تاريخ الميلاد</label>
+                                <input id="birth_date" class="form-control fc-datepicker" name="birth_date" placeholder="MM/DD/YYYY" type="date">
+                                <div id="birth_date-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
                         </div>
 
 
@@ -153,9 +151,8 @@
                         <div class="row">
                             <div class="form-group col-6">
                                 {{-- Number Of Days Inputs --}}
-                                <label for="exampleInputnum">عدد الأجازات المستحقه</label>
-                                <input name="num_of_days" value="{{ old('num_of_days') }}" class="form-control fc-datepicker" placeholder="أدخل الاجازات المستحقه"
-                                type="text">
+                                <label for="num_of_days">عدد الأجازات المستحقه</label>
+                                <input id="num_of_days" name="num_of_days" class="form-control fc-datepicker" placeholder="أدخل الاجازات المستحقه" type="text" readonly>
                                 <div id="num_of_days-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
@@ -216,6 +213,8 @@
 
 @section('scripts')
 
+
+
     <!-- Internal Select2.min js -->
     <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
 
@@ -258,6 +257,37 @@
     <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
 
     <script src="{{ asset('dashboard/assets/js/projects/add-employee.js') }}"></script>
+
+
+    
+    <script>
+        document.getElementById('hiring_date').addEventListener('change', calculateVacationDays);
+        document.getElementById('birth_date').addEventListener('change', calculateVacationDays);
+    
+        function calculateVacationDays() {
+            var hiringDate = document.getElementById('hiring_date').value;
+            var birthDate = document.getElementById('birth_date').value;
+    
+            if (hiringDate && birthDate) {
+                fetch('{{ route("dashboard.calculateVacationDays") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        hiring_date: hiringDate,
+                        birth_date: birthDate
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('num_of_days').value = data.vacation_days;
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+    </script>
 
 
 @endsection

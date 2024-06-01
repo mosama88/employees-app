@@ -37,6 +37,9 @@ class EmployeeController extends Controller
     public function store(EmployeeRequest $request)
     {
         try{
+            // Calculate vacation days
+        $vacationDays = $this->calculateVacationDays($request->hiring_date, $request->birth_date);
+
             $employee = new Employee();
             $employee->name = $request->name;
             $employee->phone = $request->phone;
@@ -44,13 +47,12 @@ class EmployeeController extends Controller
             $employee->hiring_date = $request->hiring_date;
             $employee->start_from = $request->start_from;
             $employee->birth_date = $request->birth_date;
-            $employee->num_of_days = $request->num_of_days;
             $employee->job_grades_id = $request->job_grades_id;
             $employee->address_id = $request->address_id;
             $employee->department_id = $request->department_id;
             $employee->save();
             $employee->employeeAppointments()->attach($request->appointments);
-            
+
             //Upload img
             $this->verifyAndStoreImage($request,'photo','employees/','upload_image',$employee->id,'App\Models\Employee');
 
@@ -171,5 +173,25 @@ class EmployeeController extends Controller
         return view('dashboard.employees.show-vacation-employee', compact('employees'));
     }
 
-}
 
+
+    public function calculateVacationDays(Request $request)
+    {
+        $hiringDate = Carbon::createFromFormat('Y-m-d', $request->input('hiring_date'));
+        $birthDate = Carbon::createFromFormat('Y-m-d', $request->input('birth_date'));
+    
+        $yearsSinceHiring = $hiringDate->diffInYears(Carbon::now());
+    
+        if ($yearsSinceHiring < 10) {
+            $vacationDays = 21;
+        } elseif ($yearsSinceHiring < 50) {
+            $vacationDays = 30;
+        } else {
+            $vacationDays = 40;
+        }
+    
+        return response()->json(['vacation_days' => $vacationDays]);
+    }
+    
+
+}

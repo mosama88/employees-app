@@ -38,7 +38,7 @@ class EmployeeRequest extends FormRequest
             'hiring_date' => 'required|date',
             'start_from' => 'required|date',
             'birth_date' => 'required|date',
-            'num_of_days' => 'required|integer|between:20,50',
+            'num_of_days' => 'nullable|integer|between:20,50',
             'job_grades_id'=> 'required|exists:job_grades,id',
             'address_id'=> 'required|exists:addresses,id',
             'department_id'=> 'required|exists:departments,id',
@@ -70,7 +70,6 @@ class EmployeeRequest extends FormRequest
             'birth_date.required'=>'حقل تاريخ الميلاد مطلوب',
             'birth_date.date' => 'تاريخ تاريخ الميلاد لا يتطابق مع الصيغة d/m/Y.',
             ########################################################
-            'num_of_days.required'=>'حقل عدد أجازات الموظف مطلوب مطلوب',
             'num_of_days.integar' => 'يجب أن يكون عدد الاجازات أرقام',
             'num_of_days.between' => 'يجب أن يكون عدد الاجازات بين 20 و 50',
             ########################################################

@@ -45,6 +45,9 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     ##################################### Start Dashboard Employee ######################
     Route::resource('/employees', EmployeeController::class);
     Route::get('/employees/show/vacation', [EmployeeController::class,'employeeshowvacation'])->name('show.vacation');
+    Route::post('/calculate-vacation-days', [EmployeeController::class, 'calculateVacationDays'])->name('calculateVacationDays');
+
+    
     ##################################### End Dashboard Employee ########################
     ##################################### Start Dashboard Vacation ######################
     Route::resource('/vacations', VacationController::class);
