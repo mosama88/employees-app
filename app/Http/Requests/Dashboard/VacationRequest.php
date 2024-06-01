@@ -26,7 +26,8 @@ class VacationRequest extends FormRequest
         return [
             'type' => 'required|string|in:satisfying,emergency,regular,Annual,mission',
             'start' => 'required|date',
-            'to' => 'required|date|after:start +1 day',
+            'to' => 'required|date|after_or_equal:start',
+            // 'to' => 'required|date|after:start +1 day',
             'notes' => 'nullable|string|max:1000',
             'employee_id' => 'required|exists:employees,id',
             'file' => 'nullable|file|mimes:docx,doc,pdf,png,webp,jpg,jpeg',
@@ -65,7 +66,7 @@ class VacationRequest extends FormRequest
             ########################################################
             'to.required'=>'حقل أنتهاء الاجازه مطلوب',
             'to.date_format' => 'تاريخ أنتهاء الاجازه لا يتطابق مع الصيغة m/d/Y.',
-            'to.after'=>'لا يجب أختيار انتهاء الاجازه قبل تاريخ أبتداء الاجازه',
+            'to.after_or_equal'=>'يجب أن يكون تاريخًا بعد البدء أو يساويه.',
             ########################################################
             'notes.max'=>'برجاء كتابة الملاحظات أقل من 1000 كلمة.',
             ########################################################

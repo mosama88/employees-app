@@ -122,16 +122,18 @@
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="exampleInputto">من يوم</label>
-                                <input class="form-control fc-datepicker @error('start') is-invalid @enderror" name="start" value="{{ $vacation->start }}" placeholder="MM/DD/YYYY" type="text">
+                                <input class="form-control fc-datepicker" name="start" value="{{ $vacation->start }}" placeholder="MM/DD/YYYY" type="date">
                                 <div id="start-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
                             {{-- To Inputs --}}
                             <div class="form-group col-6">
                                 <label for="exampleInputto">إلى يوم</label>
-                                <input class="form-control fc-datepicker @error('to') is-invalid @enderror" name="to" value="{{ $vacation->to }}" placeholder="MM/DD/YYYY" type="text">
+                                <input id="toInput" class="form-control fc-datepicker"
+                                 name="to" value="{{ $vacation->to }}" placeholder="MM/DD/YYYY" type="date">
                                 <div id="to-error" class="error-message alert alert-danger d-none"></div>
                             </div>
+
                         </div>
 
                         <div class="row">
