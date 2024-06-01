@@ -24,7 +24,6 @@ class JobGradeRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:10|max:300',
-            'num_of_day'=>'required|integer|between:21,50',
         ];
     }
 
@@ -35,9 +34,6 @@ class JobGradeRequest extends FormRequest
             'name.required'=>'حقل الوظيفه مطلوب .',
             'name.min'=>'برجاء كتابة حقل الوظيفه أكثر من 10 كلمات.',
             'name.max'=>'برجاء كتابة حقل الوظيفه أقل من من 300 كلمة.',
-            'num_of_day.required'=>'حقل عدد أيام الاجازه مطلوب .',
-            'num_of_day.between'=>'برجاء كتابة حقل عدد أيام الاجازه أكثر من او يساوى 21 او أقل من  او يساوى 50 .',
-            'num_of_day.integer'=>'برجاء كتابة حقل عدد أيام بالأرقام.',
         ];
     }
 }

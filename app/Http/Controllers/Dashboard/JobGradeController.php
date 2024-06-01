@@ -30,8 +30,6 @@ class JobGradeController extends Controller
         try {
             $jobgrade = new JobGrade();
             $jobgrade->name = $request->name;
-            $jobgrade->num_of_day = $request->num_of_day;
-
             $jobgrade->save();
 
             // Return a JSON response indicating success
@@ -62,7 +60,6 @@ class JobGradeController extends Controller
         try {
         $jobgrade = JobGrade::findOrFail($request->id);
         $jobgrade->name = $request->name;
-        $jobgrade->num_of_day = $request->num_of_day;
         $jobgrade->save();
         session()->flash('success', 'تم تعديل الدرجه الوظيفية بنجاح');
         return redirect()->route('dashboard.jobgrades.index');

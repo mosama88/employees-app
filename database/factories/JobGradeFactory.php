@@ -37,7 +37,6 @@ class JobGradeFactory extends Factory
                 'الرابعة أ',
                 'الرابعة ب',
             ]),
-            'num_of_day' => $this->faker->numberBetween(10, 30),
             'job_id' => $this->faker->randomElement($jobIds),
         ];
     }

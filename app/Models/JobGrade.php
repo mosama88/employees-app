@@ -12,7 +12,6 @@ class JobGrade extends Model
 
     protected $fillable = [
             'name',
-            'num_of_day',
     ];
 
 
