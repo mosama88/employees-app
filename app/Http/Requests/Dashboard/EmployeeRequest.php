@@ -37,13 +37,14 @@ class EmployeeRequest extends FormRequest
             'alter_phone'=>'nullable|string|min:11|max:11',
             'hiring_date' => 'required|date',
             'start_from' => 'required|date',
+            'num_of_days' => 'required|integer|between:20,50',
             'job_grades_id'=> 'required|exists:job_grades,id',
             'address_id'=> 'required|exists:addresses,id',
             'department_id'=> 'required|exists:departments,id',
             'photo'=> 'image|mimes:png,jpg,jpeg,gif,webp',
         ];
     }
-
+    
 
     public function messages(): array
     {
@@ -64,6 +65,10 @@ class EmployeeRequest extends FormRequest
             ########################################################
             'start_from.required'=>'حقل بداية أستلام العمل بالادارة مطلوب',
             'start_from.date' => 'تاريخ بداية أستلام العمل بالادارة لا يتطابق مع الصيغة d/m/Y.',
+            ########################################################
+            'num_of_days.required'=>'حقل عدد أجازات الموظف مطلوب مطلوب',
+            'num_of_days.integar' => 'يجب أن يكون عدد الاجازات أرقام',
+            'num_of_days.between' => 'يجب أن يكون عدد الاجازات بين 20 و 50',
             ########################################################
             'job_grades_id.required'=>'حقل الدرجه الوظيفية مطلوب ',
             'job_grades_id.exists' => 'الدرجه الوظيفية المحددة غير موجود.',

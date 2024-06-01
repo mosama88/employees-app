@@ -149,6 +149,24 @@
 
                         <div class="row">
                             <div class="form-group col-6">
+                                {{-- Number Of Days Inputs --}}
+                                <label for="exampleInputnum">عدد الأجازات المستحقه</label>
+                                <input name="num_of_days" value="{{ $employee->num_of_days }}" class="form-control fc-datepicker" placeholder="أدخل الاجازات المستحقه"
+                                type="text">
+                                <div id="num_of_days-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+
+                            {{-- Address Inputs --}}
+                            {{-- <div class="form-group col-6">
+                                <label for="exampleInputnum_of_days">عدد الأجازات المستحقه</label>
+                                <input name="num_of_days" class="form-control fc-datepicker" id="exampleInputnum_of_days"  placeholder="أدخل الاجازات المستحقه"
+                                type="text">
+                                <div id="num_of_days-error" class="error-message alert alert-danger d-none"></div>
+                            </div> --}}
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-6">
                                 {{-- job_grades_id Inputs --}}
                                 <label for="selectFormgrade">الدرجه الوظيفية</label>
                                 <select name="job_grades_id" value="{{ old('job_grades_id') }}"

@@ -25,6 +25,7 @@
 @endsection
 @section('current-page', 'أضافة موظف')
 @section('content')
+@include('dashboard.messages_alert')
 
     <div class="row row-sm">
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
@@ -108,6 +109,8 @@
                             </div>
                         </div>
 
+
+
                         <div class="row">
                             <div class="form-group col-6">
                                 {{-- Address Inputs --}}
@@ -139,8 +142,28 @@
                         </div>
 
 
-                        <div class="row">
 
+                        <div class="row">
+                            <div class="form-group col-6">
+                                {{-- Number Of Days Inputs --}}
+                                <label for="exampleInputnum">عدد الأجازات المستحقه</label>
+                                <input name="num_of_days" value="{{ old('num_of_days') }}" class="form-control fc-datepicker" placeholder="أدخل الاجازات المستحقه"
+                                type="text">
+                                <div id="num_of_days-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+
+                            {{-- Address Inputs --}}
+                            {{-- <div class="form-group col-6">
+                                <label for="exampleInputnum_of_days">عدد الأجازات المستحقه</label>
+                                <input name="num_of_days" class="form-control fc-datepicker" id="exampleInputnum_of_days"  placeholder="أدخل الاجازات المستحقه"
+                                type="text">
+                                <div id="num_of_days-error" class="error-message alert alert-danger d-none"></div>
+                            </div> --}}
+                        </div>
+
+
+
+                        <div class="row">
                             <div class="form-group col-6">
                                 {{-- job_grades_id Inputs --}}
                                 <label for="selectFormgrade">الدرجه الوظيفية</label>
@@ -228,5 +251,6 @@
     <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
 
     <script src="{{ asset('dashboard/assets/js/projects/add-employee.js') }}"></script>
+
 
 @endsection

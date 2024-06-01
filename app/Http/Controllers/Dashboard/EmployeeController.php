@@ -43,13 +43,12 @@ class EmployeeController extends Controller
             $employee->alter_phone = $request->alter_phone;
             $employee->hiring_date = $request->hiring_date;
             $employee->start_from = $request->start_from;
+            $employee->num_of_days = $request->num_of_days;
             $employee->job_grades_id = $request->job_grades_id;
             $employee->address_id = $request->address_id;
             $employee->department_id = $request->department_id;
             $employee->save();
             $employee->employeeAppointments()->attach($request->appointments);
-
-
 
             //Upload img
             $this->verifyAndStoreImage($request,'photo','employees/','upload_image',$employee->id,'App\Models\Employee');
@@ -99,6 +98,7 @@ class EmployeeController extends Controller
         $employee->alter_phone = $request->alter_phone;
         $employee->hiring_date = $request->hiring_date;
         $employee->start_from = $request->start_from;
+        $employee->num_of_days = $request->num_of_days;
         $employee->job_grades_id = $request->job_grades_id;
         $employee->address_id = $request->address_id;
         $employee->department_id = $request->department_id;

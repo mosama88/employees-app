@@ -21,6 +21,7 @@ protected $fillable =[
     'alter_phone',
     'hiring_date',
     'start_from',
+    'num_of_days',
     'job_grades_id',
     'address_id',
     'department_id',
