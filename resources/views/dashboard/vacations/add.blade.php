@@ -25,11 +25,13 @@
                 <div class="card-body pt-0">
 
 
-                    <form id="vacationForm" action="{{ route('dashboard.vacations.store') }}" method="POST" enctype="multipart/form-data">
+                    <form id="vacationForm" action="{{ route('dashboard.vacations.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <!-- Success Message -->
-                        <div id="successMessage" class="alert alert-primary d-none" role="alert">
-                            تم أضافة أجازة الموظف بنجاح <a href="{{ route('dashboard.vacations.index') }}" class="alert-link">أضغط هنا لمشاهدة الأضافة</a>
+                        <div id="successMessage" class="alert alert-success d-none" role="alert">
+                            تم أضافة أجازة الموظف بنجاح <a href="{{ route('dashboard.vacations.index') }}"
+                                class="alert-link">أضغط هنا لمشاهدة الأضافة</a>
                         </div>
 
                         <div class="row">
@@ -37,7 +39,8 @@
                             {{-- Employee Input --}}
                             <div class="form-group col-6">
                                 <label for="employeeSelect">أختر الموظف</label>
-                                <select name="employee_id" id="employeeSelect" class="form-control select2 @error('employee_id') is-invalid @enderror">
+                                <select name="employee_id" id="employeeSelect"
+                                    class="form-control select2 @error('employee_id') is-invalid @enderror">
                                     <option disabled selected>افتح قائمة التحديد</option>
                                     @foreach ($employees as $employee)
                                         <option value="{{ $employee->id }}">{{ $employee->name }}</option>
@@ -49,7 +52,8 @@
                             {{-- Type Of Vacation Input --}}
                             <div class="form-group col-6" id="type_field">
                                 <label for="typeSelect">نوع الأجازه</label>
-                                <select name="type" id="typeSelect" class="form-control select2-no-search @error('type') is-invalid @enderror">
+                                <select name="type" id="typeSelect"
+                                    class="form-control select2-no-search @error('type') is-invalid @enderror">
                                     <option value="" selected disabled> -- افتح قائمة التحديد --</option>
                                     <option value="satisfying">مرضى</option>
                                     <option value="emergency">عارضه</option>
@@ -65,7 +69,8 @@
                             {{-- Internal And External Input --}}
                             <div class="form-group col-6" id="int_ext_field">
                                 <label for="intExtSelect">داخلية / خارجيه</label>
-                                <select name="int_ext" id="intExtSelect" class="form-control select2 @error('int_ext') is-invalid @enderror">
+                                <select name="int_ext" id="intExtSelect"
+                                    class="form-control select2 @error('int_ext') is-invalid @enderror">
                                     <option disabled selected>افتح قائمة التحديد</option>
                                     <option value="internal">نيابات</option>
                                     <option value="external">جهه خارجيه</option>
@@ -73,7 +78,7 @@
                                 <div id="int_ext-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
-                        {{-- Department Input --}}
+                            {{-- Department Input --}}
                             <div class="form-group col-6" id="department_field">
                                 <label for="departmentSelect">النيابات</label>
                                 <select name="department_id" id="departmentSelect" class="form-control select2">
@@ -90,7 +95,8 @@
                             {{-- Acting Employee Input --}}
                             <div class="form-group col-6" id="acting_employee_field">
                                 <label for="actingEmployeeSelect">القائم بأعماله</label>
-                                <select name="acting_employee_id" id="actingEmployeeSelect" class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
+                                <select name="acting_employee_id" id="actingEmployeeSelect"
+                                    class="form-control select2 @error('acting_employee_id') is-invalid @enderror">
                                     <option disabled selected>افتح قائمة التحديد</option>
                                     @foreach ($employees as $employee)
                                         <option value="{{ $employee->id }}">{{ $employee->name }}</option>
@@ -104,12 +110,14 @@
                             {{-- Start Input --}}
                             <div class="form-group col-6">
                                 <label for="startInput">من يوم</label>
-                                <input name="start" id="startInput" class="form-control fc-datepicker @error('start') is-invalid @enderror" type="date">
+                                <input name="start" id="startInput"
+                                    class="form-control fc-datepicker @error('start') is-invalid @enderror" type="date">
                                 <div id="start-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                             <div class="form-group col-6">
                                 <label for="toInput">إلى يوم</label>
-                                <input name="to" id="toInput" class="form-control fc-datepicker @error('to') is-invalid @enderror" type="date">
+                                <input name="to" id="toInput"
+                                    class="form-control fc-datepicker @error('to') is-invalid @enderror" type="date">
                                 <div id="to-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
@@ -123,15 +131,15 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            {{-- Photo Input --}}
+                        {{-- Photo Input --}}
+                        {{-- <div class="row">
                             <div class="form-group col-12">
                                 <label for="photoInput">المرفقات</label>
                                 <input class="form-control" accept="image/*" name="photo" type="file" id="photoInput" onchange="loadFile(event)">
                                 <img class="rounded-circle avatar-xl my-3" id="output" />
                                 <div id="photo-error" class="error-message alert alert-danger d-none"></div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-12 mb-4 text-center">
                             <button class="btn btn-outline-success" type="submit">تاكيد البيانات</button>
@@ -139,58 +147,57 @@
                         </div>
                     </form>
 
-        </div>
-    </div>
+                </div>
+            </div>
 
 
 
-@endsection
+        @endsection
 
-@section('scripts')
-
-
-    <!-- Internal Select2.min js -->
-    <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
+        @section('scripts')
 
 
-    <!--Internal Ion.rangeSlider.min js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-
-    <!--Internal  jquery-simple-datetimepicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
-
-    <!-- Ionicons js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
-
-    <!--Internal  pickerjs js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/pickerjs/picker.min.js"></script>
+            <!-- Internal Select2.min js -->
+            <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
 
 
+            <!--Internal Ion.rangeSlider.min js -->
+            <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
 
-    <!--Internal  Form-elements js-->
-    <script src="{{ asset('dashboard') }}/assets/js/advanced-form-elements.js"></script>
+            <!--Internal  jquery-simple-datetimepicker js -->
+            <script src="{{ asset('dashboard') }}/assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
 
-    <!--Internal Sumoselect js-->
-    <script src="{{ asset('dashboard') }}/assets/plugins/sumoselect/jquery.sumoselect.js"></script>
+            <!-- Ionicons js -->
+            <script src="{{ asset('dashboard') }}/assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
 
-    <!-- Internal  js-->
-
-    <!--Internal  Datepicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
-
-
-    <!--Internal  jquery.maskedinput js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
-
-    <!--Internal  spectrum-colorpicker js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
+            <!--Internal  pickerjs js -->
+            <script src="{{ asset('dashboard') }}/assets/plugins/pickerjs/picker.min.js"></script>
 
 
 
-    <!--Internal Ion.rangeSlider.min js -->
-    <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+            <!--Internal  Form-elements js-->
+            <script src="{{ asset('dashboard') }}/assets/js/advanced-form-elements.js"></script>
 
-    <script src="{{ asset('dashboard/assets/js/projects/add-vacation.js') }}"></script>
+            <!--Internal Sumoselect js-->
+            <script src="{{ asset('dashboard') }}/assets/plugins/sumoselect/jquery.sumoselect.js"></script>
 
-@endsection
+            <!-- Internal  js-->
 
+            <!--Internal  Datepicker js -->
+            <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
+
+
+            <!--Internal  jquery.maskedinput js -->
+            <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
+
+            <!--Internal  spectrum-colorpicker js -->
+            <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
+
+
+
+            <!--Internal Ion.rangeSlider.min js -->
+            <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+
+            <script src="{{ asset('dashboard/assets/js/projects/add-vacation.js') }}"></script>
+
+        @endsection

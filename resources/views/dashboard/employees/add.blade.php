@@ -40,7 +40,7 @@
                         @csrf
 
                         {{-- Success Message --}}
-                        <div id="successMessage" class="alert alert-primary d-none" role="alert">
+                        <div id="successMessage" class="alert alert-success d-none" role="alert">
                             تم أضافة بيانات الموظف بنجاح <a href="{{ route('dashboard.employees.index') }}"
                                 class="alert-link">أضغط هنا لمشاهدة الأضافة</a>
                         </div>

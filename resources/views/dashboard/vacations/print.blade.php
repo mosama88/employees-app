@@ -52,7 +52,7 @@
                             <div class="row mg-t-10">
                                 <div class="col-6">
                                     <h4>الأسم / @foreach ($vacation->vacationEmployee as $employee)
-                                            {{ $employee->name }}
+                                            {{ $employee?->name }}
                                             @if (!$loop->last)
                                                 ،
                                             @endif
@@ -68,7 +68,7 @@
                                     <h4>جهه العمل / {{ $employee->department->name }}</h4>
                                 </div> --}}
                                 <div class="col-6">
-                                    <h4>مدة الأجازه / 20 يوم</h4>
+                                    <h4>مدة الأجازه / {{ $vacation->calculateTotalDaysExcludingFridays() }} يوم</h4>
                                 </div>
                             </div>
                             <div class="row mg-t-10">
@@ -91,7 +91,7 @@
                                 <div class="col-5">
                                     <h4 class="text-center">أسم القائم بأعماله</h4>
                                     <h3>أتعهد بالقيام بالعمل أثناء الأجازه :
-                                        {{ $vacation->employee->name }}</h3>
+                                        {{ $vacation->employee?->name }}</h3>
                                 </div>
                             </div>
 

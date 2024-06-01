@@ -36,11 +36,11 @@
                     <form id="vacationForm" action="{{ route('dashboard.vacations.update', $vacation->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div id="successMessage" class="alert alert-primary d-none" role="alert">
+                        <div id="successMessage" class="alert alert-success d-none" role="alert">
                             تم تعديل الموظف بنجاح <a href="{{ route('dashboard.vacations.index') }}" class="alert-link">أضغط هنا لمشاهدة التعديل</a>
                         </div>
                         <input type="hidden" name="id" value="{{ $vacation->id }}">
-                    
+
                         {{-- Employee Inputs --}}
                         <div class="row">
                             <div class="form-group col-6">
@@ -57,7 +57,7 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                    
+
                             {{-- Type Of Vacation Inputs --}}
                             <div class="form-group col-6">
                                 <label for="exampleInputaddress">نوع الأجازة</label>
@@ -74,7 +74,7 @@
                                 @enderror
                             </div>
                         </div>
-                    
+
                         {{-- Internal & External Inputs --}}
                         <div class="row">
                             <div class="form-group col-6" id="int_ext_field">
@@ -88,7 +88,7 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                    
+
                         {{-- Department Inputs --}}
                             <div class="form-group col-6" id="department_field">
                                 <label for="departmentSelect">النيابات</label>
@@ -104,7 +104,7 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                    
+
                         </div>
 
                         {{-- Acting Employee Inputs --}}
@@ -124,7 +124,7 @@
                                 @enderror
                             </div>
                         </div>
-                    
+
                         {{-- Start Inputs --}}
                         <div class="row">
                             <div class="form-group col-6">
@@ -134,7 +134,7 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                    
+
                             {{-- To Inputs --}}
                             <div class="form-group col-6">
                                 <label for="exampleInputto">إلى يوم</label>
@@ -144,9 +144,9 @@
                                 @enderror
                             </div>
                         </div>
-                    
+
                         <div class="row">
-                      
+
                         {{-- Status Inputs --}}
                         <div class="form-group col-6">
                             <label for="status" class="mt-1">حالة الإجازة</label>

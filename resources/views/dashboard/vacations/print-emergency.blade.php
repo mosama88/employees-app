@@ -18,8 +18,8 @@
 @section('content')
     @php
         use Carbon\Carbon;
-    $startDay = Carbon::parse($vacation->start)->locale('ar')->dayName;
-    $endDay = Carbon::parse($vacation->to)->locale('ar')->dayName;
+        $startDay = Carbon::parse($vacation->start)->locale('ar')->dayName;
+        $endDay = Carbon::parse($vacation->to)->locale('ar')->dayName;
     @endphp
     <div class="container-fluid">
         {{-- Start Row --}}
@@ -41,58 +41,60 @@
                                                     <h1 class="invoice-title">إدارة التحول الرقمى</h1>
                                                     <div class="billed-from">
                                                         <h6>نموذج أدارة الاجازات - بإدارة النيابات</h6>
-                                                        <p>مكتب / نيابة {{ $employee->department->name }}<br>
+                                                        <p>مكتب / نيابة التحول الرقمى<br>
                                                     </div><!-- billed-from -->
                                                 </div><!-- invoice-header -->
-                                                <div class="row mg-t-10">
+                                                <div class="row mg-t-20">
                                                     <div class="col-12">
-                                                        <h1 class="text-center">أجازة أعتيادية</h1>
+                                                        <h1 class="text-center">أجازة عارضه</h1>
                                                     </div>
                                                 </div>
-                                                <div class="row mg-t-10">
+                                                <div class="row mg-t-20">
                                                     <div class="col-6">
                                                         <h4>الأسم / @foreach ($vacation->vacationEmployee as $employee)
                                                                 {{ $employee->name }}
                                                                 @if (!$loop->last)
                                                                     ،
                                                                 @endif
-                                                                    @endforeach
+                                                            @endforeach
                                                         </h4>
                                                     </div>
                                                     <div class="col-6">
                                                         <h4>الوظيفية / إدارة التحول الرقمى</h4>
                                                     </div>
+
                                                 </div>
-                                                <div class="row mg-t-10">
-                                                    {{-- <div class="col-6">
-                                                        <h4>جهه العمل / {{ $employee->department->name }}</h4>
-                                                    </div> --}}
+                                                <div class="row mg-t-20">
                                                     <div class="col-6">
-                                                        <h4>مدة الأجازه / 20 يوم</h4>
+                                                        <h4>جهه العمل / {{ $employee->department->name }}</h4>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h4>مدة الأجازه / {{ $vacation->calculateTotalDaysExcludingFridays() }} يوم</h4>
                                                     </div>
                                                 </div>
-                                                <div class="row mg-t-10">
+                                                <div class="row mg-t-20">
                                                     <div class="col-12">
-                                                        <h4> من يوم {{ $startDay }} الموافق {{ Carbon::parse($vacation->start)->locale('ar')->isoFormat('D/MMMM /YYYY') }}  حتى {{ $endDay }} الموافق {{ Carbon::parse($vacation->to)->locale('ar')->isoFormat('D/MMMM /YYYY') }}</h4>
+                                                        <h4> من يوم {{ $startDay }} الموافق
+                                                            {{ Carbon::parse($vacation->start)->locale('ar')->isoFormat('D/MMMM /YYYY') }}
+                                                            حتى {{ $endDay }} الموافق
+                                                            {{ Carbon::parse($vacation->to)->locale('ar')->isoFormat('D/MMMM /YYYY') }}
+                                                        </h4>
 
                                                     </div>
                                                 </div>
 
 
-                                                <div class="row mg-t-10">
+                                                <div class="row mg-t-20">
                                                     <div class="col-6">
                                                         <h4> يوم الراحة الأسبوعية .................. الموافق 12/5/2024</h4>
                                                     </div>
 
-                                                    <div class="col-6">
-                                                        <h4 class="text-center">أسم القائم بأعماله</h4>
-                                                        <h3>أتعهد بالقيام بالعمل أثناء الأجازه : {{ $vacation->employee->name }}</h3>
-                                                    </div>
+
                                                 </div>
 
 
 
-                                                <div class="row mg-t-10">
+                                                <div class="row mg-t-20">
                                                     <div class="col-12">
                                                         <h4>هل الأيام المقدم عنها الأجازه صادف يوم تفتيش مفاجىء على النيابة
                                                             / المكتب : (نعم لا).............................</h4>
@@ -109,7 +111,6 @@
                                                                     الحالية</th>
                                                                 <th class="wd-25p tx-center">الرصيد المتبقى من السنه الحالية
                                                                 </th>
-                                                                <th class="wd-25p tx-center">رصيد السنوات السابقة</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -117,107 +118,64 @@
                                                                 <td class="tx-center">1</td>
                                                                 <td class="tx-center">2</td>
                                                                 <td class="tx-center">3</td>
-                                                                <td class="tx-center">4</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="row mg-t-10">
+                                                <div class="row mg-t-20">
                                                     <div class="col-8">
                                                         <h4>مسئول شئون العاملين : ........................</h4><br>
-                                                        <h4>تحريرآ فى : 25/9/2024</h4>
+                                                        <h4 class="my-4">تحريرآ فى : 25/9/2024</h4>
                                                     </div>
                                                     <div class="col-4">
-                                                        <h4>نائب رئيس الهيئة</h4>
-                                                        <h4>مدير</h4>
-                                                        <h4>المستشار / </h4>
+                                                        <h4 class="my-4">توقيع طالب الاجازه</h4>
+                                                        <h4>الأسم ثلاثى / ..................</h4>
                                                     </div>
                                                 </div>
 
                                                 <br>
-                                                <div class="row mg-t-10">
+                                                <div class="row mg-t-20">
                                                     <div class="col-12">
-                                                        <h3 class="text-center">إقرار القيام</h3><br>
-                                                        <h4 class="text-center">بعد التحيه...</h4><br>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h5>أقر أنا @foreach ($vacation->vacationEmployee as $employee)
-                                                            {{ $employee->name }}
-                                                            @if (!$loop->last)
-                                                                ،
-                                                            @endif
-                                                                @endforeach
-                                                                 بأننى أتممت اعمالى المصلحية
-                                                            اليوم........ الموافق 25 / 8/ 2024 و هو أخر يوم من ايام العمل.
-                                                        </h5>
+                                                        <h5 class="">مدير السكرتارية</h5><br>
+                                                        <h4 class="">....................</h4><br>
                                                     </div>
                                                 </div>
 
-                                                <div class="row mg-t-10">
-                                                    <div class="col-6">
-                                                        <h5>توقيع الموظف</h5><br>
-                                                        <p>........................</p>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <h5>مدير السكرتارية</h5><br>
-                                                        <p>........................</p>
+                                                    <div class="row mg-t-20">
 
+                                                        <div class="col-8">
+
+                                                        </div>
+
+
+                                                        <div class="col-4">
+                                                            <h5 class="">نائب رئيس الهيئة</h5><br>
+                                                            <h5 class="">مدير</h5><br>
+                                                            <h4 class="">المستشار / </h4><br>
+                                                        </div>
                                                     </div>
+
+
+
+                                                    <hr class="row mg-b-40">
+                                                    <a href="#" class="btn btn-danger float-left mt-3 mr-2"
+                                                        id="print_Button" onclick="printDiv()">
+                                                        <i class="mdi mdi-printer ml-1"></i>طباعه
+                                                    </a>
                                                 </div>
-
-
-                                                <div class="row mg-t-10">
-                                                    <div class="col-12">
-                                                        <h3 class="text-center">إقرار عوده</h3><br>
-                                                        <h4 class="text-center">بعد التحيه...</h4><br>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h5>أقر أنا
-                                                            @foreach ($vacation->vacationEmployee as $employee)
-                                                            {{ $employee->name }}
-                                                            @if (!$loop->last)
-                                                                ،
-                                                            @endif
-                                                                @endforeach
-                                                                  بأننى أستلمت العمل اليوم الموافق
-                                                            26/8/2024 بعد أنتهاء الأجازه (الأعتيادى - المرضى) الممنوحه لى من
-                                                            {{ Carbon::parse($vacation->start)->locale('ar')->isoFormat('D/MMMM/YYYY') }} حتى
-                                                            {{ Carbon::parse($vacation->to)->locale('ar')->isoFormat('D/MMMM/YYYY') }}</h5>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row mg-t-10">
-                                                    <div class="col-6">
-                                                        <h5>توقيع الموظف</h5><br>
-                                                        <p>........................</p>
-
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <h5>مدير السكرتارية</h5><br>
-                                                        <p>........................</p>
-
-                                                    </div>
-                                                </div>
-
-                                                <hr class="mg-b-40">
-                                                <a href="#" class="btn btn-danger float-left mt-3 mr-2"
-                                                    id="print_Button" onclick="printDiv()">
-                                                    <i class="mdi mdi-printer ml-1"></i>طباعه
-                                                </a>
                                             </div>
                                         </div>
-                                    </div>
-                                </div><!-- COL-END -->
-                            </div>
+                                    </div><!-- COL-END -->
+                                </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div><!-- COL-END -->
+                </div><!-- COL-END -->
+            </div>
+            <!-- row closed -->
         </div>
-        <!-- row closed -->
-    </div>
-    <!-- Container closed -->
+        <!-- Container closed -->
     </div>
 
 

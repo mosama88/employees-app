@@ -190,6 +190,19 @@ class VacationController extends Controller
         return view('dashboard.vacations.print', compact('vacation','employee','department'));
     }
 
+
+    public function printEmergancy($id)
+    {
+        $vacation = Vacation::findorfail($id);
+        $employee = Employee::all();
+        $department = Employee::all();
+
+        return view('dashboard.vacations.print-emergency', compact('vacation','employee','department'));
+    }
+
+
+
+
     public function search(Request $request)
     {
         $searchTerm = $request->input('search');

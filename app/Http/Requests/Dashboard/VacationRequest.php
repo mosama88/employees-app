@@ -47,9 +47,9 @@ class VacationRequest extends FormRequest
             return $input->type === 'mission' && $input->int_ext === 'internal';
         });
 
-        $validator->sometimes('acting_employee_id', 'required', function ($input) {
-            return $input->type !== 'mission';
-        });
+        // $validator->sometimes('acting_employee_id', 'required', function ($input) {
+        //     return $input->type !== 'mission';
+        // });
 
     }
 

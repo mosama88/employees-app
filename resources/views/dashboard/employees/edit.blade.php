@@ -46,7 +46,7 @@
                         @method('PUT')
                         <input type="hidden" name="id" value="{{ $employee->id }}">
                         {{-- Success Message --}}
-                        <div id="successMessage" class="alert alert-primary d-none" role="alert">
+                        <div id="successMessage" class="alert alert-success d-none" role="alert">
                             تم تعديل بيانات <span class="alert-link">{{ $employee->name }}</span> بنجاح <a href="{{ route('dashboard.employees.index') }}"
                                 class="alert-link">أضغط هنا لمشاهدة التعديل</a>
                         </div>
