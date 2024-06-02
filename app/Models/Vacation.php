@@ -12,6 +12,7 @@ class Vacation extends Model
 {
     use HasFactory;
 
+    public $totalDays;
     protected $fillable = [
         'type',
         'start',
@@ -120,39 +121,30 @@ class Vacation extends Model
         return $totalDays;
     }
 
-
+    // public function calcAllVacation()
+    // {
+    //     // Initialize the total vacation days
+    //     $totalVacationDays = 0;
+    
+    //     // Loop through each vacation associated with the employee
+    //     foreach ($this->vacationEmployee as $vacation) {
+    //         // Check the type of vacation and add the corresponding number of days to the total
+    //         switch ($vacation->type) {
+    //             case 'emergency':
+    //             case 'regular':
+    //             case 'Annual':
+    //             case 'satisfying':
+    //                 $totalVacationDays += $vacation->num_of_days;
+    //                 break;
+    //             // Add cases for other types of vacations if needed
+    //         }
+    //     }
+    
+    //     // Subtract the total vacation days from the total available days
+    //     $remainingDays = $this->num_of_days - ($totalVacationDays + $this->totalDays);
+    
+    //     // Return the remaining days
+    //     return $remainingDays;
+    // }
 
 }
-
-
-
-    // Mutator for the 'start' attribute
-    // public function setStartAttribute($value)
-    // {
-    //     $this->attributes['start'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
-    // }
-
-    // Mutator for the 'to' attribute
-    // public function setToAttribute($value)
-    // {
-    //     $this->attributes['to'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
-    // }
-
-
-
-        // public function typeVaction()
-    // {
-    //     // تحقق مباشرة مما إذا كانت القيمة المعرفة باسم "type_blood" تساوي 1
-    //     if ($this->type == 'satisfying') {
-    //         echo "مرضى";
-    //     } elseif ($this->type == 'emergency') {
-    //         echo "عارضه";
-    //     } elseif ($this->type == 'regular') {
-    //         echo "إعتيادى";
-    //     } elseif ($this->type == 'Annual') {
-    //         echo "سنوى";
-    //     } elseif ($this->type == 'mission') {
-    //         echo "مأمورية";
-    //     }
-
-    // }

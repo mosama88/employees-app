@@ -99,31 +99,7 @@ public function calculateTotalDaysExcludingFridays()
 
 
 
-public function calcAllVacation()
-{
-    // Initialize the total vacation days
-    $totalVacationDays = 0;
 
-    // Loop through each vacation associated with the employee
-    foreach ($this->vacationEmployee as $vacation) {
-        // Check the type of vacation and add the corresponding number of days to the total
-        switch ($vacation->type) {
-            case 'emergency':
-            case 'regular':
-            case 'Annual':
-            case 'satisfying':
-                $totalVacationDays += $vacation->num_of_days;
-                break;
-            // Add cases for other types of vacations if needed
-        }
-    }
-
-    // Calculate the remaining days
-    $remainingDays = $this->num_of_days - $totalVacationDays;
-
-    // Return the remaining days
-    return $remainingDays;
-}
 
 
 }

@@ -250,8 +250,27 @@
                             <tbody>
                                 <tr>
                                     <td class="tx-center">{{ $employee->num_of_days }}</td>
-                                    <td class="tx-center">2</td>
-                                    <td class="tx-center">{{ $remainingDays }}</td>
+                                    <td class="tx-center">
+                                        @php
+                                            $calcVacations =
+                                                $totalEmergencyDays +
+                                                $totalRegularDays +
+                                                $totalAnnualDays +
+                                                $totalSatisfyingDays;
+                                            echo $calcVacations;
+                                        @endphp
+                                    </td>
+                                    <td class="tx-center">
+                                        @php
+                                            $calcVacations =
+                                                $totalEmergencyDays +
+                                                $totalRegularDays +
+                                                $totalAnnualDays +
+                                                $totalSatisfyingDays;
+                                            $remainingDays = $employee->num_of_days - $calcVacations;
+                                            echo $remainingDays;
+                                        @endphp
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
