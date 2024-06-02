@@ -56,14 +56,20 @@
                 </div>
                 <div class="dropdown main-profile-menu nav nav-item nav-link">
                     <a class="profile-user d-flex" href=""><img alt=""
-                        src="{{ asset('dashboard') }}/assets/img/login-user.png"></a>
+                            src="{{ asset('dashboard') }}/assets/img/login-user.png"></a>
                     <div class="dropdown-menu">
                         <div class="main-header-profile bg-primary p-3">
                             <div class="d-flex wd-100p">
                                 <div class="main-img-user"><img alt=""
                                         src="{{ asset('dashboard') }}/assets/img/login-user.png" class=""></div>
                                 <div class="mr-3 my-auto">
-                                    <h6>{{ auth('admin')->name }}</h6><span>المدير</span>
+                                    @if (auth('admin')->check())
+                                        <h6>{{ auth('admin')->user()->name }}</h6>
+                                        <span>المدير</span>
+                                    @else
+                                        <h6>{{ Auth::user()->name }}</h6>
+                                        <span>مستخدم</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>

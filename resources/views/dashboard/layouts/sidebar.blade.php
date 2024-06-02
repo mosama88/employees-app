@@ -25,8 +25,13 @@
                         class="avatar-status profile-status bg-green"></span>
                 </div>
                 <div class="user-info">
-                    <h4 class="font-weight-semibold mt-3 mb-0">{{ auth('admin')->name }}</h4>
-                    <span class="mb-0 text-muted">المدير</span>
+                    @if (auth('admin')->check())
+                        <h4 class="font-weight-semibold mt-3 mb-0">{{ auth('admin')->user()->name }}</h4>
+                        <span class="mb-0 text-muted">مدير</span>
+                    @else
+                        <h4 class="font-weight-semibold mt-3 mb-0">{{ Auth::user()->name }}</h4>
+                        <span class="mb-0 text-muted">مستخدم</span>
+                    @endif
                 </div>
             </div>
         </div>
