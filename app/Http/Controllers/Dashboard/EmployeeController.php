@@ -120,12 +120,14 @@ public function calculateVacationDays(Request $request)
         $employee = Employee::with('vacationEmployee')->findOrFail($id);
     
         // Or if you want to load only the vacations associated with this employee:
-        $vacations = $employee->vacationEmployee;
+            $vacations = $employee->vacationEmployee()->orderBy('created_at', 'desc')->get();
     
+// Assuming $employee is already defined and contains the necessary data
+$remainingDays = $employee->calcAllVacation();
 
         
         // Pass the employee and vacations to the view
-        return view('dashboard.employees.show', compact('employee', 'vacations'));
+        return view('dashboard.employees.show', compact('employee', 'vacations','remainingDays'));
     }
 
     public function edit($id)
