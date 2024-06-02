@@ -172,6 +172,7 @@
 
 @section('scripts')
 
+<script src="{{ asset('dashboard/assets/js/projects/vacations.js') }}"></script>
 
     <!-- Internal Data tables -->
     <script src="{{ asset('dashboard/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
@@ -193,71 +194,53 @@
 
     <!--Internal  Datatable js -->
     <script src="{{ asset('dashboard/assets/js/table-data.js') }}"></script>
-
-    <script>
-        // Delete
-        function deleteVacation(vacationId) {
+       <script>
+                // Function to delete a vacation
+                function deleteVacation(vacationId) {
+            // Get the form associated with the specific vacation ID
             let form = document.getElementById('deleteVacationForm' + vacationId);
-            let formData = new FormData(form);
-            let actionUrl = "{{ route('dashboard.vacations.destroy', '') }}/" + vacationId;
-
+            let formData = new FormData(form);  // Create a FormData object from the form
+            let actionUrl = "{{ route('dashboard.vacations.destroy', '') }}/" + vacationId;  // Construct the action URL
+    
+            // Perform the fetch request to delete the vacation
             fetch(actionUrl, {
-                    method: 'POST',
+                    method: 'POST',  // Use POST method for deletion
                     headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',  // Include CSRF token for security
+                        'X-Requested-With': 'XMLHttpRequest',  // Specify the request is made via AJAX
+                        'Accept': 'application/json',  // Expect a JSON response
                     },
-                    body: formData
+                    body: formData  // Send the form data
                 })
-                .then(response => response.json())
+                .then(response => response.json())  // Parse the response as JSON
                 .then(data => {
-                    if (data.success) {
-                        // Hide the delete modal after successful deletion
+                    if (data.success) {  // If the deletion was successful
+                        // Hide the delete modal
                         $('#delete' + vacationId).modal('hide');
-
-                        // Remove the deleted vacation row from the table
-                        let row = document.getElementById('vacationRow' + vacationId);
-                        if (row) {
-                            row.remove();
-                        }
-
-                        // Show the success message
-                        let successMessage = $('#successMessage');
-                        successMessage.removeClass('d-none');
-
-                        // Hide the success message slowly after 3 seconds
-                        setTimeout(() => {
-                            successMessage.fadeOut('slow', function() {
-                                successMessage.addClass('d-none')
-                                    .show(); // Ensure it is hidden and reset for next time
-                            });
-                        }, 3000); // Adjust the duration as needed
+    
+                        // Reload the page to refresh the table and other data
+                        window.location.reload();
                     } else {
+                        // Log an error if deletion was not successful
                         console.error('Error deleting vacation: ' + data.message);
                     }
                 })
                 .catch(error => {
+                    // Log any errors that occur during the fetch request
                     console.error('Error:', error);
-                    alert('An error occurred while deleting the vacation.');
+                    alert('An error occurred while deleting the vacation.');  // Show an alert if an error occurs
                 });
         }
-    </script>
-
-
-
-
-
-
-
-    {{-- Script to validate form before submission --}}
-    <script>
-        $(document).ready(function() {
+        </script> 
+<script>
+    
+//  Script to validate form before submission 
+$(document).ready(function() {
             $('#searchButton').on('click', function() {
                 // Check if employee_id and type are not selected
                 if (!$('[name="employee_id"]').val() && !$('[name="type"]').val()) {
                     $('#alertMessage').removeClass('d-none'); // Show the alert message
-
+    
                     // Hide the alert message after 2 seconds
                     setTimeout(function() {
                         $('#alertMessage').addClass('fade-out'); // Add the fade-out effect
@@ -273,8 +256,8 @@
                 }
             });
         });
-    </script>
 
+</script>
     <style>
         .fade-out {
             opacity: 0;

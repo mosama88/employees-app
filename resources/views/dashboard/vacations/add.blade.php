@@ -2,10 +2,8 @@
 @section('title', 'طلب أجازة')
 @section('page-title', 'طلب أجازة')
 @section('page-link-back')
-    <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}"><i class="fas fa-home"></i></a>
-    </li>
-    <li class="breadcrumb-item"><a href="{{ route('dashboard.employees.index') }}">طلب أجازة</a>
-    </li>
+    <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}"><i class="fas fa-home"></i></a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.employees.index') }}">طلب أجازة</a></li>
 @endsection
 @section('current-page', 'طلب أجازة')
 @section('css')
@@ -23,8 +21,6 @@
                     <h4 class="card-title mb-1 text-center">طلب أجازه</h4>
                 </div>
                 <div class="card-body pt-0">
-
-
                     <form id="vacationForm" action="{{ route('dashboard.vacations.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -35,7 +31,6 @@
                         </div>
 
                         <div class="row">
-
                             {{-- Employee Input --}}
                             <div class="form-group col-6">
                                 <label for="employeeSelect">أختر الموظف</label>
@@ -120,12 +115,10 @@
                                     class="form-control fc-datepicker @error('to') is-invalid @enderror" type="date">
                                 <div id="to-error" class="error-message alert alert-danger d-none"></div>
                             </div>
-
-
                         </div>
 
                         <div class="row">
-                            {{-- To Input --}}
+                            {{-- Notes Input --}}
                             <div class="form-group col-12">
                                 <label for="notesTextarea">ملاحظات</label>
                                 <textarea name="notes" id="notesTextarea" class="form-control" placeholder="أدخل ملاحظاتك" rows="3"></textarea>
@@ -133,139 +126,54 @@
                             </div>
                         </div>
 
-                        {{-- Photo Input --}}
-                        {{-- <div class="row">
-                            <div class="form-group col-12">
-                                <label for="photoInput">المرفقات</label>
-                                <input class="form-control" accept="image/*" name="photo" type="file" id="photoInput" onchange="loadFile(event)">
-                                <img class="rounded-circle avatar-xl my-3" id="output" />
-                                <div id="photo-error" class="error-message alert alert-danger d-none"></div>
+                        {{-- Submit --}}
+                        <div class="row row-xs wd-xl-80p">
+                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0">
+                                <button type="submit" class="btn btn-success btn-with-icon btn-block">
+                                    <i class="typcn typcn-edit"></i> تأكيد البيانات
+                                </button>
                             </div>
-                        </div> --}}
-
-                         {{-- Submit --}}
-                         <div class="row row-xs wd-xl-80p">
-                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><button  type="submit" class="btn btn-success btn-with-icon btn-block"><i class="typcn typcn-edit"></i> تأكيد البيانات</button></div>
-                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><a  href="{{ route('dashboard.vacations.index') }}" type="submit" class="btn btn-info btn-with-icon btn-block"><i class="typcn typcn-arrow-back-outline"></i> رجوع</a></div>
+                            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0">
+                                <a href="{{ route('dashboard.vacations.index') }}"
+                                    class="btn btn-info btn-with-icon btn-block">
+                                    <i class="typcn typcn-arrow-back-outline"></i> رجوع
+                                </a>
+                            </div>
                         </div>
                     </form>
-
                 </div>
             </div>
+        </div>
+
+    @endsection
 
 
+    @section('scripts')
+  
+        <!-- Internal Select2.min js -->
+        <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
+        <!--Internal Ion.rangeSlider.min js -->
+        <script src="{{ asset('dashboard/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
+        <!--Internal jquery-simple-datetimepicker js -->
+        <script src="{{ asset('dashboard/assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js') }}"></script>
+        <!-- Ionicons js -->
+        <script src="{{ asset('dashboard/assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js') }}"></script>
+        <!--Internal pickerjs js -->
+        <script src="{{ asset('dashboard/assets/plugins/pickerjs/picker.min.js') }}"></script>
+        <!--Internal Form-elements js-->
+        <script src="{{ asset('dashboard/assets/js/advanced-form-elements.js') }}"></script>
+        <!--Internal Sumoselect js-->
+        <script src="{{ asset('dashboard/assets/plugins/sumoselect/jquery.sumoselect.js') }}"></script>
+        <!-- Internal Datepicker js -->
+        <script src="{{ asset('dashboard/assets/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
+        <!--Internal jquery.maskedinput js -->
+        <script src="{{ asset('dashboard/assets/plugins/jquery.maskedinput/jquery.maskedinput.js') }}"></script>
+        <!--Internal spectrum-colorpicker js -->
+        <script src="{{ asset('dashboard/assets/plugins/spectrum-colorpicker/spectrum.js') }}"></script>
+        <!--Internal Ion.rangeSlider.min js -->
+        <script src="{{ asset('dashboard/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
 
-        @endsection
-
-        @section('scripts')
-
-
-            <!-- Internal Select2.min js -->
-            <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
-
-
-            <!--Internal Ion.rangeSlider.min js -->
-            <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-
-            <!--Internal  jquery-simple-datetimepicker js -->
-            <script src="{{ asset('dashboard') }}/assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
-
-            <!-- Ionicons js -->
-            <script src="{{ asset('dashboard') }}/assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
-
-            <!--Internal  pickerjs js -->
-            <script src="{{ asset('dashboard') }}/assets/plugins/pickerjs/picker.min.js"></script>
-
-
-
-            <!--Internal  Form-elements js-->
-            <script src="{{ asset('dashboard') }}/assets/js/advanced-form-elements.js"></script>
-
-            <!--Internal Sumoselect js-->
-            <script src="{{ asset('dashboard') }}/assets/plugins/sumoselect/jquery.sumoselect.js"></script>
-
-            <!-- Internal  js-->
-
-            <!--Internal  Datepicker js -->
-            <script src="{{ asset('dashboard') }}/assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
+        <script src="{{ asset('dashboard/assets/js/projects/add-vacation.js') }}"></script>
 
 
-            <!--Internal  jquery.maskedinput js -->
-            <script src="{{ asset('dashboard') }}/assets/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
-
-            <!--Internal  spectrum-colorpicker js -->
-            <script src="{{ asset('dashboard') }}/assets/plugins/spectrum-colorpicker/spectrum.js"></script>
-
-
-
-            <!--Internal Ion.rangeSlider.min js -->
-            <script src="{{ asset('dashboard') }}/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-
-            <script src="{{ asset('dashboard/assets/js/projects/add-vacation.js') }}"></script>
- <script>
-        // تعيين مسار فهرس العطلات إلى متغير JavaScript
-        var vacationIndexRoute = "{{ route('dashboard.vacations.index') }}";
-
-        $(document).ready(function() {
-            // إخفاء الحقول عند التحميل الأولي
-            $('div#int_ext_field').hide();
-            $('div#department_field').hide();
-            $('div#acting_employee_field').hide();
-
-            // عرض وإخفاء الحقول بناءً على نوع الأجازة
-            $('#typeSelect').change(function() {
-                var selectedType = $(this).val();
-                if (selectedType === 'mission') {
-                    $('div#int_ext_field').show();
-                    $('div#acting_employee_field').hide();
-                } else {
-                    $('div#int_ext_field').hide();
-                    $('div#department_field').hide();
-                    $('div#acting_employee_field').show();
-                }
-            });
-
-            // عرض وإخفاء حقل القسم بناءً على داخلية / خارجية
-            $('#intExtSelect').change(function() {
-                var selectedIntExt = $(this).val();
-                if (selectedIntExt === 'internal') {
-                    $('div#department_field').show();
-                } else {
-                    $('div#department_field').hide();
-                }
-            });
-
-            // إرسال النموذج باستخدام Ajax
-            $('#vacationForm').submit(function(event) {
-                event.preventDefault();
-                var formData = new FormData(this);
-
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        if (response.success) {
-                            $('#successMessage').removeClass('d-none');
-                            setTimeout(function() {
-                                window.location.href = vacationIndexRoute;
-                            }, 1000);
-                        }
-                    },
-                    error: function(xhr) {
-                        var errors = xhr.responseJSON.errors;
-                        for (var key in errors) {
-                            if (errors.hasOwnProperty(key)) {
-                                var errorDiv = $('#' + key + '-error');
-                                errorDiv.text(errors[key][0]);
-                                errorDiv.removeClass('d-none');
-                            }
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-        @endsection
+    @endsection

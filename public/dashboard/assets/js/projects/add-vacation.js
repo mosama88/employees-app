@@ -1,62 +1,65 @@
 $(document).ready(function() {
-    // إخفاء الحقول عند التحميل الأولي
-    $('div#int_ext_field').hide();
-    $('div#department_field').hide();
-    $('div#acting_employee_field').hide();
+    // Hide fields initially
+    $('#int_ext_field').hide();
+    $('#department_field').hide();
+    $('#acting_employee_field').hide();
 
-    // عرض وإخفاء الحقول بناءً على نوع الإجازة المختار
+    // Show/hide fields based on the selected vacation type
     $('select[name="type"]').change(function() {
         var selectedOption = $(this).val();
         if (selectedOption === 'mission') {
-            $('div#int_ext_field').show();
-            $('div#acting_employee_field').hide();
+            $('#int_ext_field').show();
+            $('#acting_employee_field').hide();
         } else {
-            $('div#int_ext_field').hide();
-            $('div#acting_employee_field').show();
+            $('#int_ext_field').hide();
+            $('#acting_employee_field').show();
         }
     });
 
-//     // عرض أو إخفاء حقل النيابات بناءً على الداخلية / الخارجية
+    // Show/hide department field based on internal/external selection
     $('select[name="int_ext"]').change(function() {
         var selectedOption = $(this).val();
         if (selectedOption === 'internal') {
-            $('div#department_field').show();
+            $('#department_field').show();
         } else {
-            $('div#department_field').hide();
+            $('#department_field').hide();
         }
     });
 
-//     // التعامل مع إرسال النموذج باستخدام Ajax
+    // Form submission handling
     $('#vacationForm').on('submit', function(e) {
-        e.preventDefault(); // منع إرسال النموذج الافتراضي
+        e.preventDefault(); // Prevent default form submission
 
-        // إخفاء جميع رسائل الخطأ في البداية
+        // Hide all error messages initially
         $('.error-message').addClass('d-none').html('');
 
-        // إخفاء رسالة النجاح في البداية
+        // Hide success message initially
         $('#successMessage').addClass('d-none');
 
         var formData = new FormData(this);
 
         $.ajax({
-            url: $(this).attr('action'), // استخدم عنوان الـ action من النموذج
+            url: $(this).attr('action'), // Use form action URL
             type: 'POST',
             data: formData,
             contentType: false,
             processData: false,
             success: function(response) {
-                // التعامل مع الرد الناجح
-                $('#vacationForm')[0].reset(); // إعادة تعيين حقول النموذج
-                $('#output').attr('src', '').hide(); // مسح معاينة الصورة المخزنة وإخفائها
-                $('#successMessage').removeClass('d-none'); // عرض رسالة النجاح
+                // Handle successful response
+                $('#vacationForm')[0].reset(); // Reset form fields
+                $('#output').attr('src', '').hide(); // Clear and hide image preview
+                $('#successMessage').removeClass('d-none'); // Show success message
 
-                // اختفاء رسالة النجاح ببطء بعد 5 ثواني
+                // Fade out success message after 5 seconds
                 setTimeout(function() {
-                    $('#successMessage').fadeOut('slow');
-                }, 5000); // 5000 ميلي ثانية = 5 ثواني
+                    $('#successMessage').fadeOut('slow', function() {
+                        // Redirect to the vacation index page
+                        window.location.href = "/vacations";
+                    });
+                }, 2000); // 2000 milliseconds = 2 seconds
             },
             error: function(xhr) {
-                // التعامل مع الرد الفاشل بعرض رسائل الخطأ تحت كل إدخال
+                // Handle error response by displaying error messages under each input
                 var errors = xhr.responseJSON.errors;
                 for (var field in errors) {
                     var errorMessage = errors[field].join('<br>');
@@ -67,49 +70,11 @@ $(document).ready(function() {
     });
 });
 
-
-
-$(document).ready(function() {
-    // إخفاء حقول عند التحميل الأولي
-    $('div#int_ext_field').hide();
-    $('div#department_field').hide();
-    $('div#acting_employee_field').hide();
-
-    // عرض وإخفاء الحقول بناءً على نوع الإجازة
-    $('select[name="type"]').change(function() {
-        var selectedOption = $(this).val();
-        if (selectedOption === 'mission') {
-            $('div#int_ext_field').show();
-            $('div#acting_employee_field').hide();
-        } else {
-            $('div#int_ext_field').hide();
-            $('div#department_field').hide();
-            $('div#acting_employee_field').show();
-        }
-    });
-
-    // عرض وإخفاء حقل النيابات بناءً على الداخلية/الخارجية
-    $('select[name="int_ext"]').change(function() {
-        var selectedOption = $(this).val();
-        if (selectedOption === 'internal') {
-            $('div#department_field').show();
-        } else {
-            $('div#department_field').hide();
-        }
-    });
-
-    // إخفاء حقل النيابات عند التحميل الأولي إذا لم يكن الاختيار "نيابات"
-    if ($('select[name="int_ext"]').val() !== 'internal') {
-        $('div#department_field').hide();
-    }
-});
-
-
+// Load file function to preview image
 var loadFile = function(event) {
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
     output.onload = function() {
-        URL.revokeObjectURL(output.src) // free memory
+        URL.revokeObjectURL(output.src); // Free memory
     }
 };
-

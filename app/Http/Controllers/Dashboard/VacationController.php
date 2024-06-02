@@ -19,7 +19,7 @@ class VacationController extends Controller
 
     public function index()
     {
-        $vacations = Vacation::orderBy('created_at', 'desc','type','start','to','status')->with('vacationEmployee')->take(10)->get();
+        $vacations = Vacation::orderBy('created_at', 'desc')->with('vacationEmployee')->take(10)->get();
         $employees = Employee::all();
         return view('dashboard.vacations.index', compact('vacations', 'employees'));
     }
@@ -36,14 +36,14 @@ class VacationController extends Controller
     {
         try {
             DB::beginTransaction();
-
+    
             $vacation = new Vacation();
             $vacation->type = $request->type;
             $vacation->start = $request->start;
             $vacation->to = $request->to;
             $vacation->notes = $request->notes;
             $vacation->status = 'pending';
-
+    
             if ($request->type === 'mission') {
                 $vacation->int_ext = $request->int_ext;
                 if ($request->int_ext === 'internal') {
@@ -57,30 +57,23 @@ class VacationController extends Controller
                 $vacation->int_ext = null;
                 $vacation->department_id = null;
             }
-
+    
             $vacation->save();
             $vacation->vacationEmployee()->attach($request->employee_id);
-
+    
             // Upload img
             $this->verifyAndStoreFile($request, 'photo', 'vacations/', 'upload_image', $vacation->id, 'App\Models\Vacation');
-
+    
             DB::commit();
-
-            // إرجاع الرد بناءً على نوع الطلب
-            if ($request->ajax()) {
-                return response()->json(['success' => 'تم أضافة بيانات الموظف بنجاح']);
-            } else {
-                return redirect()->route('dashboard.vacations.index')->with('success', 'تم أضافة الأجازة بنجاح');
-            }
+            return response()->json(['success' => 'تم أضافة أجازة الموظف بنجاح']);
         } catch (\Exception $e) {
-            DB::rollback();
-            if ($request->ajax()) {
-                return response()->json(['error' => $e->getMessage()], 500);
-            } else {
-                return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-            }
+            DB::rollback(); // Ensure rollback on failure
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+    
+    
+    
 
 
 
