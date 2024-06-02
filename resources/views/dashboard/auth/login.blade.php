@@ -36,7 +36,7 @@
                                         <div class="mb-5 d-flex"> <a href="#"><img
                                                     src="{{ asset('dashboard') }}/assets/img/media/logo-Administrative-Prosecution.png"
                                                     class="sign-favicon ht-40" alt="logo"></a>
-                                            <h1 class="main-logo1 mr-1 mr-0 my-auto tx-28">هيئة<span> النيابه</span>
+                                            <h1 class="main-logo1 mr-1 my-auto tx-28">هيئة<span> النيابه</span>
                                                 الأدارية</h1>
                                         </div>
                                         <div class="card-sigin">
