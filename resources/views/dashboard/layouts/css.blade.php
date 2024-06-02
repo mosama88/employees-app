@@ -3,7 +3,7 @@
 
 
 <!-- Favicon -->
-<link rel="icon" href="{{ asset('dashboard/assets/img/brand/favicon.png') }}" type="image/x-icon" />
+<link rel="icon" href="{{ asset('dashboard/assets/img/media/logo-Administrative-Prosecution.png') }}" type="image/x-icon" />
 <!-- Icons css -->
 <link href="{{ asset('dashboard/assets/css/icons.css') }}" rel="stylesheet">
 <!--  Owl-carousel css-->
