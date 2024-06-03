@@ -41,7 +41,7 @@
                             {{-- Search Form --}}
                             <form id="search-form" action="{{ route('dashboard.vacations.search') }}" method="GET">
                                 <div class="row">
-                                    <div class="form-group col-4">
+                                    <div class="form-group col-3">
                                         <label for="">بحث بأسم الموظف</label>
                                         <select name="employee_id" class="form-control select2-no-search"
                                             id="selectFormgrade" aria-label="Default select example" tabindex="-1">
@@ -54,7 +54,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group col-4">
+                                    <div class="form-group col-3">
                                         <label for="">بحث بنوع الاجازه</label>
                                         <select name="type" class="form-control select2-no-search" id="selectFormgrade"
                                             aria-label="Default select example" tabindex="-1">
@@ -76,6 +76,14 @@
                                             </option>
                                         </select>
                                     </div>
+                                    <div class="form-group col-3">
+                                        <label for="">بحث بالتاريخ من</label>
+                                        <input type="date" name="start" class="form-control" value="{{ old('start') ?? ($start ?? '') }}">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="">بحث بالتاريخ إلى</label>
+                                        <input type="date" name="to" class="form-control" value="{{ old('to') ?? ($to ?? '') }}">
+                                    </div>  
                                     <div class="form-group col-2">
                                         <button class="btn btn-primary-gradient mt-4 mb-4" type="button"
                                             id="searchButton">إبحث</button>
@@ -160,9 +168,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $vacations->render('pagination::bootstrap-5') }}
                     </div><!-- bd -->
                 </div><!-- bd -->
-                {{ $vacations->render('pagination::bootstrap-5') }}
             </div><!-- bd -->
         </div>
     </div>

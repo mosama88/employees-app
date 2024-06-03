@@ -210,12 +210,54 @@ class VacationController extends Controller
 
 
 
+    // public function search(Request $request)
+    // {
+    //     $searchTerm = $request->input('search');
+    //     $type = $request->input('type');
+    //     $employeeId = $request->input('employee_id');
+
+    //     $query = Vacation::query();
+
+    //     if ($searchTerm) {
+    //         $query->where('type', 'like', '%' . $searchTerm . '%')
+    //             ->orWhereHas('vacationEmployee', function ($q) use ($searchTerm) {
+    //                 $q->where('name', 'like', '%' . $searchTerm . '%');
+    //             });
+    //     }
+
+    //     if ($type) {
+    //         $query->where('type', $type);
+    //     }
+
+    //     if ($employeeId) {
+    //         $query->whereHas('vacationEmployee', function ($q) use ($employeeId) {
+    //             $q->where('employees.id', $employeeId); // Specify the table name
+    //         });
+    //     }
+
+    //     $vacations = $query->orderBy('created_at', 'desc')->paginate(5);
+
+    //     $employees = Employee::all();
+
+    //     return view('dashboard.vacations.searchvacation', [
+    //         'vacations' => $vacations,
+    //         'search' => $searchTerm,
+    //         'type' => $type,
+    //         'employee_id' => $employeeId,
+    //         'employees' => $employees,
+    //     ]);
+    // }
+
+
+
+
     public function search(Request $request)
     {
         $searchTerm = $request->input('search');
         $type = $request->input('type');
         $employeeId = $request->input('employee_id');
-
+        $start = $request->input('start');
+        $to = $request->input('to');
         $query = Vacation::query();
 
         if ($searchTerm) {
@@ -235,6 +277,11 @@ class VacationController extends Controller
             });
         }
 
+        // Apply date range filter
+    if ($start && $to) {
+        $query->whereBetween('created_at', [$start,$to]);
+    }
+
         $vacations = $query->orderBy('created_at', 'desc')->paginate(5);
 
         $employees = Employee::all();
@@ -245,9 +292,10 @@ class VacationController extends Controller
             'type' => $type,
             'employee_id' => $employeeId,
             'employees' => $employees,
+            'start' => $start,
+            'to' => $to,
         ]);
     }
-
 
 }
 
