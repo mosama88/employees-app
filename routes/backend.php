@@ -1,14 +1,17 @@
 <?php
 
-use App\Http\Controllers\Dashboard\AppointmentController;
-use App\Http\Controllers\Dashboard\DepartmentController;
-use App\Http\Controllers\Dashboard\EmployeeController;
+use App\Models\Employee;
+use App\Models\JobGrade;
+use App\Models\Vacation;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\HolidayController;
-use App\Http\Controllers\Dashboard\JobGradeController;
 use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Dashboard\EmployeeController;
+use App\Http\Controllers\Dashboard\JobGradeController;
 use App\Http\Controllers\Dashboard\VacationController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\DepartmentController;
+use App\Http\Controllers\Dashboard\AppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +34,12 @@ Route::get('user/dashboard', function () {
 ##################################### End Route User #################################
 ##################################### Route Admin ################################
 Route::get('/admin/dashboard', function () {
-    return view('dashboard.Admin.dashboard');
+
+    $employees = Employee::orderBy('created_at', 'desc')->with('employeeAppointments')->get();
+    $vacations = Vacation::take(10)->get();
+    $jobGrades = JobGrade::get();
+
+    return view('dashboard.Admin.dashboard',compact('employees','vacations','jobGrades'));
 })->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
 ##################################### End Route Admin #################################
 Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(function () {
@@ -47,7 +55,7 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     Route::get('/employees/show/vacation', [EmployeeController::class,'employeeshowvacation'])->name('show.vacation');
     Route::post('/calculate-vacation-days', [EmployeeController::class, 'calculateVacationDays'])->name('calculateVacationDays');
 
-    
+
     ##################################### End Dashboard Employee ########################
     ##################################### Start Dashboard Vacation ######################
     Route::resource('/vacations', VacationController::class);

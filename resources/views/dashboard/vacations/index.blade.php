@@ -162,6 +162,7 @@
                         </table>
                     </div><!-- bd -->
                 </div><!-- bd -->
+                {{ $vacations->render('pagination::bootstrap-5') }}
             </div><!-- bd -->
         </div>
     </div>
@@ -172,7 +173,7 @@
 
 @section('scripts')
 
-<script src="{{ asset('dashboard/assets/js/projects/vacations.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/js/projects/vacations.js') }}"></script>
 
     <!-- Internal Data tables -->
     <script src="{{ asset('dashboard/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
@@ -194,30 +195,30 @@
 
     <!--Internal  Datatable js -->
     <script src="{{ asset('dashboard/assets/js/table-data.js') }}"></script>
-       <script>
-                // Function to delete a vacation
-                function deleteVacation(vacationId) {
+    <script>
+        // Function to delete a vacation
+        function deleteVacation(vacationId) {
             // Get the form associated with the specific vacation ID
             let form = document.getElementById('deleteVacationForm' + vacationId);
-            let formData = new FormData(form);  // Create a FormData object from the form
-            let actionUrl = "{{ route('dashboard.vacations.destroy', '') }}/" + vacationId;  // Construct the action URL
-    
+            let formData = new FormData(form); // Create a FormData object from the form
+            let actionUrl = "{{ route('dashboard.vacations.destroy', '') }}/" + vacationId; // Construct the action URL
+
             // Perform the fetch request to delete the vacation
             fetch(actionUrl, {
-                    method: 'POST',  // Use POST method for deletion
+                    method: 'POST', // Use POST method for deletion
                     headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',  // Include CSRF token for security
-                        'X-Requested-With': 'XMLHttpRequest',  // Specify the request is made via AJAX
-                        'Accept': 'application/json',  // Expect a JSON response
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}', // Include CSRF token for security
+                        'X-Requested-With': 'XMLHttpRequest', // Specify the request is made via AJAX
+                        'Accept': 'application/json', // Expect a JSON response
                     },
-                    body: formData  // Send the form data
+                    body: formData // Send the form data
                 })
-                .then(response => response.json())  // Parse the response as JSON
+                .then(response => response.json()) // Parse the response as JSON
                 .then(data => {
-                    if (data.success) {  // If the deletion was successful
+                    if (data.success) { // If the deletion was successful
                         // Hide the delete modal
                         $('#delete' + vacationId).modal('hide');
-    
+
                         // Reload the page to refresh the table and other data
                         window.location.reload();
                     } else {
@@ -228,26 +229,25 @@
                 .catch(error => {
                     // Log any errors that occur during the fetch request
                     console.error('Error:', error);
-                    alert('An error occurred while deleting the vacation.');  // Show an alert if an error occurs
+                    alert('An error occurred while deleting the vacation.'); // Show an alert if an error occurs
                 });
         }
-        </script> 
-<script>
-    
-//  Script to validate form before submission 
-$(document).ready(function() {
+    </script>
+    <script>
+        //  Script to validate form before submission
+        $(document).ready(function() {
             $('#searchButton').on('click', function() {
                 // Check if employee_id and type are not selected
                 if (!$('[name="employee_id"]').val() && !$('[name="type"]').val()) {
                     $('#alertMessage').removeClass('d-none'); // Show the alert message
-    
+
                     // Hide the alert message after 2 seconds
                     setTimeout(function() {
                         $('#alertMessage').addClass('fade-out'); // Add the fade-out effect
                         setTimeout(function() {
                             $('#alertMessage').addClass(
                                 'd-none'
-                                ); // Hide the alert message after the fade-out effect
+                            ); // Hide the alert message after the fade-out effect
                         }, 1500); // 1.5 seconds for the fade-out transition
                     }, 2000); // 2 seconds before starting the fade-out
                 } else {
@@ -256,8 +256,7 @@ $(document).ready(function() {
                 }
             });
         });
-
-</script>
+    </script>
     <style>
         .fade-out {
             opacity: 0;
