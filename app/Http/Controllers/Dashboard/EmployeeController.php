@@ -46,7 +46,7 @@ class EmployeeController extends Controller
     $yearsSinceBirthDate = $birthDate->diffInYears(Carbon::now());
 
     if ($yearsSinceBirthDate >= 50) {
-        return 40;
+        return 45;
     } elseif ($yearsSinceHiring < 10) {
         return 21;
     } elseif ($yearsSinceHiring < 50) {
@@ -56,7 +56,7 @@ class EmployeeController extends Controller
     }
 }
 
-    
+
 public function calculateVacationDays(Request $request)
 {
     $hiringDate = Carbon::createFromFormat('Y-m-d', $request->input('hiring_date'));
@@ -66,7 +66,7 @@ public function calculateVacationDays(Request $request)
     $yearsSinceBirthDate = $birthDate->diffInYears(Carbon::now());
 
     if ($yearsSinceBirthDate >= 50) {
-        $vacationDays = 40;
+        $vacationDays = 45;
     } elseif ($yearsSinceHiring < 10) {
         $vacationDays = 21;
     } elseif ($yearsSinceHiring < 50) {
@@ -78,7 +78,7 @@ public function calculateVacationDays(Request $request)
     return response()->json(['vacation_days' => $vacationDays]);
 }
 
-    
+
 
 
     public function store(EmployeeRequest $request)
@@ -118,12 +118,10 @@ public function calculateVacationDays(Request $request)
     {
         // Find the employee by ID and eager load their associated vacations
         $employee = Employee::with('vacationEmployee')->findOrFail($id);
-    
-        // Or if you want to load only the vacations associated with this employee:
-            $vacations = $employee->vacationEmployee()->orderBy('created_at', 'desc')->get();
-    
 
-        
+        // Or if you want to load only the vacations associated with this employee:
+        $vacations = $employee->vacationEmployee()->orderBy('created_at', 'desc')->get();
+
         // Pass the employee and vacations to the view
         return view('dashboard.employees.show', compact('employee', 'vacations'));
     }
@@ -224,6 +222,6 @@ public function calculateVacationDays(Request $request)
 
 
 
-    
+
 
 }

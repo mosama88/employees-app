@@ -155,84 +155,101 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 mx-auto">
+                        <h4>حساب الاجازات</h4>
+                        <div class="table-responsive mg-t-20">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        {{-- emergency --}}
+                                        <td>عارضه</td>
+                                        <td class="text-right">
+                                            @php
+                                                $totalEmergencyDays = 0;
+                                                foreach ($vacations as $vacation) {
+                                                    if (
+                                                        $vacation->type === 'emergency' &&
+                                                        $vacation->status === 'approve'
+                                                    ) {
+                                                        $totalEmergencyDays += $vacation->calculateTotalDaysExcludingFridays();
+                                                    }
+                                                }
 
-                    <div class="table-responsive mg-t-20">
-                        <table class="table table-bordered">
-                            <tbody>
-                                <tr>
-                                    {{-- emergency --}}
-                                    <td>عارضه</td>
-                                    <td class="text-right">
-                                        @php
-                                            $totalEmergencyDays = 0;
-                                            foreach ($vacations as $vacation) {
-                                                if (
-                                                    $vacation->type === 'emergency' &&
-                                                    $vacation->status === 'approve'
-                                                ) {
-                                                    $totalEmergencyDays += $vacation->calculateTotalDaysExcludingFridays();
+                                                echo $totalEmergencyDays;
+                                            @endphp
+                                        </td>
+                                        <td>
+                                            @php
+                                                if ($totalEmergencyDays >= 7) {
+                                                    echo "<p style='color:red;'>رصيدك قد نفذ</p>";
+                                                } elseif ($totalEmergencyDays >= 5) {
+                                                    echo "<p style='color:orange;'>أحذر باقى يومين فقط</p>";
                                                 }
-                                            }
-                                            echo $totalEmergencyDays;
-                                        @endphp
-                                    </td>
-                                    <td>باقى</td>
-                                </tr>
-                                <tr>
-                                    {{-- regular --}}
-                                    <td><span>إعتيادى</span></td>
-                                    <td class="text-right">
-                                        @php
-                                            $totalRegularDays = 0;
-                                            foreach ($vacations as $vacation) {
-                                                if ($vacation->type === 'regular' && $vacation->status === 'approve') {
-                                                    $totalRegularDays += $vacation->calculateTotalDaysExcludingFridays();
+                                            @endphp
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        {{-- regular --}}
+                                        <td><span>إعتيادى</span></td>
+                                        <td class="text-right">
+                                            @php
+                                                $totalRegularDays = 0;
+                                                foreach ($vacations as $vacation) {
+                                                    if (
+                                                        $vacation->type === 'regular' &&
+                                                        $vacation->status === 'approve'
+                                                    ) {
+                                                        $totalRegularDays += $vacation->calculateTotalDaysExcludingFridays();
+                                                    }
                                                 }
-                                            }
-                                            echo $totalRegularDays;
-                                        @endphp
-                                    </td>
-                                    <td>باقى </td>
-                                </tr>
+                                                echo $totalRegularDays;
+                                            @endphp
+                                        </td>
+                                        <td></td>
+                                    </tr>
 
-                                <tr>
-                                    {{-- Annual --}}
-                                    <td>سنوى</td>
-                                    <td class="text-right">
-                                        @php
-                                            $totalAnnualDays = 0;
-                                            foreach ($vacations as $vacation) {
-                                                if ($vacation->type === 'Annual' && $vacation->status === 'approve') {
-                                                    $totalAnnualDays += $vacation->calculateTotalDaysExcludingFridays();
+                                    <tr>
+                                        {{-- Annual --}}
+                                        <td>سنوى</td>
+                                        <td class="text-right">
+                                            @php
+                                                $totalAnnualDays = 0;
+                                                foreach ($vacations as $vacation) {
+                                                    if (
+                                                        $vacation->type === 'Annual' &&
+                                                        $vacation->status === 'approve'
+                                                    ) {
+                                                        $totalAnnualDays += $vacation->calculateTotalDaysExcludingFridays();
+                                                    }
                                                 }
-                                            }
-                                            echo $totalAnnualDays;
-                                        @endphp
-                                    </td>
-                                    <td>باقى </td>
-                                </tr>
+                                                echo $totalAnnualDays;
+                                            @endphp
+                                        </td>
+                                        <td></td>
+                                    </tr>
 
-                                <tr>
-                                    {{-- satisfying --}}
-                                    <td>مرضى</td>
-                                    <td class="text-right">
-                                        @php
-                                            $totalSatisfyingDays = 0;
-                                            foreach ($vacations as $vacation) {
-                                                if (
-                                                    $vacation->type === 'satisfying' &&
-                                                    $vacation->status === 'approve'
-                                                ) {
-                                                    $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
+                                    <tr>
+                                        {{-- satisfying --}}
+                                        <td>مرضى</td>
+                                        <td class="text-right">
+                                            @php
+                                                $totalSatisfyingDays = 0;
+                                                foreach ($vacations as $vacation) {
+                                                    if (
+                                                        $vacation->type === 'satisfying' &&
+                                                        $vacation->status === 'approve'
+                                                    ) {
+                                                        $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
+                                                    }
                                                 }
-                                            }
-                                            echo $totalSatisfyingDays;
-                                        @endphp
-                                    </td>
-                                    <td>باقى </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                                echo $totalSatisfyingDays;
+                                            @endphp
+                                        </td>
+                                        <td> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <div class="table-responsive mg-t-40">

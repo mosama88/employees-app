@@ -36,14 +36,14 @@ class VacationController extends Controller
     {
         try {
             DB::beginTransaction();
-    
+
             $vacation = new Vacation();
             $vacation->type = $request->type;
             $vacation->start = $request->start;
             $vacation->to = $request->to;
             $vacation->notes = $request->notes;
             $vacation->status = 'pending';
-    
+
             if ($request->type === 'mission') {
                 $vacation->int_ext = $request->int_ext;
                 if ($request->int_ext === 'internal') {
@@ -57,13 +57,13 @@ class VacationController extends Controller
                 $vacation->int_ext = null;
                 $vacation->department_id = null;
             }
-    
+
             $vacation->save();
             $vacation->vacationEmployee()->attach($request->employee_id);
-    
+
             // Upload img
             $this->verifyAndStoreFile($request, 'photo', 'vacations/', 'upload_image', $vacation->id, 'App\Models\Vacation');
-    
+
             DB::commit();
             return response()->json(['success' => 'تم أضافة أجازة الموظف بنجاح']);
         } catch (\Exception $e) {
@@ -71,9 +71,9 @@ class VacationController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    
-    
-    
+
+
+
 
 
 
@@ -207,9 +207,11 @@ class VacationController extends Controller
     {
         $vacation = Vacation::findorfail($id);
         $employee = Employee::all();
-        $department = Employee::all();
+        $department = Department::all();
+        $vac = Vacation::all();
 
-        return view('dashboard.vacations.print-emergency', compact('vacation','employee','department'));
+
+        return view('dashboard.vacations.print-emergency', compact('vacation','vac','employee','department'));
     }
 
 

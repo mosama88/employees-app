@@ -21,6 +21,35 @@
         $startDay = Carbon::parse($vacation->start)->locale('ar')->dayName;
         $endDay = Carbon::parse($vacation->to)->locale('ar')->dayName;
     @endphp
+    @php
+        $totalEmergencyDays = 0;
+        foreach ($vac as $vacations) {
+            if ($vacations->type === 'emergency' && $vacations->status === 'approve') {
+                $totalEmergencyDays += $vacations->calculateTotalDaysExcludingFridays();
+            }
+        }
+
+        $totalRegularDays = 0;
+        foreach ($vac as $vacation) {
+            if ($vacation->type === 'regular' && $vacation->status === 'approve') {
+                $totalRegularDays += $vacation->calculateTotalDaysExcludingFridays();
+            }
+        }
+
+        $totalAnnualDays = 0;
+        foreach ($vac as $vacation) {
+            if ($vacation->type === 'Annual' && $vacation->status === 'approve') {
+                $totalAnnualDays += $vacation->calculateTotalDaysExcludingFridays();
+            }
+        }
+
+        $totalSatisfyingDays = 0;
+        foreach ($vac as $vacation) {
+            if ($vacation->type === 'satisfying' && $vacation->status === 'approve') {
+                $totalSatisfyingDays += $vacation->calculateTotalDaysExcludingFridays();
+            }
+        }
+    @endphp
     <div class="container-fluid">
         {{-- Start Row --}}
         <div class="row">
@@ -86,8 +115,12 @@
 
 
                                                 <div class="row mg-t-20">
-                                                    <div class="col-6">
-                                                        <h4> يوم الراحة الأسبوعية .................. الموافق 12/5/2024</h4>
+                                                    <div class="col-8">
+                                                        <h4> يوم الراحة الأسبوعية (@foreach ($employee->employeeAppointments as $appointment)
+                                                                {{ $appointment->name }}
+                                                            @endforeach)
+
+                                                            الموافق 12/5/2024</h4>
                                                     </div>
 
 
@@ -116,9 +149,29 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td class="tx-center">1</td>
-                                                                <td class="tx-center">2</td>
-                                                                <td class="tx-center">3</td>
+                                                                <td class="tx-center">{{ $employee->num_of_days }}</td>
+                                                                <td class="tx-center">
+                                                                    @php
+                                                                        $calcVacations =
+                                                                            $totalEmergencyDays +
+                                                                            $totalRegularDays +
+                                                                            $totalAnnualDays +
+                                                                            $totalSatisfyingDays;
+                                                                        echo $calcVacations;
+                                                                    @endphp
+                                                                </td>
+                                                                <td class="tx-center">
+                                                                    @php
+                                                                        $calcVacations =
+                                                                            $totalEmergencyDays +
+                                                                            $totalRegularDays +
+                                                                            $totalAnnualDays +
+                                                                            $totalSatisfyingDays;
+                                                                        $remainingDays =
+                                                                            $employee->num_of_days - $calcVacations;
+                                                                        echo $remainingDays;
+                                                                    @endphp
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>

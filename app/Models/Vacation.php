@@ -56,7 +56,6 @@ class Vacation extends Model
 
 
 
-
     public function typeVaction()
 {
     switch ($this->type) {
