@@ -57,8 +57,6 @@
                         <li><a class="slide-item" href="{{ route('dashboard.jobgrades.index') }}">الدرجات الوظيفيه</a>
                         </li>
                         <li><a class="slide-item" href="{{ route('dashboard.departments.index') }}">النيابات</a></li>
-                        <li><a class="slide-item" href="{{ route('dashboard.vacations.settingVacation') }}">إعدادات
-                                الاجازات</a></li>
                         <li><a class="slide-item" href="{{ route('dashboard.employees.index') }}">الموظفين</a></li>
                     </ul>
 

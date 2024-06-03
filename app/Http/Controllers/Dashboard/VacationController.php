@@ -185,13 +185,6 @@ class VacationController extends Controller
 
 
 
-    public function settingVacation()
-    {
-        $vacation = Vacation::get();
-        $jobGrades = JobGrade::get();
-        return view('dashboard.vacations.settings', compact('vacation', 'jobGrades'));
-    }
-
 
     public function print($id)
     {

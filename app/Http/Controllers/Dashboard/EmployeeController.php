@@ -5,7 +5,6 @@ use Carbon\Carbon;
 use App\Models\Address;
 use App\Models\Employee;
 use App\Models\JobGrade;
-use App\Models\Vacation;
 use App\Models\Department;
 use App\Models\Appointment;
 use App\Traits\UploadTrait;
@@ -83,7 +82,7 @@ public function calculateVacationDays(Request $request)
 
     public function store(EmployeeRequest $request)
 {
-    try {
+   try{
         // Calculate vacation days using the renamed method to avoid conflict
         $vacationDays = $this->calculateVacationDaysFromDates($request->hiring_date, $request->birth_date);
 
@@ -104,12 +103,13 @@ public function calculateVacationDays(Request $request)
         // Upload img
         $this->verifyAndStoreImage($request, 'photo', 'employees/', 'upload_image', $employee->id, 'App\Models\Employee');
 
-        return response()->json(['success' => 'تم أضافة بيانات الموظف بنجاح']);
-    } catch (\Exception $e) {
-        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        DB::commit();
+            return response()->json(['success' => 'تم أضافة الموظف بنجاح']);
+        } catch (\Exception $e) {
+            DB::rollback(); // Ensure rollback on failure
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
-}
-
 
     /**
      * Display the specified resource.

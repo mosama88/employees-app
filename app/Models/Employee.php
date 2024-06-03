@@ -3,10 +3,7 @@
 namespace App\Models;
 use Carbon\Carbon;
 use App\Models\JobGrade;
-use function PHPSTORM_META\type;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Request;
-
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
