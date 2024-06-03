@@ -1,5 +1,14 @@
 @section('title', 'دخول')
+<style>
+    .login-form {
+        display: none;
+    }
 
+    .select-hide {
+
+        margin-top: 100px;
+    }
+</style>
 @include('dashboard.layouts.css')
 
 <body class="main-body bg-light">
@@ -33,7 +42,17 @@
                                         <div class="card-sigin">
                                             <div class="main-signup-header">
                                                 <h5 class="font-weight-semibold">من فضلك سجل دخولك للمتابعة.</h5>
-                                                <div class="container">
+                                                <div class="container select-hide">
+                                                    {{-- Select To login --}}
+                                                    <h5 class="mg-b-10">حدد طريقة الدخول</h5>
+                                                    <select name="somename" class="form-control select2-no-search"
+                                                        id="selectForm" aria-label="Default select example"
+                                                        onclick="console.log($(this).val())"
+                                                        onchange="console.log('change is firing')" tabindex="-1">
+                                                        <option disabled selected="">افتح قائمة التحديد</option>
+                                                        <option value="admin">أدمن</option>
+                                                        <option value="user">مستخدم</option>
+                                                    </select>
 
                                                     @if ($errors->any())
                                                         @foreach ($errors->all() as $error)
@@ -47,13 +66,13 @@
                                                 <div class="login-form" id="admin">
                                                     <div class="font-size-18 mt-5 text-center">
                                                         <h2>مرحبًا بعودتك!</h2>
-                                                        <p class="text-muted text-center">الدخول</p>
+                                                        <p class="text-muted text-center">الدخول بواسطة الأدمن</p>
                                                     </div>
 
                                                     <form method="POST" action="{{ route('admin.login') }}">
                                                         @csrf
                                                         <div class="form-group">
-                                                            <label> البريد الالكتروني</label>
+                                                            <label> البريد الالكتروني للأدمن</label>
                                                             <input class="form-control" name="email"
                                                                 placeholder="أدخل بريدك الإلكتروني" type="text">
                                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -73,6 +92,34 @@
                                                     </form>
                                                 </div>
 
+                                                {{-- Login User --}}
+                                                <div class="login-form" id="user">
+                                                    <div class="font-size-18 mt-5 text-center">
+                                                        <h2>مرحبًا بعودتك!</h2>
+                                                        <p class="text-muted text-center">الدخول بواسطة المستخدم
+                                                        </p>
+                                                    </div>
+                                                    <form method="POST" action="{{ route('user.login') }}">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label>البريد الالكتروني للمستخدم</label>
+                                                            <input class="form-control" name="email"
+                                                                placeholder="أدخل بريدك الإلكتروني" type="text">
+                                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>كلمة المرور</label>
+                                                            <input class="form-control" name="password"
+                                                                placeholder="ادخل رقمك السري" type="password">
+                                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+
+                                                        </div><button class="btn btn-main-primary btn-block">تسجيل
+                                                            الدخول</button>
+
+                                                    </form>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -123,7 +170,14 @@
 
     <!-- custom js -->
     <script src="{{ asset('dashboard') }}/assets//js/custom.js"></script>
-
+    <script>
+        $('#selectForm').change(function() {
+            var myID = $(this).val();
+            $('.login-form').each(function() {
+                myID === $(this).attr('id') ? $(this).show() : $(this).hide();
+            });
+        });
+    </script>
 </body>
 
 </html>
