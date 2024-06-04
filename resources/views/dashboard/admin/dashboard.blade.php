@@ -89,7 +89,6 @@
                                 <th class="border-bottom-0">إلى</th>
                                 <th class="border-bottom-0">عدد الايام</th>
                                 <th class="border-bottom-0">حالة الأجازه</th>
-                                <th class="border-bottom-0">ملاحظات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -116,7 +115,6 @@
                                         <div class="{{ $vacation->status == '1' ? 'success' : 'danger' }} ml-1">
                                         </div>
                                     </td>
-                                    <td>{{ $vacation->notes }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
