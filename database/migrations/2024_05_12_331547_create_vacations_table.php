@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->text('notes')->nullable();
             $table->string('file')->nullable();
             $table->string('int_ext')->nullable();
-            $table->enum('status', ['pending', 'approve', 'reject'])->default('pending')->nullable();
+            $table->enum('status', ['pending', 'approve', 'reject'])->default('approve')->nullable();
             $table->foreignId('acting_employee_id')->nullable()->references('id')->on('employees')->cascadeOnDelete();
             $table->foreignId('department_id')->nullable()->references('id')->on('departments')->cascadeOnDelete();
             $table->timestamps();

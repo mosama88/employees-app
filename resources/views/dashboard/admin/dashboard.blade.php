@@ -67,49 +67,6 @@
     <!-- row closed -->
 
 
-
-    <!-- row opened -->
-    <div class="row row-sm">
-        <div class="col-xl-8 col-md-12 col-lg-12 mx-auto">
-            <div class="card">
-                <div class="card-header pb-1">
-                    <h3 class="card-title mb-2">الموظفين بالأداره</h3>
-
-                </div>
-                @foreach ($employees as $employee)
-                    <div class="card-body p-0 customers mt-1">
-                        <div class="list-group list-lg-group list-group-flush">
-                            <div class="list-group-item list-group-item-action"
-                                href="{{ route('dashboard.employees.show', $employee->id) }}">
-                                <div class="media mt-0">
-                                    <img class="avatar-lg rounded-circle ml-3 my-auto"
-                                        src="{{ asset('dashboard') }}/assets/img/faces/3.jpg" alt="Image description">
-                                    <div class="media-body">
-                                        <div class="d-flex align-items-center">
-                                            <div class="mt-0">
-                                                <h5 class="mb-1 tx-15">{{ $employee->name }}</h5>
-                                                <p class="mb-0 tx-13 text-muted">
-
-                                                    <span class="text-success mr-2">{{ $employee->phone }}</span>
-                                                </p>
-                                            </div>
-                                            <span class="mr-auto wd-45p fs-16 mt-2">
-                                                <div id="spark1" class="wd-100p"></div>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-
-    </div>
-    <!-- row close -->
-
-    <!-- row opened -->
     <div class="row row-sm row-deck">
 
         <div class="col-md-12 col-lg-12 col-xl-12">
@@ -166,6 +123,49 @@
             </div>
         </div>
     </div>
+    <!-- row opened -->
+    <div class="row row-sm">
+        <div class="col-xl-8 col-md-12 col-lg-12 mx-auto">
+            <div class="card">
+                <div class="card-header pb-1">
+                    <h3 class="card-title mb-2">الموظفين بالأداره</h3>
+
+                </div>
+                @foreach ($employees as $employee)
+                    <div class="card-body p-0 customers mt-1">
+                        <div class="list-group list-lg-group list-group-flush">
+                            <div class="list-group-item list-group-item-action"
+                                href="{{ route('dashboard.employees.show', $employee->id) }}">
+                                <div class="media mt-0">
+                                    <img class="avatar-lg rounded-circle ml-3 my-auto"
+                                        src="{{ asset('dashboard') }}/assets/img/faces/3.jpg" alt="Image description">
+                                    <div class="media-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mt-0">
+                                                <h5 class="mb-1 tx-15">{{ $employee->name }}</h5>
+                                                <p class="mb-0 tx-13 text-muted">
+
+                                                    <span class="text-success mr-2">{{ $employee->phone }}</span>
+                                                </p>
+                                            </div>
+                                            <span class="mr-auto wd-45p fs-16 mt-2">
+                                                <div id="spark1" class="wd-100p"></div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+    </div>
+    <!-- row close -->
+
+    <!-- row opened -->
+
     <!-- /row -->
 </div>
 </div>

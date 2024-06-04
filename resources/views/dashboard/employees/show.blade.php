@@ -52,12 +52,10 @@
                                         </div>
 
                                         <div class="main-contact-action btn-list pt-3 pr-3">
-                                            <a href="#" class="btn ripple btn-primary text-white btn-icon"
-                                                data-placement="top" data-toggle="tooltip" title=""
-                                                data-original-title="Edit Profile"><i class="fe fe-edit"></i></a>
-                                            <a href="#" class="btn ripple btn-secondary text-white btn-icon"
-                                                data-placement="top" data-toggle="tooltip" title=""
-                                                data-original-title="Delete Profile"><i class="fe fe-trash-2"></i></a>
+                                            <a href="{{ route('dashboard.employees.edit', $employee->id) }}"
+                                                class="btn ripple btn-primary text-white btn-icon" data-placement="top"
+                                                data-toggle="tooltip" title="" data-original-title="تعديل المستخدم"><i
+                                                    class="fe fe-edit"></i></a>
                                         </div>
                                     </div>
 
@@ -181,7 +179,7 @@
                                         <td>
                                             @php
                                                 if ($totalEmergencyDays >= 7) {
-                                                    echo "<p style='color:red;'>رصيدك قد نفذ</p>";
+                                                    echo "<p style='color:red;'>رصيدك من أجازات العارضه قد نفذ</p>";
                                                 } elseif ($totalEmergencyDays >= 5) {
                                                     echo "<p style='color:orange;'>أحذر باقى يومين فقط</p>";
                                                 }

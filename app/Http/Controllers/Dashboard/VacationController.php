@@ -42,7 +42,7 @@ class VacationController extends Controller
             $vacation->start = $request->start;
             $vacation->to = $request->to;
             $vacation->notes = $request->notes;
-            $vacation->status = 'pending';
+            $vacation->status = 'approve';
 
             if ($request->type === 'mission') {
                 $vacation->int_ext = $request->int_ext;
