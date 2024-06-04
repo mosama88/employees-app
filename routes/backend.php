@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\Employee;
 use App\Models\JobGrade;
 use App\Models\Vacation;
@@ -36,10 +37,15 @@ Route::get('user/dashboard', function () {
 Route::get('/admin/dashboard', function () {
 
     $employees = Employee::orderBy('created_at', 'desc')->with('employeeAppointments')->get();
-    $vacations = Vacation::take(10)->get();
-    $jobGrades = JobGrade::get();
+    $today = Carbon::today()->toDateString();
+    Carbon::setLocale('ar');
 
-    return view('dashboard.Admin.dashboard',compact('employees','vacations','jobGrades'));
+    // الحصول على اسم اليوم باللغة العربية
+    $textToday = Carbon::now()->locale('ar')->dayName;
+    $vacations = Vacation::whereDate('start', $today)->take(10)->get();
+    $jobGrades = JobGrade::get();
+    $today = Carbon::today()->toDateString();
+    return view('dashboard.admin.dashboard',compact('employees','vacations','jobGrades','today','textToday'));
 })->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
 ##################################### End Route Admin #################################
 Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(function () {

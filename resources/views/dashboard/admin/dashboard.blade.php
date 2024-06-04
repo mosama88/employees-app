@@ -72,7 +72,9 @@
         <div class="col-md-12 col-lg-12 col-xl-12">
             <div class="card card-table-two">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title mb-1">الأجازات</h4>
+                    <h4 class="card-title mb-1">أجازات اليوم <span style="color: #0BA2E0">{{ $textToday }}
+                            {{ $today }}</span>
+                    </h4>
                     <i class="mdi mdi-dots-horizontal text-gray"></i>
                 </div>
                 <span class="tx-12 tx-muted mb-3 "></span>
@@ -138,7 +140,7 @@
                                 href="{{ route('dashboard.employees.show', $employee->id) }}">
                                 <div class="media mt-0">
 
-                                        @if ($employee->image)
+                                    @if ($employee->image)
                                         <img class="avatar-lg rounded-circle ml-3 my-auto"
                                             src="{{ asset('dashboard/assets/images/uploads/employees/' . $employee->image->filename) }}"
                                             data-holder-rendered="true" title="{{ $employee->name }}">
