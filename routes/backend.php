@@ -77,11 +77,13 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     ##################################### Start Dashboard jobgrades ######################
     Route::resource('/jobgrades', JobGradeController::class);
     ##################################### End Dashboard jobgrades ########################
-    ##################################### Start Dashboard Employee ######################
-    // Route::resource('/appointments', AppointmentController::class);
-    ##################################### End Dashboard Employee ########################
+    ##################################### Start Dashboard Profile ######################
+   
+        ##################################### End Dashboard Profile ########################
 });
-
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')->middleware(['auth:admin', 'verified']);
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware(['auth:admin', 'verified']);;
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy')->middleware(['auth:admin', 'verified']);;
 
 require __DIR__ . '/auth.php';
 

@@ -73,11 +73,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>صفحتى</a>
-                        <a class="dropdown-item" href=""><i class="bx bx-cog"></i> تعديل صفحتى</a>
-                        <a class="dropdown-item" href=""><i class="bx bxs-inbox"></i>الوارد</a>
-                        <a class="dropdown-item" href=""><i class="bx bx-envelope"></i>الرسائل</a>
-                        <a class="dropdown-item" href=""><i class="bx bx-slider-alt"></i> إعدادات الحساب</a>
+                        <a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bx bx-user-circle"></i>صفحتى</a>
+                        
                         @if (auth('web')->check())
                             <form method="POST" action="{{ route('logout.user') }}">
                             @else

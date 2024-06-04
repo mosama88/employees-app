@@ -38,15 +38,15 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
+                        @if (auth('web')->check())
+                            <form method="POST" action="{{ route('logout.user') }}">
+                            @else
+                                <form method="POST" action="{{ route('logout.admin') }}">
+                        @endif
+                        @csrf
+                        <a class="dropdown-item text-danger" href="route('logout.user')"
+                            onclick="event.preventDefault(); this.closest('form').submit();">
+                            <i class="bx bx-log-out"></i>خروج</a>
                         </form>
                     </x-slot>
                 </x-dropdown>
@@ -85,15 +85,16 @@
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
+                @if (auth('web')->check())
+                <form method="POST" action="{{ route('logout.user') }}">
+                @else
+                    <form method="POST" action="{{ route('logout.admin') }}">
+            @endif
+            @csrf
+            <a class="dropdown-item text-danger" href="route('logout.user')"
+                onclick="event.preventDefault(); this.closest('form').submit();">
+                <i class="bx bx-log-out"></i>خروج</a>
+            </form>
             </div>
         </div>
     </div>
