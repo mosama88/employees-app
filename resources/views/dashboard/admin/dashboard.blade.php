@@ -131,14 +131,24 @@
                     <h3 class="card-title mb-2">الموظفين بالأداره</h3>
 
                 </div>
-                @foreach ($employees as $employee)
-                    <div class="card-body p-0 customers mt-1">
-                        <div class="list-group list-lg-group list-group-flush">
-                            <div class="list-group-item list-group-item-action"
+                <div class="card-body p-0 customers mt-1">
+                    <div class="list-group list-lg-group list-group-flush">
+                        @foreach ($employees as $employee)
+                            <a class="list-group-item list-group-item-action"
                                 href="{{ route('dashboard.employees.show', $employee->id) }}">
                                 <div class="media mt-0">
-                                    <img class="avatar-lg rounded-circle ml-3 my-auto"
-                                        src="{{ asset('dashboard') }}/assets/img/faces/3.jpg" alt="Image description">
+
+                                        @if ($employee->image)
+                                        <img class="avatar-lg rounded-circle ml-3 my-auto"
+                                            src="{{ asset('dashboard/assets/images/uploads/employees/' . $employee->image->filename) }}"
+                                            data-holder-rendered="true" title="{{ $employee->name }}">
+                                    @else
+                                        <img class="avatar-lg rounded-circle ml-3 my-auto"
+                                            src="{{ asset('dashboard/assets/img/employees-default.png') }}"
+                                            data-holder-rendered="true" title="{{ $employee->name }}">
+                                    @endif
+
+
                                     <div class="media-body">
                                         <div class="d-flex align-items-center">
                                             <div class="mt-0">
@@ -149,15 +159,19 @@
                                                 </p>
                                             </div>
                                             <span class="mr-auto wd-45p fs-16 mt-2">
-                                                <div id="spark1" class="wd-100p"></div>
+                                                <div class="wd-100p">
+                                                    @foreach ($employee->employeeAppointments as $appointment)
+                                                        {{ $appointment->name }}
+                                                    @endforeach
+                                                </div>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </a>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
             </div>
         </div>
 
