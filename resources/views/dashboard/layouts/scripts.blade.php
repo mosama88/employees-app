@@ -1,4 +1,7 @@
 
+
+
+
 <!-- JQuery min js -->
 <script src="{{ asset('dashboard/assets/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap Bundle js -->
@@ -116,9 +119,9 @@
 
 
 
-		
 
-		
+
+
 
 
 

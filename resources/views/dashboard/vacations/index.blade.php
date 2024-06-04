@@ -5,6 +5,14 @@
     <!-- Internal Data table css -->
     <link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="{{ asset('dashboard') }}/assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
+    <link href="{{ asset('dashboard') }}/assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="{{ asset('dashboard') }}/assets/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css"
+        rel="stylesheet">
+    <link href="{{ asset('dashboard') }}/assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.css"
+        rel="stylesheet">
+    <link href="{{ asset('dashboard') }}/assets/plugins/pickerjs/picker.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -43,8 +51,8 @@
                                 <div class="row">
                                     <div class="form-group col-3">
                                         <label for="">بحث بأسم الموظف</label>
-                                        <select name="employee_id" class="form-control select2-no-search"
-                                            id="selectFormgrade" aria-label="Default select example" tabindex="-1">
+                                        <select name="employee_id" class="form-control select2" id="selectFormgrade"
+                                            aria-label="Default select example" tabindex="-1">
                                             <option value="" selected disabled>-- افتح قائمة التحديد --</option>
                                             @foreach ($employees as $employee)
                                                 <option value="{{ $employee->id }}"
@@ -56,7 +64,7 @@
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="">بحث بنوع الاجازه</label>
-                                        <select name="type" class="form-control select2-no-search" id="selectFormgrade"
+                                        <select name="type" class="form-control select2" id="selectFormgrade"
                                             aria-label="Default select example" tabindex="-1">
                                             <option value="" selected disabled>-- افتح قائمة التحديد --</option>
                                             <option value="satisfying"
@@ -78,12 +86,15 @@
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="">بحث بالتاريخ من</label>
-                                        <input type="date" name="start" class="form-control" value="{{ old('start') ?? ($start ?? '') }}">
+                                        <input type="date" name="start" class="form-control"
+                                            value="{{ old('start') ?? ($start ?? '') }}">
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="">بحث بالتاريخ إلى</label>
-                                        <input type="date" name="to" class="form-control" value="{{ old('to') ?? ($to ?? '') }}">
-                                    </div>  
+                                        <input type="date" name="to" class="form-control"
+                                            value="{{ old('to') ?? ($to ?? '') }}">
+                                    </div>
+
                                     <div class="form-group col-2">
                                         <button class="btn btn-primary-gradient mt-4 mb-4" type="button"
                                             id="searchButton">إبحث</button>
@@ -156,8 +167,9 @@
                                                 @endif
                                             @endif
                                             <!-- Delete -->
-                                            <a class="modal-effect btn btn-outline-danger btn-sm" data-effect="effect-scale"
-                                                data-toggle="modal" href="#delete{{ $vacation->id }}">
+                                            <a class="modal-effect btn btn-outline-danger btn-sm"
+                                                data-effect="effect-scale" data-toggle="modal"
+                                                href="#delete{{ $vacation->id }}">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                             @include('dashboard.vacations.delete', [
@@ -180,7 +192,7 @@
 @endsection
 
 @section('scripts')
-
+    <!-- Internal Select2.min js -->
     <script src="{{ asset('dashboard/assets/js/projects/vacations.js') }}"></script>
 
     <!-- Internal Data tables -->
@@ -201,8 +213,6 @@
     <script src="{{ asset('dashboard/assets/plugins/datatable/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('dashboard/assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
 
-    <!--Internal  Datatable js -->
-    <script src="{{ asset('dashboard/assets/js/table-data.js') }}"></script>
     <script>
         // Function to delete a vacation
         function deleteVacation(vacationId) {
