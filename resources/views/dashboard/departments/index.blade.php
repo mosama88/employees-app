@@ -14,7 +14,8 @@
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
                     <div class="col-sm-6 col-md-3 mb-4">
-                        <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">
+                        <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
+                            data-toggle="modal" href="#modaldemo8">
                             <i class="fas fa-plus-square"></i>
                             أضافة نيابة
                         </a>
@@ -26,37 +27,39 @@
                     <div class="table-responsive">
                         <table class="table table-striped mg-b-0 text-md-nowrap">
                             <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>نيابة</th>
-                                <th>محافظة</th>
-                                <th>العمليات</th>
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>نيابة</th>
+                                    <th>محافظة</th>
+                                    <th>العمليات</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach($departments as $department)
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>{{$department->branch}}</td>
-                                    <td>{{$department->address->city}}</td>
-                                    <td>
-                                        {{-- Edit --}}
-                                        <a class="modal-effect btn btn-outline-info btn-sm" data-effect="effect-scale" data-toggle="modal"
-                                           href="#edit{{ $department->id }}"><i class="fas fa-edit"></i></a>
-                                        @include('dashboard.departments.edit')
+                                @foreach ($departments as $department)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $department->branch }}</td>
+                                        <td>{{ $department->address->city }}</td>
+                                        <td>
+                                            {{-- Edit --}}
+                                            <a class="modal-effect btn btn-outline-info btn-sm" data-effect="effect-scale"
+                                                data-toggle="modal" href="#edit{{ $department->id }}"><i
+                                                    class="fas fa-edit"></i></a>
+                                            @include('dashboard.departments.edit')
 
-                                        {{--Delete--}}
-                                        <a class="modal-effect btn btn-outline-danger btn-sm" data-effect="effect-scale" data-toggle="modal"
-                                           href="#delete{{ $department->id }}">
-                                            <i class="fas fa-trash-alt"></i></a>
-                                    </td>
-                                    @include('dashboard.departments.delete')
-                                </tr>
-                            @endforeach
+                                            {{-- Delete --}}
+                                            <a class="modal-effect btn btn-outline-danger btn-sm" data-effect="effect-scale"
+                                                data-toggle="modal" href="#delete{{ $department->id }}">
+                                                <i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                        @include('dashboard.departments.delete')
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div><!-- bd -->
                 </div><!-- bd -->
+                {{ $departments->render('pagination::bootstrap-4') }}
             </div><!-- bd -->
         </div>
 
@@ -64,7 +67,7 @@
 
 
         <!--Internal  Datepicker js -->
-        <script src="{{asset('dashboard/assets/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
+        <script src="{{ asset('dashboard/assets/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
         <script>
             var date = $('.fc-datepicker').datepicker({
                 dateFormat: 'yy-mm-dd'
@@ -74,4 +77,4 @@
 
 
 
-@endsection
+    @endsection

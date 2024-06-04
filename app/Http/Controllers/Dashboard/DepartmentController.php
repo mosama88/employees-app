@@ -14,7 +14,7 @@ class DepartmentController extends Controller
 
     public function index()
     {
-        $departments = Department::orderBy('created_at', 'desc')->paginate(5);
+        $departments = Department::orderBy('created_at', 'desc')->paginate(10);
         $addresses = Address::all();
         return view('dashboard.departments.index', compact('departments','addresses'));
 

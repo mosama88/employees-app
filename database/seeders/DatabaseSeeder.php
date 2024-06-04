@@ -27,8 +27,9 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             Employeeseeder::class,
             JobSeeder::class,
+            HolidaySeeder::class,
         ]);
-        
+
 
     }
 }

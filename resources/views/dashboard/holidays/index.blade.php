@@ -48,7 +48,7 @@
                             <tbody>
                                 @foreach ($holidays as $holiday)
                                     <tr id="holidayRow{{ $holiday->id }}">
-                                        <th scope="row">1</th>
+                                        <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $holiday->name }}</td>
                                         <td>{{ $holiday->from }}</td>
                                         <td>{{ $holiday->to }}</td>
@@ -63,12 +63,12 @@
                                             @include('dashboard.holidays.edit')
 
                                             {{-- Delete --}}
-                                            <a id="holidayRow{{ $holiday->id }}"
+                                            {{-- <a id="holidayRow{{ $holiday->id }}"
                                                 class="modal-effect btn btn-outline-danger btn-sm"
                                                 data-effect="effect-scale" data-toggle="modal"
                                                 href="#delete{{ $holiday->id }}">
                                                 <i class="fas fa-trash-alt"></i>
-                                            </a>
+                                            </a> --}}
 
                                             <!-- End Modal effects-->
                                             <div class="modal" id="delete{{ $holiday->id }}">
