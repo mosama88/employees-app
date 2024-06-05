@@ -31,7 +31,16 @@ class AdminLoginRequest extends FormRequest
             'password' => ['required', 'string'],
         ];
     }
-
+    
+    public function messages()
+    {
+        return [
+            'email.required' => 'البريد الالكترونى مطلوب',
+            'email.string' => 'البريد الالكترونى غير مسجل لدينا',
+            'password.required' => 'كلمة المرور مطلوبة',
+        ];
+        
+    }
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -46,6 +55,7 @@ class AdminLoginRequest extends FormRequest
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
+                'password' => 'كلمة المرور خطأ',
             ]);
         }
 

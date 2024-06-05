@@ -35,16 +35,9 @@
                                                 <h5 class="font-weight-semibold">من فضلك سجل دخولك للمتابعة.</h5>
                                                 <div class="container">
 
-                                                    @if ($errors->any())
-                                                        @foreach ($errors->all() as $error)
-                                                            <div class="alert alert-danger text-center mt-1">
-                                                                {{ $error }}
-                                                            </div>
-                                                        @endforeach
-                                                    @endif
                                                 </div><!-- col-4 -->
                                                 {{-- Login Admin --}}
-                                                <div class="login-form" id="admin">
+                                                <div class="login-form">
                                                     <div class="font-size-18 mt-5 text-center">
                                                         <h2>مرحبًا بعودتك!</h2>
                                                         <p class="text-muted text-center">الدخول</p>
@@ -56,16 +49,21 @@
                                                             <label> البريد الالكتروني</label>
                                                             <input class="form-control" name="email"
                                                                 placeholder="أدخل بريدك الإلكتروني" type="text">
-                                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                                            @error('email')
+                                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                            @enderror
 
                                                         </div>
                                                         <div class="form-group">
                                                             <label>كلمة المرور</label>
                                                             <input class="form-control" name="password"
                                                                 placeholder="ادخل رقمك السري" type="password">
-                                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                                            @error('password')
+                                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                            @enderror
 
-                                                        </div><button class="btn btn-main-primary btn-block">تسجيل
+                                                        </div>
+                                                        <button class="btn btn-main-primary btn-block">تسجيل
                                                             الدخول</button>
                                                         <div class="row row-xs">
 

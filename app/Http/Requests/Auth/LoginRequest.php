@@ -32,6 +32,17 @@ class LoginRequest extends FormRequest
         ];
     }
 
+
+    public function messages()
+    {
+        return [
+            'email.required' => 'البريد الالكترونى مطلوب',
+            'password.required' => 'كلمة المرور مطلوبه',
+        ];
+        
+    }
+
+
     /**
      * Attempt to authenticate the request's credentials.
      *
