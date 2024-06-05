@@ -3,7 +3,8 @@
 
 
 <!-- Favicon -->
-<link rel="icon" href="{{ asset('dashboard/assets/img/media/logo-Administrative-Prosecution.png') }}" type="image/x-icon" />
+<link rel="icon" href="{{ asset('dashboard/assets/img/media/logo-Administrative-Prosecution.png') }}"
+    type="image/x-icon" />
 <!-- Icons css -->
 <link href="{{ asset('dashboard/assets/css/icons.css') }}" rel="stylesheet">
 <!--  Owl-carousel css-->
@@ -44,10 +45,8 @@
 <!--Internal   Notify -->
 <link href="{{ asset('dashboard/assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
 
-
-
-
-
+<!--- Animations css-->
+<link href="{{ asset('dashboard/assets/css/animate.css') }}" rel="stylesheet">
 
 
 @yield('css')
