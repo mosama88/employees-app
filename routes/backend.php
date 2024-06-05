@@ -5,6 +5,7 @@ use App\Models\Employee;
 use App\Models\JobGrade;
 use App\Models\Vacation;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Dashboard\HolidayController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\EmployeeController;
@@ -82,8 +83,10 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
         ##################################### End Dashboard Profile ########################
 });
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')->middleware(['auth:admin', 'verified']);
-Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware(['auth:admin', 'verified']);;
-Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy')->middleware(['auth:admin', 'verified']);;
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware(['auth:admin', 'verified']);
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy')->middleware(['auth:admin', 'verified']);
+Route::put('password', [PasswordController::class, 'update'])->name('password.update')->middleware(['auth:admin', 'verified']);
+
 
 require __DIR__ . '/auth.php';
 

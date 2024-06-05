@@ -39,12 +39,18 @@
                                         <label for="exampleInputEmail1">الأسم</label>
                                         <input type="text" name="name" value="{{ $user->name }}"
                                             class="form-control" placeholder="الأسم" required autofocus autocomplete="name">
+                                        @error('name')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     {{-- Email Input --}}
                                     <div class="control-group form-group">
                                         <label for="exampleInputEmail1">البريد الالكترونى</label>
                                         <input type="email" name="email" value="{{ $user->email }}"
                                             class="form-control" placeholder="البريد الالكترونى">
+                                        @error('email')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
@@ -75,61 +81,65 @@
                             </form>
                         </section>
                         <h3 class="mb-3">كلمة المرور</h3>
-                        <section>
-                            <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
-                                @csrf
-                                @method('put')
+<section>
+    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
+        @csrf
+        @method('put')
 
-                                {{-- Old Password Input --}}
-                                <div class="col-12">
-                                    <div class="control-group form-group">
-                                        <label for="exampleInputEmail1">كلمة المرور الحالية</label>
-                                        <input id="update_password_current_password" type="password" name="current_password" class="form-control"
-                                            placeholder="كلمة المرور الحالية" required autofocus >
-                                        <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
-                                    </div>
+        {{-- Old Password Input --}}
+        <div class="col-12">
+            <div class="control-group form-group">
+                <label for="current_password">كلمة المرور الحالية</label>
+                <input id="update_password_current_password" type="password" name="current_password"
+                    class="form-control" placeholder="كلمة المرور الحالية" autofocus>
+                @error('current_password')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
 
-                                    {{-- New Password Input --}}
-                                    <div class="control-group form-group">
-                                        <label for="exampleInputEmail1">كلمة المرور الجديده</label>
-                                        <input id="update_password_password" type="password" name="password" class="form-control"
-                                            placeholder="كلمة المرور الجديده" required autofocus >
-                                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
-                                    </div>
+            {{-- New Password Input --}}
+            <div class="control-group form-group">
+                <label for="password">كلمة المرور الجديدة</label>
+                <input id="update_password_password" type="password" name="password"
+                    class="form-control" placeholder="كلمة المرور الجديدة" autofocus>
+                @error('password')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
 
-                                    {{-- Confirm Password Input --}}
-                                    <div class="control-group form-group">
-                                        <label for="exampleInputEmail1">تأكيد كلمة المرور</label>
-                                        <input id="update_password_password_confirmation" type="password" name="password_confirmation" class="form-control"
-                                            placeholder="تأكيد كلمة المرور" required autofocus >
-                                        <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
-                                    </div>
+            {{-- Confirm Password Input --}}
+            <div class="control-group form-group">
+                <label for="password_confirmation">تأكيد كلمة المرور</label>
+                <input id="update_password_password_confirmation" type="password"
+                    name="password_confirmation" class="form-control"
+                    placeholder="تأكيد كلمة المرور" autofocus>
+                @error('password_confirmation')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
 
-                                    <x-primary-button>{{ __('حفظ') }}</x-primary-button>
+            <x-primary-button>{{ __('حفظ') }}</x-primary-button>
 
-                                    @if (session('status') === 'password-updated')
-                                        <p
-                                            x-data="{ show: true }"
-                                            x-show="show"
-                                            x-transition
-                                            x-init="setTimeout(() => show = false, 2000)"
-                                            class="text-sm text-gray-600 dark:text-gray-400"
-                                        >{{ __('Saved.') }}</p>
-                                    @endif
-                            </form>
-                        </section>
-                        <h3>حذف الحساب</h3>
-                        <section>
-                            <div class="col-sm-12 col-md-6 my-4 mx-auto">
-                                <a class="modal-effect btn btn-danger btn-block" data-effect="effect-scale"
-                                    data-toggle="modal" href="#modaldemo8">
-                                    <i class="fas fa-user-times ml-2"></i>
-                                    حذف الحساب
-                                </a>
-                            </div>
-                            @include('dashboard.admin.delete')
-                    </div>
-                    </section>
+            @if (session('status') === 'password-updated')
+                <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
+                    class="text-sm text-gray-600 dark:text-gray-400">{{ __('Saved.') }}</p>
+            @endif
+        </div>
+    </form>
+</section>
+
+<h3>حذف الحساب</h3>
+<section>
+    <div class="col-sm-12 col-md-6 my-4 mx-auto">
+        <a class="modal-effect btn btn-danger btn-block" data-effect="effect-scale"
+            data-toggle="modal" href="#modaldemo8">
+            <i class="fas fa-user-times ml-2"></i>
+            حذف الحساب
+        </a>
+    </div>
+    @include('dashboard.admin.delete')
+</section>
+
                 </div>
             </div>
         </div>
