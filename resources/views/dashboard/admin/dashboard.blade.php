@@ -92,6 +92,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if(count($vacations) == 0)
+                                    <tr>
+                                        <td colspan="9" class="text-center">لا توجد أجازات اليوم</td>
+                                    </tr>
+                                @else
                             @foreach ($vacations as $vacation)
                                 <tr id="vacationRow{{ $loop->iteration }}">
                                     <th scope="row">{{ $loop->iteration }}</th>
@@ -116,7 +121,8 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                                @endforeach
+                                @endif
                         </tbody>
                     </table>
                 </div>
