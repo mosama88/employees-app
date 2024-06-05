@@ -18,7 +18,13 @@
 
     <div class="row row-sm">
 
-
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger text-center">
+                {{ $error }}
+            </div>
+        @endforeach
+    @endif
 
         <div class="col-lg-12 col-md-12">
             <div class="card">
@@ -26,6 +32,7 @@
                     <div class="main-content-label mg-b-5">
                         تعديل بياناتى الشخصية
                     </div>
+
                     <p class="mg-b-20"></p>
                     <div id="wizard3">
                         <h3 class="mb-3">بياناتى</h3>
@@ -81,69 +88,69 @@
                             </form>
                         </section>
                         <h3 class="mb-3">كلمة المرور</h3>
-<section>
-    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
-        @csrf
-        @method('put')
+                        <section>
+                            <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
+                                @csrf
+                                @method('put')
 
-        {{-- Old Password Input --}}
-        <div class="col-12">
-            <div class="control-group form-group">
-                <label for="current_password">كلمة المرور الحالية</label>
-                <input id="update_password_current_password" type="password" name="current_password"
-                    class="form-control" placeholder="كلمة المرور الحالية" autofocus>
-                @error('current_password')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+                                {{-- Old Password Input --}}
+                                <div class="col-12">
+                                    <div class="control-group form-group">
+                                        <label for="current_password">كلمة المرور الحالية</label>
+                                        <input id="update_password_current_password" type="password" name="current_password"
+                                            class="form-control" placeholder="كلمة المرور الحالية" autofocus>
+                                        @error('current_password')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-            {{-- New Password Input --}}
-            <div class="control-group form-group">
-                <label for="password">كلمة المرور الجديدة</label>
-                <input id="update_password_password" type="password" name="password"
-                    class="form-control" placeholder="كلمة المرور الجديدة" autofocus>
-                @error('password')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+                                    {{-- New Password Input --}}
+                                    <div class="control-group form-group">
+                                        <label for="password">كلمة المرور الجديدة</label>
+                                        <input id="update_password_password" type="password" name="password"
+                                            class="form-control" placeholder="كلمة المرور الجديدة" autofocus>
+                                        @error('password')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-            {{-- Confirm Password Input --}}
-            <div class="control-group form-group">
-                <label for="password_confirmation">تأكيد كلمة المرور</label>
-                <input id="update_password_password_confirmation" type="password"
-                    name="password_confirmation" class="form-control"
-                    placeholder="تأكيد كلمة المرور" autofocus>
-                @error('password_confirmation')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+                                    {{-- Confirm Password Input --}}
+                                    <div class="control-group form-group">
+                                        <label for="password_confirmation">تأكيد كلمة المرور</label>
+                                        <input id="update_password_password_confirmation" type="password"
+                                            name="password_confirmation" class="form-control"
+                                            placeholder="تأكيد كلمة المرور" autofocus>
+                                        @error('password_confirmation')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-            <x-primary-button>{{ __('حفظ') }}</x-primary-button>
+                                    <x-primary-button>{{ __('حفظ') }}</x-primary-button>
 
-            @if (session('status') === 'password-updated')
-                <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400">{{ __('Saved.') }}</p>
-            @endif
-        </div>
-    </form>
-</section>
+                                    @if (session('status') === 'password-updated')
+                                        <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
+                                            class="text-sm text-gray-600 dark:text-gray-400">{{ __('Saved.') }}</p>
+                                    @endif
+                                </div>
+                            </form>
+                        </section>
 
-<h3>حذف الحساب</h3>
-<section>
-    <div class="col-sm-12 col-md-6 my-4 mx-auto">
-        <a class="modal-effect btn btn-danger btn-block" data-effect="effect-scale"
-            data-toggle="modal" href="#modaldemo8">
-            <i class="fas fa-user-times ml-2"></i>
-            حذف الحساب
-        </a>
-    </div>
-    @include('dashboard.admin.delete')
-</section>
+                        <h3>حذف الحساب</h3>
+                        <section>
+                            <div class="col-sm-12 col-md-6 my-4 mx-auto">
+                                <a class="modal-effect btn btn-danger btn-block" data-effect="effect-scale"
+                                    data-toggle="modal" href="#modaldemo8">
+                                    <i class="fas fa-user-times ml-2"></i>
+                                    حذف الحساب
+                                </a>
+                            </div>
+                            @include('dashboard.admin.delete')
+                        </section>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- Back-to-top -->
@@ -162,4 +169,8 @@
 
     <!--Internal  Form-wizard js -->
     <script src="{{ asset('dashboard') }}/assets/js/form-wizard.js"></script>
+
+
+
+
 @endsection
