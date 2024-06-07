@@ -34,7 +34,7 @@
             <div class="row row-sm">
                 <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
                     <div class="card overflow-hidden sales-card bg-primary-gradient">
-                        <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
+                        <div class="pl-3 pt-3 pr-3 pb-2 ">
                             <div class="">
                                 <h6 class="mb-3 tx-12 text-white">TODAY ORDERS</h6>
                             </div>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
                     <div class="card overflow-hidden sales-card bg-danger-gradient">
-                        <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
+                        <div class="pl-3 pt-3 pr-3 pb-2 ">
                             <div class="">
                                 <h6 class="mb-3 tx-12 text-white">TODAY EARNINGS</h6>
                             </div>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
                     <div class="card overflow-hidden sales-card bg-success-gradient">
-                        <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
+                        <div class="pl-3 pt-3 pr-3 pb-2 ">
                             <div class="">
                                 <h6 class="mb-3 tx-12 text-white">TOTAL EARNINGS</h6>
                             </div>
@@ -100,7 +100,7 @@
                 </div>
                 <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
                     <div class="card overflow-hidden sales-card bg-warning-gradient">
-                        <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
+                        <div class="pl-3 pt-3 pr-3 pb-2 ">
                             <div class="">
                                 <h6 class="mb-3 tx-12 text-white">PRODUCT SOLD</h6>
                             </div>
@@ -295,7 +295,7 @@
                             <h3 class="card-title mb-2">Recent Orders</h3>
                             <p class="tx-12 mb-0 text-muted">An order is an investor's instructions to a broker or brokerage firm to purchase or sell</p>
                         </div>
-                        <div class="card-body sales-info ot-0 pt-0 pb-0">
+                        <div class="card-body sales-info ot-0  pb-0">
                             <div id="chart" class="ht-150"></div>
                             <div class="row sales-infomation pb-0 mb-0 mx-auto wd-100p">
                                 <div class="col-md-6 col">
