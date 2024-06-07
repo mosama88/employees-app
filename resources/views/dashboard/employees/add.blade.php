@@ -126,7 +126,7 @@
 
 
                         <div class="row">
-                            <div class="form-group col-6">
+                            <div class="form-group col-4">
                                 {{-- Address Inputs --}}
                                 <label for="exampleInputaddress">المحافظة</label>
                                 <select name="address_id" value="{{ old('address_id') }}" class="form-control select2">
@@ -140,7 +140,7 @@
                                 <div id="address_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
-                            <div class="form-group col-6">
+                            <div class="form-group col-4">
                                 <label for="exampleInputdepartment">النيابة /الإدارة التابع لها</label>
                                 <select name="department_id" value="{{ old('department_id') }}"
                                     class="form-control select2">
@@ -153,14 +153,8 @@
                                 </select>
                                 <div id="department_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
-                        </div>
 
-
-
-
-
-                        <div class="row">
-                            <div class="form-group col-6">
+                            <div class="form-group col-4">
                                 {{-- job_grades_id Inputs --}}
                                 <label for="selectFormgrade">الدرجه الوظيفية</label>
                                 <select name="job_grades_id" value="{{ old('job_grades_id') }}"
@@ -174,9 +168,20 @@
                                 </select>
                                 <div id="job_grades_id-error" class="error-message alert alert-danger d-none"></div>
                             </div>
+                        </div>
 
+                            <div class="row">
+                                {{-- Notes Input --}}
+                                <div class="form-group col-12">
+                                    <label for="notesTextarea">ملاحظات</label>
+                                    <textarea name="notes" id="notesTextarea" class="form-control" placeholder="أدخل ملاحظاتك" rows="3"></textarea>
+                                    <div id="notes-error" class="error-message alert alert-danger d-none"></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
                             {{-- Image Inputs --}}
-                            <div class="form-group col-6">
+                            <div class="form-group col-12">
                                 <label for="example-text-input">صورة الموظف</label>
                                 <input class="form-control" accept="image/*" name="photo" value="{{ old('photo') }}"
                                     type="file" id="example-text-input" onchange="loadFile(event)">

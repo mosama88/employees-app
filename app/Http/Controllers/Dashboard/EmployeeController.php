@@ -92,6 +92,7 @@ public function calculateVacationDays(Request $request)
         $employee->hiring_date = $request->hiring_date;
         $employee->start_from = $request->start_from;
         $employee->birth_date = $request->birth_date;
+        $employee->notes = $request->notes;
         $employee->job_grades_id = $request->job_grades_id;
         $employee->address_id = $request->address_id;
         $employee->department_id = $request->department_id;
@@ -146,6 +147,7 @@ public function calculateVacationDays(Request $request)
         $employee->hiring_date = $request->hiring_date;
         $employee->start_from = $request->start_from;
         $employee->birth_date = $request->birth_date;
+        $employee->notes = $request->notes;
         $employee->job_grades_id = $request->job_grades_id;
         $employee->address_id = $request->address_id;
         $employee->department_id = $request->department_id;

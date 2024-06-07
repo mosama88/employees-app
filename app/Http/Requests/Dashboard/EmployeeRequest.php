@@ -40,6 +40,7 @@ class EmployeeRequest extends FormRequest
             'birth_date' => 'required|date',
             'num_of_days' => 'nullable|integer|between:20,50',
             'job_grades_id'=> 'required|exists:job_grades,id',
+            'notes' => 'nullable|string|max:1000',
             'address_id'=> 'required|exists:addresses,id',
             'department_id'=> 'required|exists:departments,id',
             'photo'=> 'image|mimes:png,jpg,jpeg,gif,webp',
@@ -84,6 +85,8 @@ class EmployeeRequest extends FormRequest
             ########################################################
             'photo.image'=>'يجب أن يكون حقل الصورة من نوع صورة.',
             'photo.mimes'=>'يجب أن يكون حقل الصورة ملفًا من النوع:، gif png، jpg، jpeg، webp.',
+            ########################################################
+            'notes.max'=>'برجاء كتابة الملاحظات أقل من 1000 كلمة.',
         ];
     }
 }

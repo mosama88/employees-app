@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('start_from')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('num_of_days')->nullable();
+            $table->text('notes')->nullable();
             $table->foreignId('job_grades_id')->references('id')->on('job_grades')->onDelete('cascade');
             $table->foreignId('address_id')->references('id')->on('addresses')->onDelete('cascade');
             $table->foreignId('department_id')->references('id')->on('departments')->onDelete('cascade');
