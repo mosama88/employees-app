@@ -26,7 +26,9 @@
                 </div>
                 <div class="user-info">
                     @if (auth('admin')->check())
+                    <a href="{{ route('profile.edit', auth('admin')->user()->id) }}">
                         <h4 class="font-weight-semibold mt-3 mb-0">{{ auth('admin')->user()->name }}</h4>
+                        </a>
                         <span class="mb-0 text-muted">مدير</span>
                     @else
                         <h4 class="font-weight-semibold mt-3 mb-0">{{ Auth::user()->name }}</h4>

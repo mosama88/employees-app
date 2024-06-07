@@ -12,7 +12,8 @@ return new class extends Migration {
     {
         Schema::create('vacations', function (Blueprint $table) {
             $table->id();
-                                                 // مأمورية     سنوى       أعتيادى        عارضة       مرضى
+            $table->string('code_num')->unique();
+            // مأمورية     سنوى       أعتيادى        عارضة       مرضى
             $table->enum('type', ['satisfying', 'emergency', 'regular', 'Annual', 'mission'])->default('emergency')->nullable();
             $table->date('start')->nullable();
             $table->date('to')->nullable();

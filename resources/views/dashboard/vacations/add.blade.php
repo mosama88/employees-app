@@ -126,6 +126,22 @@
                             </div>
                         </div>
 
+
+                        <div class="row">
+                            {{-- Image Inputs --}}
+                            <div class="form-group col-10">
+                                <label for="example-text-input" class="col-form-label">المرفقات</label>
+                                <input class="form-control @error('photo') is-invalid @enderror" accept="photo/*"
+                                    name="photo" type="file" id="example-text-input" onchange="loadFile(event)">
+                                <img class="rounded-circle avatar-xl my-3" />
+
+                                <img alt="Responsive image" class="img-fluid" id="output">
+                                <div id="file-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+                        </div>
+
+
+
                         {{-- Submit --}}
                         <div class="row row-xs wd-xl-80p">
                             <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0">
@@ -149,7 +165,7 @@
 
 
     @section('scripts')
-  
+
         <!-- Internal Select2.min js -->
         <script src="{{ asset('dashboard/assets/plugins/select2/js/select2.min.js') }}"></script>
         <!--Internal Ion.rangeSlider.min js -->

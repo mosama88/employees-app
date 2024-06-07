@@ -18,7 +18,7 @@
                         <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
                             data-toggle="modal" href="#modaldemo8">
                             <i class="fas fa-plus-square"></i>
-                            أضافة درجه وظيفية
+                            أضافة وظيفه
                         </a>
                     </div>
                     @include('dashboard.jobs.add')

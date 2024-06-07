@@ -24,6 +24,7 @@ class VacationRequest extends FormRequest
     public function rules(): array
     {
         return [
+         'code_num'=>'nullable|string',
             'type' => 'required|string|in:satisfying,emergency,regular,Annual,mission',
             'start' => 'required|date',
             'to' => 'required|date|after_or_equal:start',

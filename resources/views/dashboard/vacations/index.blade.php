@@ -109,7 +109,7 @@
                         <table id="vacationTable" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
-                                    <th class="border-bottom-0">#</th>
+                                    <th class="border-bottom-0">رقم الأجازه</th>
                                     <th class="border-bottom-0">أسم الموظف</th>
                                     <th class="border-bottom-0">نوع الأجازه</th>
                                     <th class="border-bottom-0">من</th>
@@ -122,8 +122,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($vacations as $vacation)
-                                    <tr id="vacationRow{{ $loop->iteration }}">
-                                        <th scope="row">{{ $loop->iteration }}</th>
+                                    <tr id="vacationRow">
+                                        <th scope="row">{{ $vacation->code_num }}</th>
                                         <td>
                                             @foreach ($vacation->vacationEmployee as $employee)
                                                 {{ $employee->name }}

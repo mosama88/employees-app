@@ -153,7 +153,7 @@
                             </div>
 
                             <div class="form-group col-6">
-                                <label for="exampleInputdepartment">النيابة التابع لها</label>
+                                <label for="exampleInputdepartment">النيابة /الإدارة التابع لها</label>
                                 <select id="department_id-error" name="department_id" value="{{ old('department_id') }}"
                                     class="form-control select2">
                                     <option disabled selected="">افتح قائمة التحديد</option>
