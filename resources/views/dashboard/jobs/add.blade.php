@@ -3,14 +3,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">أضافة درجه وظيفية</h6>
+                <h6 class="modal-title">أضافة مسمى وظيفى</h6>
                 <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <form id="addJobGradeForm" autocomplete="off">
                     @csrf
                     <div class="form-group mb-3">
-                        <label>أسم الدرجه الوظيفية</label>
+                        <label>أسم الوظيفة</label>
                         <input type="text" name="name" class="form-control" id="inputName" placeholder="أدخل أسم الدرجه الوظيفية">
                     </div>
 

@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -20,7 +22,28 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        DB::table('admins')->delete();
+        DB::table('admins')->insert([
+            'name' => 'محمد أسامه',
+            'email' => 'mosama@dt.com',
+            'password' => Hash::make('@Osama88'), // Hashing the password using bcrypt
+        ],);
+    
+    
+    DB::table('admins')->insert([
+        'name' => 'هبة الله سمير',
+        'email' => 'heba@dt.com',
+        'password' => Hash::make('123456789'), // Hashing the password using bcrypt
+    ],);
+
+    
     }
+
+
+
+
+
 
     /**
      * Reverse the migrations.

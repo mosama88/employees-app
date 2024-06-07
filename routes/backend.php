@@ -6,6 +6,7 @@ use App\Models\JobGrade;
 use App\Models\Vacation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Dashboard\JobController;
 use App\Http\Controllers\Dashboard\HolidayController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\EmployeeController;
@@ -13,7 +14,6 @@ use App\Http\Controllers\Dashboard\JobGradeController;
 use App\Http\Controllers\Dashboard\VacationController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DepartmentController;
-use App\Http\Controllers\Dashboard\AppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,8 +79,8 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     Route::resource('/jobgrades', JobGradeController::class);
     ##################################### End Dashboard jobgrades ########################
     ##################################### Start Dashboard Profile ######################
-   
-        ##################################### End Dashboard Profile ########################
+    Route::resource('/jobs', JobController::class);
+    ##################################### End Dashboard Profile ########################
 });
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')->middleware(['auth:admin', 'verified']);
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware(['auth:admin', 'verified']);

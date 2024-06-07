@@ -4,7 +4,7 @@ namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class JobGradeRequest extends FormRequest
+class JobRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,6 @@ class JobGradeRequest extends FormRequest
         return true;
     }
 
-//'name',
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,7 +22,7 @@ class JobGradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:5|max:300',
+            'name' => 'required|string|min:5|max:100',
         ];
     }
 
@@ -31,9 +30,9 @@ class JobGradeRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'=>'حقل الدرجه الوظيفيه مطلوب .',
-            'name.min'=>'برجاء كتابة حقل الدرجه الوظيفيه أكثر من 5 كلمات.',
-            'name.max'=>'برجاء كتابة حقل الدرجه الوظيفيه أقل من من 300 كلمة.',
+            'name.required'=>'حقل الوظيفه مطلوب .',
+            'name.min'=>'برجاء كتابة حقل الوظيفه أكثر من 5 كلمات.',
+            'name.max'=>'برجاء كتابة حقل الوظيفه أقل من من 100 كلمة.',
         ];
     }
 }

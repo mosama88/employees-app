@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('job_grades', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->foreignId('job_id')->references('id')->on('jobs')->cascadeOnDelete();
-
             $table->timestamps();
         });
     }

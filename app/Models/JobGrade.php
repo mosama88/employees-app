@@ -12,7 +12,6 @@ class JobGrade extends Model
 
     protected $fillable = [
             'name',
-            'job_id'
     ];
 
 
@@ -27,8 +26,5 @@ class JobGrade extends Model
         return $this->hasMany(Vacation::class);
     }
 
-    public function job()
-{
-    return $this->belongsTo(Job::class);
-}
+
 }
