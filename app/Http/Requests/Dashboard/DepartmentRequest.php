@@ -26,7 +26,6 @@ class DepartmentRequest extends FormRequest
     {
         return [
             'branch'=>'required|string|min:6|max:100',
-            'address_id'=> 'required|exists:addresses,id',
         ];
     }
 
@@ -37,9 +36,6 @@ class DepartmentRequest extends FormRequest
             'branch.required'=>'أسم النيابة مطلوب',
             'branch.min'=>'يجب ان يكون أسم النيابة أكثر من 6 أحرف',
             'branch.max'=>'يجب ان يكون أسم النيابة أقل من 100 حرف',
-            ########################################################
-            'address_id.required'=>'حقل المحافظة مطلوب',
-            'address_id.exists' => 'المحافظة المحددة غير موجود.',
         ];
     }
 }

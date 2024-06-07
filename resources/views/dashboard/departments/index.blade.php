@@ -17,7 +17,7 @@
                         <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
                             data-toggle="modal" href="#modaldemo8">
                             <i class="fas fa-plus-square"></i>
-                            أضافة نيابة
+                            أضافة نيابة / إداره
                         </a>
                     </div>
                     @include('dashboard.departments.add')
@@ -29,8 +29,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>نيابة</th>
-                                    <th>محافظة</th>
+                                    <th>نيابة / إداره</th>
                                     <th>العمليات</th>
                                 </tr>
                             </thead>
@@ -39,7 +38,6 @@
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $department->branch }}</td>
-                                        <td>{{ $department->address->city }}</td>
                                         <td>
                                             {{-- Edit --}}
                                             <a class="modal-effect btn btn-outline-info btn-sm" data-effect="effect-scale"

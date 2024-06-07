@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Address;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,8 +14,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = Department::orderBy('created_at', 'desc')->paginate(10);
-        $addresses = Address::all();
-        return view('dashboard.departments.index', compact('departments','addresses'));
+        return view('dashboard.departments.index', compact('departments'));
 
     }
 
@@ -30,9 +28,8 @@ class DepartmentController extends Controller
         try{
             $department = new Department();
             $department->branch = $request->branch;
-            $department->address_id = $request->address_id;
             $department->save();
-            session()->flash('success', 'تم أضافة القسم بنجاح');
+            session()->flash('success', 'تم أضافة النيابة / الأداة بنجاح');
             return redirect()->route('dashboard.departments.index');
         }
         catch (\Exception $e) {
@@ -50,8 +47,7 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department = Department::find($id);
-        $addresses = Address::all();
-        return view('dashboard.departments.edit', compact('department', 'addresses'));
+        return view('dashboard.departments.edit', compact('department'));
     }
 
 
@@ -59,9 +55,8 @@ class DepartmentController extends Controller
     {
         $department = Department::findOrFail($request->id);
         $department->branch = $request->branch;
-        $department->address_id = $request->address_id;
         $department->save();
-        session()->flash('success', 'تم تعديل القسم بنجاح');
+        session()->flash('success', 'تم تعديل النيابة / الأداة بنجاح');
         return redirect()->route('dashboard.departments.index');
     }
 
@@ -72,7 +67,7 @@ class DepartmentController extends Controller
         Department::findOrFail($request->id)->delete();
 
         // Return a response indicating success
-        session()->flash('success', 'تم حذف القسم بنجاح');
+        session()->flash('success', 'تم حذف النيابة / الأداة بنجاح');
         return redirect()->route('dashboard.departments.index');
     }
 }
