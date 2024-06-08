@@ -28,15 +28,36 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AdminLoginRequest $request)
-    {
-        if($request->authenticate()){
-            $request->session()->regenerate();
-            return redirect()->intended(RouteServiceProvider::ADMIN);
-        }
-        return redirect()->back()->withErrors(['error'=> 'يوجد خطا في البريد الالكتروني او كلمة المرور']);
 
+
+    public function store(AdminLoginRequest $request)
+{
+    try {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        if ($request->expectsJson()) {
+            return response()->json(['status' => 'success']);
+        }
+
+        return redirect()->intended(RouteServiceProvider::ADMIN);
+    } catch (\Exception $e) {
+        if ($request->expectsJson()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+        return back()->withErrors([
+            'error'=> 'يوجد خطا في البريد الالكتروني او كلمة المرور',
+        ]);
     }
+}
+
+
+
 
     /**
      * Display the specified resource.

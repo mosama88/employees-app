@@ -43,32 +43,32 @@
                                                         <p class="text-muted text-center">الدخول</p>
                                                     </div>
 
-                                                    <form method="POST" action="{{ route('admin.login') }}">
+                                                    <form id="login-form" method="POST"
+                                                        action="{{ route('admin.login') }}">
                                                         @csrf
                                                         <div class="form-group">
                                                             <label> البريد الالكتروني</label>
                                                             <input class="form-control" name="email"
+                                                                value="{{ old('email') }}"
                                                                 placeholder="أدخل بريدك الإلكتروني" type="text">
-                                                            @error('email')
-                                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                            @enderror
-
+                                                            <div class="alert alert-danger d-none" id="email-error">
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>كلمة المرور</label>
                                                             <input class="form-control" name="password"
                                                                 placeholder="ادخل رقمك السري" type="password">
-                                                            @error('password')
-                                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                            @enderror
-
+                                                            <div class="alert alert-danger d-none" id="password-error">
+                                                            </div>
                                                         </div>
-                                                        <button class="btn btn-main-primary btn-block">تسجيل
-                                                            الدخول</button>
-                                                        <div class="row row-xs">
-
-                                                        </div>
+                                                        <div class="alert alert-danger d-none" id="general-error"></div>
+                                                        <button type="button" class="btn btn-main-primary btn-block"
+                                                            id="login-button">تسجيل الدخول</button>
+                                                        <div class="row row-xs"></div>
                                                     </form>
+
+
+
                                                 </div>
 
                                             </div>
@@ -121,6 +121,74 @@
 
     <!-- custom js -->
     <script src="{{ asset('dashboard') }}/assets//js/custom.js"></script>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#login-button').click(function(e) {
+                e.preventDefault();
+
+                var email = $('input[name="email"]').val();
+                var password = $('input[name="password"]').val();
+                var _token = $('input[name="_token"]').val();
+
+                $.ajax({
+                    url: $('#login-form').attr('action'),
+                    method: 'POST',
+                    data: {
+                        _token: _token,
+                        email: email,
+                        password: password
+                    },
+                    success: function(response) {
+                        $('.alert').addClass('d-none'); // Hide all alerts initially
+
+                        if (response.status === 'error') {
+                            if (response.errors) {
+                                if (response.errors.email) {
+                                    $('#email-error').text(response.errors.email).removeClass(
+                                        'd-none');
+                                }
+                                if (response.errors.password) {
+                                    $('#password-error').text(response.errors.password)
+                                        .removeClass('d-none');
+                                }
+                            } else {
+                                $('#general-error').text(response.message).removeClass(
+                                    'd-none');
+                            }
+                        } else {
+                            window.location.href = "{{ route('dashboard.admin') }}";
+                        }
+                    },
+                    error: function(response) {
+                        $('.alert').addClass('d-none'); // Hide all alerts initially
+
+                        if (response.responseJSON && response.responseJSON.errors) {
+                            var errors = response.responseJSON.errors;
+                            if (errors.email) {
+                                $('#email-error').text(errors.email).removeClass('d-none');
+                            }
+                            if (errors.password) {
+                                $('#password-error').text(errors.password).removeClass(
+                                    'd-none');
+                            }
+                        } else {
+                            $('#general-error').text('An error occurred. Please try again.')
+                                .removeClass('d-none');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+
 
 </body>
 

@@ -32,15 +32,15 @@ class LoginRequest extends FormRequest
         ];
     }
 
-
-    public function messages()
+    public function messages(): array
     {
         return [
             'email.required' => 'البريد الالكترونى مطلوب',
+            'email.email' => 'يجب أن يكون البريد الإلكتروني عنوان بريد إلكتروني صالحًا.',
             'password.required' => 'كلمة المرور مطلوبه',
         ];
-        
     }
+    
 
 
     /**

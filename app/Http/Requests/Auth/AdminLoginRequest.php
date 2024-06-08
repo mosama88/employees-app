@@ -36,6 +36,7 @@ class AdminLoginRequest extends FormRequest
     {
         return [
             'email.required' => 'البريد الالكترونى مطلوب',
+            'email.email' => 'يجب أن يكون البريد الإلكتروني عنوان بريد إلكتروني صالحًا.',
             'email.string' => 'البريد الالكترونى غير مسجل لدينا',
             'password.required' => 'كلمة المرور مطلوبة',
         ];
