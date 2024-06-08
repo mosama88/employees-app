@@ -36,10 +36,9 @@
                                         <th class="border-bottom-0">أسم الموظف</th>
                                         <th class="border-bottom-0">الهاتف</th>
                                         <th class="border-bottom-0">تاريخ التعيين</th>
-                                        <th class="border-bottom-0">أستلام العمل بالادارة</th>
+                                        <th class="border-bottom-0">سنوات الخدمه</th>
                                         <th class="border-bottom-0">الدرجه</th>
                                         <th class="border-bottom-0">المحافظة</th>
-                                        <th class="border-bottom-0">القسم</th>
                                         <th class="border-bottom-0">الراحة الاسبوعية</th>
                                         <th class="border-bottom-0">العمليات</th>
                                     </tr>
@@ -64,10 +63,9 @@
                                             <td>{{ $employee->name }}</td>
                                             <td>{{ $employee->phone }}</td>
                                             <td>{{ $employee->hiring_date }}</td>
-                                            <td>{{ $employee->start_from }}</td>
+                                            <td>{{ $employee->years_service }}</td>
                                             <td>{{ $employee->jobgrade->name }}</td>
                                             <td>{{ $employee->address->city }}</td>
-                                            <td>{{ $employee->department->branch }}</td>
                                             <td>
                                                 @foreach ($employee->employeeAppointments as $appointment)
                                                     {{ $appointment->name }}

@@ -126,6 +126,24 @@
                                 <div id="start_from-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
+                            {{-- add_service Inputs --}}
+                            <div class="form-group col-3">
+                                <label for="add_service">ضم خدمه</label>
+                                <input type="number" name="add_service" value="{{ $employee->add_service }}"
+                                    class="form-control" id="add_service" placeholder="أدخل ضم خدمه">
+                                <div id="add_service-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+
+                            {{-- years_service Inputs --}}
+                            <div class="form-group col-3">
+                                <label for="years_service">عدد سنوات الخدمه</label>
+                                <input type="text" name="years_service" value="{{ $employee->years_service }}"
+                                    class="form-control" id="years_service" placeholder="أدخل عدد سنوات الخدمه" readonly>
+                                <div id="years_service-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+
+
+
                             {{-- Number Of Days Inputs --}}
                             <div class="form-group col-3">
                                 <label for="num_of_days">عدد الأجازات المستحقه</label>
@@ -269,13 +287,18 @@
     <script src="{{ asset('dashboard/assets/js/projects/add-employee.js') }}"></script>
 
 
+
+    {{--  add-employee.blade.php --}}
+
     <script>
         document.getElementById('hiring_date').addEventListener('change', calculateVacationDays);
         document.getElementById('birth_date').addEventListener('change', calculateVacationDays);
+        document.getElementById('add_service').addEventListener('change', calculateVacationDays);
 
         function calculateVacationDays() {
             var hiringDate = document.getElementById('hiring_date').value;
             var birthDate = document.getElementById('birth_date').value;
+            var addService = document.getElementById('add_service').value || 0;
 
             if (hiringDate && birthDate) {
                 fetch('{{ route('dashboard.calculateVacationDays') }}', {
@@ -286,7 +309,8 @@
                         },
                         body: JSON.stringify({
                             hiring_date: hiringDate,
-                            birth_date: birthDate
+                            birth_date: birthDate,
+                            add_service: addService
                         })
                     })
                     .then(response => response.json())
@@ -296,6 +320,21 @@
                     .catch(error => console.error('Error:', error));
             }
         }
+
+        // Function to calculate years of service
+        function calculateYearsOfService() {
+            var hiringDate = new Date(document.getElementById('hiring_date').value);
+            var addService = parseInt(document.getElementById('add_service').value || 0);
+            var currentDate = new Date();
+
+            var yearsOfService = currentDate.getFullYear() - hiringDate.getFullYear();
+            yearsOfService += addService;
+
+            document.getElementById('years_service').value = yearsOfService;
+        }
+
+        document.getElementById('hiring_date').addEventListener('change', calculateYearsOfService);
+        document.getElementById('add_service').addEventListener('input', calculateYearsOfService);
     </script>
 
 @endsection

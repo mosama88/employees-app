@@ -36,7 +36,8 @@
                                                 @if ($employee->image)
                                                     <img alt="Responsive image" class="img-thumbnail wd-100p wd-sm-200"
                                                         src="{{ asset('dashboard/assets/images/uploads/employees/' . $employee->image->filename) }}"
-                                                        data-holder-rendered="true"><a href=""><i
+                                                        data-holder-rendered="true"><a
+                                                        href="#"><i
                                                             class="fe fe-camera"></i></a>
                                                 @else
                                                     <img alt="Responsive image" class="img-thumbnail wd-100p wd-sm-200"
@@ -90,6 +91,32 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <div>
+                                                        <label>ضم خدمه</label>
+                                                        <span class="tx-medium">
+                                                            @php
+                                                                $addServiceText = 'لا يوجد ضم خدمه';
+                                                                if ($employee->add_service == 1) {
+                                                                    $addServiceText = 'سنه';
+                                                                } elseif ($employee->add_service == 2) {
+                                                                    $addServiceText = 'سنتين';
+                                                                } elseif ($employee->add_service > 2) {
+                                                                    $addServiceText = $employee->add_service . ' سنوات';
+                                                                }
+                                                            @endphp
+                                                            {{ $addServiceText }}
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <label>عدد سنوات الخدمه</label> <span
+                                                            class="tx-medium">{{ $employee->years_service }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="media">
                                                 <div class="media-body">
                                                     <div>
@@ -310,7 +337,7 @@
                                 <tbody>
                                     @foreach ($vacations as $index => $vacation)
                                         <tr>
-                                            <th scope="row">{{ $index + 1 }}</th>
+                                            <th scope="row">{{ $vacation->code_num }}</th>
                                             <td>{{ $vacation->typeVaction() }}</td>
                                             <td>{{ $vacation->start }}</td>
                                             <td>{{ $vacation->to }}</td>

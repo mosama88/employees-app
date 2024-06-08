@@ -23,7 +23,9 @@ protected $fillable =[
     'job_grades_id',
     'address_id',
     'department_id',
-    'notes'
+    'notes',
+    'add_service',
+    'years_service',
 ];
 
    // العلاقة مع جدول EmployeeVacation كقائم بأعمال

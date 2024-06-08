@@ -90,35 +90,46 @@
                         </div>
 
                         <div class="row">
-                            {{-- Birth Date Inputs --}}
+                            {{-- birth_date Inputs --}}
                             <div class="form-group col-3">
                                 <label for="birth_date">تاريخ الميلاد</label>
-                                <input id="birth_date" class="form-control fc-datepicker" name="birth_date"
-                                    placeholder="MM/DD/YYYY" type="date">
+                                <input id="birth_date" class="form-control fc-datepicker" name="birth_date" placeholder="MM/DD/YYYY" type="date">
                                 <div id="birth_date-error" class="error-message alert alert-danger d-none"></div>
                             </div>
-
-                            {{-- Hiring Date Inputs --}}
+                            {{-- hiring_date Inputs --}}
                             <div class="form-group col-3">
                                 <label for="hiring_date">تاريخ التعيين</label>
-                                <input id="hiring_date" class="form-control fc-datepicker" name="hiring_date"
-                                    placeholder="MM/DD/YYYY" type="date">
+                                <input id="hiring_date" class="form-control fc-datepicker" name="hiring_date" placeholder="MM/DD/YYYY" type="date">
                                 <div id="hiring_date-error" class="error-message alert alert-danger d-none"></div>
                             </div>
+
 
                             {{-- start_from Inputs --}}
                             <div class="form-group col-3">
                                 <label for="start_from">بداية أستلام العمل بالادارة</label>
-                                <input class="form-control fc-datepicker" name="start_from" placeholder="MM/DD/YYYY"
-                                    type="date">
+                                <input class="form-control fc-datepicker"
+                                    name="start_from" placeholder="MM/DD/YYYY" type="date">
                                 <div id="start_from-error" class="error-message alert alert-danger d-none"></div>
                             </div>
 
-                            {{-- Number Of Days Inputs --}}
+                            {{-- add_service Inputs --}}
+                            <div class="form-group col-3">
+                                <label for="add_service">ضم خدمه</label>
+                                <input type="number" name="add_service" value="{{ old('add_service') }}" class="form-control" id="add_service" placeholder="أدخل ضم خدمه">
+                                <div id="add_service-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+
+                            {{-- years_service Inputs --}}
+                            <div class="form-group col-3">
+                                <label for="years_service">عدد سنوات الخدمه</label>
+                                <input type="text" name="years_service" value="{{ old('years_service') }}" class="form-control" id="years_service" placeholder="أدخل عدد سنوات الخدمه" readonly>
+                                <div id="years_service-error" class="error-message alert alert-danger d-none"></div>
+                            </div>
+
+                            {{-- num_of_days Inputs --}}
                             <div class="form-group col-3">
                                 <label for="num_of_days">عدد الأجازات المستحقه</label>
-                                <input id="num_of_days" name="num_of_days" class="form-control fc-datepicker"
-                                    placeholder="أدخل الاجازات المستحقه" type="text" readonly>
+                                <input id="num_of_days" name="num_of_days" class="form-control fc-datepicker" placeholder="أدخل الاجازات المستحقه" type="text" readonly>
                                 <div id="num_of_days-error" class="error-message alert alert-danger d-none"></div>
                             </div>
                         </div>
@@ -170,16 +181,16 @@
                             </div>
                         </div>
 
-                            <div class="row">
-                                {{-- Notes Input --}}
-                                <div class="form-group col-12">
-                                    <label for="notesTextarea">ملاحظات</label>
-                                    <textarea name="notes" id="notesTextarea" class="form-control" placeholder="أدخل ملاحظاتك" rows="3"></textarea>
-                                    <div id="notes-error" class="error-message alert alert-danger d-none"></div>
-                                </div>
+                        <div class="row">
+                            {{-- Notes Input --}}
+                            <div class="form-group col-12">
+                                <label for="notesTextarea">ملاحظات</label>
+                                <textarea name="notes" id="notesTextarea" class="form-control" placeholder="أدخل ملاحظاتك" rows="3"></textarea>
+                                <div id="notes-error" class="error-message alert alert-danger d-none"></div>
                             </div>
+                        </div>
 
-                            <div class="row">
+                        <div class="row">
                             {{-- Image Inputs --}}
                             <div class="form-group col-12">
                                 <label for="example-text-input">صورة الموظف</label>
@@ -256,35 +267,55 @@
     <script src="{{ asset('dashboard/assets/js/projects/add-employee.js') }}"></script>
 
 
+    {{--  add-employee.blade.php --}}
 
     <script>
-    document.getElementById('hiring_date').addEventListener('change', calculateVacationDays);
-    document.getElementById('birth_date').addEventListener('change', calculateVacationDays);
+        document.getElementById('hiring_date').addEventListener('change', calculateVacationDays);
+        document.getElementById('birth_date').addEventListener('change', calculateVacationDays);
+        document.getElementById('add_service').addEventListener('change', calculateVacationDays);
 
-    function calculateVacationDays() {
-        var hiringDate = document.getElementById('hiring_date').value;
-        var birthDate = document.getElementById('birth_date').value;
+        function calculateVacationDays() {
+            var hiringDate = document.getElementById('hiring_date').value;
+            var birthDate = document.getElementById('birth_date').value;
+            var addService = document.getElementById('add_service').value || 0;
 
-        if (hiringDate && birthDate) {
-            fetch('{{ route("dashboard.calculateVacationDays") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({
-                    hiring_date: hiringDate,
-                    birth_date: birthDate
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('num_of_days').value = data.vacation_days;
-            })
-            .catch(error => console.error('Error:', error));
+            if (hiringDate && birthDate) {
+                fetch('{{ route('dashboard.calculateVacationDays') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            hiring_date: hiringDate,
+                            birth_date: birthDate,
+                            add_service: addService
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('num_of_days').value = data.vacation_days;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         }
-    }
+
+        // Function to calculate years of service
+        function calculateYearsOfService() {
+            var hiringDate = new Date(document.getElementById('hiring_date').value);
+            var addService = parseInt(document.getElementById('add_service').value || 0);
+            var currentDate = new Date();
+
+            var yearsOfService = currentDate.getFullYear() - hiringDate.getFullYear();
+            yearsOfService += addService;
+
+            document.getElementById('years_service').value = yearsOfService;
+        }
+
+        document.getElementById('hiring_date').addEventListener('change', calculateYearsOfService);
+        document.getElementById('add_service').addEventListener('input', calculateYearsOfService);
     </script>
+
 
 
 @endsection

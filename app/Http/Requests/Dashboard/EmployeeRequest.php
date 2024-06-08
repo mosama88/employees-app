@@ -39,6 +39,8 @@ class EmployeeRequest extends FormRequest
             'start_from' => 'required|date',
             'birth_date' => 'required|date',
             'num_of_days' => 'nullable|integer|between:20,50',
+            'add_service' => 'nullable|integer',
+            'years_service' => 'nullable|integer',
             'job_grades_id'=> 'required|exists:job_grades,id',
             'notes' => 'nullable|string|max:1000',
             'address_id'=> 'required|exists:addresses,id',
@@ -46,8 +48,9 @@ class EmployeeRequest extends FormRequest
             'photo'=> 'image|mimes:png,jpg,jpeg,gif,webp',
         ];
     }
-    
-    
+
+
+
     public function messages(): array
     {
         return [

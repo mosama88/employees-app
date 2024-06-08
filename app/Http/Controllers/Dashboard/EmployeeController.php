@@ -35,42 +35,48 @@ class EmployeeController extends Controller
     }
 
 
-    private function calculateVacationDaysFromDates($hiringDate, $birthDate)
-{
-    $hiringDate = Carbon::createFromFormat('Y-m-d', $hiringDate); //تاريخ التعيين
-    $birthDate = Carbon::createFromFormat('Y-m-d', $birthDate); //تاريخ الميلاد
+    public function calculateVacationDaysFromDates($hiringDate, $birthDate, $additionalServiceYears)
+    {
+        $hiringDate = Carbon::parse($hiringDate);
+        $birthDate = Carbon::parse($birthDate);
+        $additionalServiceYears = intval($additionalServiceYears);
 
-    $yearsSinceHiring = $hiringDate->diffInYears(Carbon::now());
-    $yearsSinceBirthDate = $birthDate->diffInYears(Carbon::now());
+        $currentDate = Carbon::now();
 
-    if ($yearsSinceBirthDate >= 50) {
-        return 45;
-    } elseif ($yearsSinceHiring < 10) {
-        return 21;
-    } elseif ($yearsSinceHiring < 50) {
-        return 30;
-    } else {
-        return 30; // Default value if no other condition is met
+        // حساب عدد سنوات الخدمة
+        $yearsOfService = $hiringDate->diffInYears($currentDate) + $additionalServiceYears;
+
+        // حساب عدد أيام الإجازة
+        $vacationDays = 21; // القيمة الافتراضية
+        if ($yearsOfService >= 10) {
+            $vacationDays = 30;
+        }
+        if ($birthDate->diffInYears($currentDate) >= 50) {
+            $vacationDays = 45;
+        }
+
+        return $vacationDays;
     }
-}
 
 
 public function calculateVacationDays(Request $request)
 {
-    $hiringDate = Carbon::createFromFormat('Y-m-d', $request->input('hiring_date'));
-    $birthDate = Carbon::createFromFormat('Y-m-d', $request->input('birth_date'));
+    $hiringDate = Carbon::parse($request->input('hiring_date'));
+    $birthDate = Carbon::parse($request->input('birth_date'));
+    $additionalServiceYears = intval($request->input('add_service'));
 
-    $yearsSinceHiring = $hiringDate->diffInYears(Carbon::now());
-    $yearsSinceBirthDate = $birthDate->diffInYears(Carbon::now());
+    $currentDate = Carbon::now();
 
-    if ($yearsSinceBirthDate >= 50) {
-        $vacationDays = 45;
-    } elseif ($yearsSinceHiring < 10) {
-        $vacationDays = 21;
-    } elseif ($yearsSinceHiring < 50) {
+    // حساب عدد سنوات الخدمة
+    $yearsOfService = $hiringDate->diffInYears($currentDate) + $additionalServiceYears;
+
+    // حساب عدد أيام الإجازة
+    $vacationDays = 21; // القيمة الافتراضية
+    if ($yearsOfService >= 10) {
         $vacationDays = 30;
-    } else {
-        $vacationDays = 30; // Default value if no other condition is met
+    }
+    if ($birthDate->diffInYears($currentDate) >= 50) {
+        $vacationDays = 45;
     }
 
     return response()->json(['vacation_days' => $vacationDays]);
@@ -79,11 +85,12 @@ public function calculateVacationDays(Request $request)
 
 
 
-    public function store(EmployeeRequest $request)
+
+public function store(EmployeeRequest $request)
 {
-    try {
+
         // Calculate vacation days using the renamed method to avoid conflict
-        $vacationDays = $this->calculateVacationDaysFromDates($request->hiring_date, $request->birth_date);
+        $vacationDays = $this->calculateVacationDaysFromDates($request->hiring_date, $request->birth_date, $request->add_service);
 
         $employee = new Employee();
         $employee->name = $request->name;
@@ -93,6 +100,8 @@ public function calculateVacationDays(Request $request)
         $employee->start_from = $request->start_from;
         $employee->birth_date = $request->birth_date;
         $employee->notes = $request->notes;
+        $employee->add_service = $request->add_service;
+        $employee->years_service = $request->years_service;
         $employee->job_grades_id = $request->job_grades_id;
         $employee->address_id = $request->address_id;
         $employee->department_id = $request->department_id;
@@ -104,10 +113,8 @@ public function calculateVacationDays(Request $request)
         $this->verifyAndStoreImage($request, 'photo', 'employees/', 'upload_image', $employee->id, 'App\Models\Employee');
 
         return response()->json(['success' => 'تم أضافة بيانات الموظف بنجاح']);
-    } catch (\Exception $e) {
-        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
-}
+
 
 
     /**
@@ -120,6 +127,7 @@ public function calculateVacationDays(Request $request)
 
         // Or if you want to load only the vacations associated with this employee:
         $vacations = $employee->vacationEmployee()->orderBy('created_at', 'desc')->get();
+
 
         // Pass the employee and vacations to the view
         return view('dashboard.employees.show', compact('employee', 'vacations'));
@@ -139,7 +147,7 @@ public function calculateVacationDays(Request $request)
     public function update(EmployeeRequest $request)
     {
           // Calculate vacation days using the renamed method to avoid conflict
-        $vacationDays = $this->calculateVacationDaysFromDates($request->hiring_date, $request->birth_date);
+        $vacationDays = $this->calculateVacationDaysFromDates($request->hiring_date, $request->birth_date, $request->add_service);
         $employee = Employee::findOrFail($request->id);
         $employee->name = $request->name;
         $employee->phone = $request->phone;
@@ -148,6 +156,8 @@ public function calculateVacationDays(Request $request)
         $employee->start_from = $request->start_from;
         $employee->birth_date = $request->birth_date;
         $employee->notes = $request->notes;
+        $employee->add_service = $request->add_service;
+        $employee->years_service = $request->years_service;
         $employee->job_grades_id = $request->job_grades_id;
         $employee->address_id = $request->address_id;
         $employee->department_id = $request->department_id;
