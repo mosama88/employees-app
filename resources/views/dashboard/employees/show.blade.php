@@ -208,7 +208,7 @@
                                                 if ($totalEmergencyDays >= 7) {
                                                     echo "<p style='color:red;'>رصيدك من أجازات العارضه قد نفذ</p>";
                                                 } elseif ($totalEmergencyDays >= 5) {
-                                                    echo "<p style='color:orange;'>أحذر باقى يومين فقط</p>";
+                                                    echo "<p style='color:orange;'>أحذر على وشك أنتهاء أجازات العارضه</p>";
                                                 }
                                             @endphp
                                         </td>
@@ -295,7 +295,6 @@
                                     <td class="tx-center">
                                         @php
                                             $calcVacations =
-                                                $totalEmergencyDays +
                                                 $totalRegularDays +
                                                 $totalAnnualDays +
                                                 $totalSatisfyingDays;
@@ -305,7 +304,6 @@
                                     <td class="tx-center">
                                         @php
                                             $calcVacations =
-                                                $totalEmergencyDays +
                                                 $totalRegularDays +
                                                 $totalAnnualDays +
                                                 $totalSatisfyingDays;
