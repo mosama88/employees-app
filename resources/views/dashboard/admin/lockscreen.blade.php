@@ -76,10 +76,12 @@
                                                         <input name="password" class="form-control"
                                                             placeholder="Enter your password" type="password"
                                                             value="">
-                                                            <div class="error-message" id="error-message">الرجاء إدخال كلمة المرور.</div>
+                                                        <div class="error-message" id="error-message">الرجاء إدخال كلمة
+                                                            المرور.</div>
 
                                                     </div>
-                                                    <button class="btn btn-main-primary btn-block">الغاء القفل</button>
+                                                    <button class="btn btn-main-primary btn-block">الغاء القفل <i
+                                                            class="fas fa-lock-open"></i></button>
                                                 </form>
                                             </div>
                                         </div>
