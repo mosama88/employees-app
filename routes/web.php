@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
-|
+|$2y$10$f7XR1hcw5caS6tEU1pXd6.sPPLlzb.4TjPZwKoFlI6966GZGFqvYK
 */
 
 Route::get('/', function () {
@@ -23,6 +23,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-   
+
 });
 
