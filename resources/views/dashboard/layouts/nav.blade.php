@@ -73,8 +73,11 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bx bx-user-circle"></i>صفحتى</a>
-                        
+                        <a class="dropdown-item" href="{{ route('profile.edit') }}"><i
+                                class="bx bx-user-circle"></i>صفحتى</a>
+                                <a class="dropdown-item" href="{{ route('dashboard.lock-screen') }}"><i class="bx bx-user-circle"></i> قفل الشاشه</a>
+
+
                         @if (auth('web')->check())
                             <form method="POST" action="{{ route('logout.user') }}">
                             @else

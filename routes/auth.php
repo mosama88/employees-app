@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\LockScreenController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -26,6 +27,15 @@ Route::middleware('guest')->group(function () {
     ######################################### Start Route Admin  #########################################################
     Route::post('admin/login', [AdminController::class, 'store'])->name('admin.login');
     ######################################### End Route Admin  #########################################################
+
+
+
+
+
+
+
+
+
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');

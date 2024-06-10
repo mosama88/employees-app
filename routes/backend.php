@@ -7,6 +7,7 @@ use App\Models\Vacation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Dashboard\JobController;
+use App\Http\Controllers\Auth\LockScreenController;
 use App\Http\Controllers\Dashboard\HolidayController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\EmployeeController;
@@ -54,6 +55,10 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     ##################################### Start Route Profile ################################
     Route::view('/Profile', 'profile.profile')->name('my-profile');
     ##################################### End Route Profile ################################
+        ######################################### Start LockScreen  #########################################################
+        Route::get('/lock-screen', [LockScreenController::class, 'showLockScreen'])->name('lock-screen');
+        Route::post('/unlock', [LockScreenController::class, 'unlock'])->name('unlock');
+        ######################################### End LockScreen  #########################################################
     ##################################### Start Dashboard Department #######################
     Route::resource('/departments', DepartmentController::class);
     ##################################### End Dashboard Department #########################
@@ -61,8 +66,6 @@ Route::middleware(['auth:admin', 'verified'])->name('dashboard.')->group(functio
     Route::resource('/employees', EmployeeController::class);
     Route::get('/employees/show/vacation', [EmployeeController::class,'employeeshowvacation'])->name('show.vacation');
     Route::post('/calculate-vacation-days', [EmployeeController::class, 'calculateVacationDays'])->name('calculateVacationDays');
-
-
     ##################################### End Dashboard Employee ########################
     ##################################### Start Dashboard Vacation ######################
     Route::resource('/vacations', VacationController::class);
